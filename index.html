@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Romin & Aleena - Wedding Celebrations</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: {
+                            50: '#FAF8F5',
+                            100: '#F3EDE2',
+                            200: '#E4D8C4',
+                            300: '#D5C4AA',
+                        },
+                        dustyblue: {
+                            50: '#F0F4F8',
+                            100: '#D9E3EE',
+                            600: '#4B6B94',
+                            700: '#385274',
+                            800: '#2A3F5B',
+                        },
+                        sage: {
+                            50: '#F2F5F0',
+                            100: '#E1E8DC',
+                            600: '#5F745B',
+                            700: '#485945',
+                            800: '#344232',
+                        },
+                        gold: {
+                            DEFAULT: '#C59B27',
+                            light: '#E2BD56',
+                            dark: '#9A7718',
+                        },
+                        charcoal: '#2C3531',
+                    },
+                    fontFamily: {
+                        serif: ['Cormorant Garamond', 'Playfair Display', 'Georgia', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+                        cursive: ['Alex Brush', 'Great Vibes', 'cursive'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        .font-cursive { font-family: 'Alex Brush', cursive; }
+        .hero-bg {
+            background-color: #FAF8F5;
+            background-image: radial-gradient(#D9E3EE 0.8px, transparent 0.8px), radial-gradient(#D9E3EE 0.8px, #FAF8F5 0.8px);
+            background-size: 32px 32px;
+            background-position: 0 0, 16px 16px;
+        }
+        .botanical-card {
+            box-shadow: 0 4px 25px -5px rgba(75, 107, 148, 0.08), 0 0 0 1px rgba(197, 155, 39, 0.18);
+        }
+
+        /* Floating Falling Leaves Animation */
+        @keyframes floatLeaf {
+            0% {
+                transform: translateY(-10vh) rotate(0deg) translateX(0px);
+                opacity: 0;
+            }
+            15% {
+                opacity: 0.65;
+            }
+            85% {
+                opacity: 0.65;
+            }
+            100% {
+                transform: translateY(110vh) rotate(360deg) translateX(80px);
+                opacity: 0;
+            }
+        }
+
+        .floating-leaf {
+            position: fixed;
+            pointer-events: none;
+            z-index: 20;
+            animation: floatLeaf linear infinite;
+            will-change: transform, opacity;
+        }
+
+        /* Parallax leaf layer sensitivity */
+        .scroll-leaf {
+            transition: transform 0.15s ease-out;
+            will-change: transform;
+        }
+
+        /* Hero Minimal Animated Portrait */
+        @keyframes floatHero {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        @keyframes auraRotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes subtleGlow {
+            0%, 100% {
+                box-shadow: 0 10px 30px -5px rgba(75, 107, 148, 0.2), 0 0 0 2px rgba(197, 155, 39, 0.35);
+            }
+            50% {
+                box-shadow: 0 20px 45px -5px rgba(197, 155, 39, 0.4), 0 0 0 3px rgba(197, 155, 39, 0.65);
+            }
+        }
+
+        .hero-portrait-container {
+            animation: floatHero 5s ease-in-out infinite;
+        }
+
+        .hero-portrait-card {
+            animation: subtleGlow 4s ease-in-out infinite;
+        }
+
+        .rotating-aura {
+            animation: auraRotate 20s linear infinite;
+        }
+    </style>
+</head>
+<body class="bg-cream-50 text-charcoal font-sans antialiased selection:bg-dustyblue-600 selection:text-white relative overflow-x-hidden">
+
+    <div id="floating-leaves-container" class="fixed inset-0 pointer-events-none z-10 overflow-hidden">
+        <!-- Leaves will be dynamically initialized via JS with floating keyframes -->
+        <svg class="floating-leaf w-8 h-8 text-sage-600/40" style="left: 5%; animation-duration: 16s; animation-delay: 0s;" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C12,14.7 15.5,9.4 17,8M17.5,3C14.5,4 12,6.5 10.5,9C13,10 16,8.5 18,6C19.5,4.5 19,3 17.5,3Z"/>
+        </svg>
+        <svg class="floating-leaf w-6 h-6 text-dustyblue-600/30" style="left: 18%; animation-duration: 22s; animation-delay: 3s;" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4Z"/>
+        </svg>
+        <svg class="floating-leaf w-10 h-10 text-gold/30" style="left: 35%; animation-duration: 19s; animation-delay: 5s;" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12,3C6.5,3 2,6.5 2,12C2,17.5 6.5,21 12,21C17.5,21 22,17.5 22,12C22,6.5 17.5,3 12,3M12,5C15.86,5 19,7.69 19,11C19,14.31 15.86,17 12,17C8.14,17 5,14.31 5,11C5,7.69 8.14,5 12,5Z"/>
+        </svg>
+        <svg class="floating-leaf w-7 h-7 text-sage-700/35" style="left: 55%; animation-duration: 25s; animation-delay: 2s;" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C12,14.7 15.5,9.4 17,8Z"/>
+        </svg>
+        <svg class="floating-leaf w-9 h-9 text-dustyblue-700/25" style="left: 75%; animation-duration: 18s; animation-delay: 7s;" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12,2L15,9L22,9L16,14L18,21L12,17L6,21L8,14L2,9L9,9L12,2Z"/>
+        </svg>
+        <svg class="floating-leaf w-6 h-6 text-gold/35" style="left: 90%; animation-duration: 21s; animation-delay: 4s;" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C12,14.7 15.5,9.4 17,8Z"/>
+        </svg>
+    </div>
+
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-dustyblue-800 text-white px-5 py-3.5 rounded-xl shadow-2xl flex items-center space-x-3 pointer-events-none">
+        <svg class="w-5 h-5 text-gold-light shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+        <span id="toast-message" class="text-xs sm:text-sm font-medium">Notification message</span>
+    </div>
+
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-40 transition-all duration-300 bg-white/90 backdrop-blur-md border-b border-cream-200">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <a href="#hero" class="group flex items-center space-x-2">
+                    <span class="font-serif text-2xl font-bold tracking-wider text-dustyblue-800 group-hover:text-gold transition-colors">R <span class="text-gold font-cursive text-3xl">&</span> A</span>
+                </a>
+
+                <div class="hidden md:flex items-center space-x-7 text-xs font-semibold tracking-widest uppercase text-dustyblue-800">
+                    <a href="#hero" class="hover:text-gold transition-colors">Home</a>
+                    <a href="#family" class="hover:text-gold transition-colors">Families</a>
+                    <a href="#programs" class="hover:text-gold transition-colors">3 Main Programs</a>
+                    <a href="#traditions" class="hover:text-gold transition-colors">Traditions</a>
+                    <a href="#venue" class="hover:text-gold transition-colors">Venues & Travel</a>
+                    <a href="#gallery" class="hover:text-gold transition-colors">Gallery</a>
+                    <a href="#faq" class="hover:text-gold transition-colors">FAQ</a>
+                    <a href="#blessings" class="bg-dustyblue-600 hover:bg-dustyblue-700 text-white px-4 py-2 rounded-full transition-all shadow-md">Blessings</a>
+                </div>
+
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="p-2 rounded-lg text-dustyblue-800 focus:outline-none" aria-label="Toggle Navigation">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path id="hamburger-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                            <path id="close-icon" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-cream-200 px-4 pt-2 pb-6 space-y-3">
+            <a href="#hero" class="mobile-nav-link block px-3 py-2 rounded-md text-sm font-medium hover:bg-cream-100">Home</a>
+            <a href="#family" class="mobile-nav-link block px-3 py-2 rounded-md text-sm font-medium hover:bg-cream-100">Families</a>
+            <a href="#programs" class="mobile-nav-link block px-3 py-2 rounded-md text-sm font-medium hover:bg-cream-100">3 Main Programs</a>
+            <a href="#traditions" class="mobile-nav-link block px-3 py-2 rounded-md text-sm font-medium hover:bg-cream-100">Traditions</a>
+            <a href="#venue" class="mobile-nav-link block px-3 py-2 rounded-md text-sm font-medium hover:bg-cream-100">Venues & Travel</a>
+            <a href="#gallery" class="mobile-nav-link block px-3 py-2 rounded-md text-sm font-medium hover:bg-cream-100">Gallery</a>
+            <a href="#faq" class="mobile-nav-link block px-3 py-2 rounded-md text-sm font-medium hover:bg-cream-100">FAQ</a>
+            <a href="#blessings" class="mobile-nav-link block px-3 py-2 rounded-md text-sm font-medium bg-dustyblue-600 text-white text-center rounded-xl">Send Blessings</a>
+        </div>
+    </nav>
+
+    <section id="hero" class="relative min-h-screen pt-28 pb-16 flex items-center justify-center hero-bg overflow-hidden">
+        
+        <!-- Scroll-reactive Parallax Floral Leaves (Left & Right background accents) -->
+        <div class="scroll-leaf absolute top-24 left-4 sm:left-12 opacity-30 text-sage-600 pointer-events-none" data-speed="0.08">
+            <svg class="w-24 sm:w-36 h-24 sm:h-36" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C12,14.7 15.5,9.4 17,8M17.5,3C14.5,4 12,6.5 10.5,9C13,10 16,8.5 18,6C19.5,4.5 19,3 17.5,3Z"/>
+            </svg>
+        </div>
+        <div class="scroll-leaf absolute top-40 right-4 sm:right-12 opacity-30 text-dustyblue-600 pointer-events-none" data-speed="-0.06">
+            <svg class="w-28 sm:w-40 h-28 sm:h-40" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4Z"/>
+            </svg>
+        </div>
+
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10 flex flex-col items-center">
+            
+            <!-- Floral Header Ornament with Cross -->
+            <div class="w-36 h-10 mb-2 text-gold flex items-center justify-center space-x-2">
+                <svg viewBox="0 0 120 40" class="w-full h-full fill-current">
+                    <path d="M60,18 C45,3 20,8 0,18 C20,28 45,33 60,18 C75,33 100,28 120,18 C100,8 75,3 60,18 Z" opacity="0.25"/>
+                    <rect x="58" y="6" width="4" height="24" rx="1" fill="#C59B27"/>
+                    <rect x="51" y="11" width="18" height="4" rx="1" fill="#C59B27"/>
+                </svg>
+            </div>
+
+            <p class="font-serif italic text-lg sm:text-2xl text-dustyblue-700 tracking-widest uppercase mb-1">Together with their families</p>
+            
+            <h1 class="font-serif text-5xl sm:text-7xl lg:text-8xl font-normal text-dustyblue-800 tracking-tight mb-2">
+                Romin <span class="font-cursive text-gold text-6xl sm:text-8xl lg:text-9xl align-middle px-1">&</span> Aleena
+            </h1>
+            
+            <p class="text-xs sm:text-sm font-semibold uppercase tracking-[0.25em] text-gold-dark mb-6 bg-white/90 px-6 py-2 rounded-full border border-cream-300 shadow-sm">
+                Celebrating Our Wedding Union
+            </p>
+
+            <!-- Minimal Animated Arch Portrait of Romin & Aleena -->
+            <div class="hero-portrait-container relative my-4 group cursor-pointer" onclick="openLightbox('images/couple.jpg', 'Romin & Aleena')">
+                <!-- Glowing Aura Ring behind -->
+                <div class="absolute -inset-2.5 rounded-t-full rounded-b-3xl bg-gradient-to-tr from-gold/40 via-dustyblue-600/30 to-gold/40 blur-md opacity-70 group-hover:opacity-100 transition-opacity duration-700"></div>
+
+                <div class="relative w-64 sm:w-72 h-80 sm:h-96 rounded-t-full rounded-b-3xl bg-white p-2.5 border-2 border-gold/60 hero-portrait-card overflow-hidden shadow-2xl">
+                    <!-- Image Container with soft gradient overlay & subtle zoom on hover -->
+                    <div class="relative w-full h-full rounded-t-full rounded-b-2xl overflow-hidden bg-cream-100">
+                        <img src="images/couple.jpg" alt="Romin & Aleena" class="w-full h-full object-cover object-top transition-transform duration-1000 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dustyblue-900/60 via-transparent to-transparent opacity-40 group-hover:opacity-20 transition-opacity duration-500"></div>
+                        
+                        <!-- Floating Botanical Couple Stamp -->
+                        <div class="absolute bottom-3 left-1/2 transform -translate-x-1/2 bg-white/90 backdrop-blur-md px-4 py-1.5 rounded-full border border-gold/40 shadow-md whitespace-nowrap">
+                            <span class="font-serif text-xs font-semibold text-dustyblue-800 tracking-wider">Romin <span class="font-cursive text-gold text-sm">&</span> Aleena</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Minimal Floating Cross & Ring Badge -->
+                <div class="absolute -top-3 -right-2 w-9 h-9 bg-white border border-gold/60 rounded-full flex items-center justify-center shadow-lg text-gold group-hover:scale-110 transition-transform">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 5h2v4h4v2h-4v6h-2v-6H7v-2h4V7z"/></svg>
+                </div>
+            </div>
+
+            <div class="w-full max-w-md mt-4 mb-8">
+                <p class="text-xs uppercase tracking-widest text-dustyblue-700 font-semibold mb-3">Countdown to The Wedding</p>
+                <div id="countdown" class="grid grid-cols-4 gap-3 text-center">
+                    <div class="bg-white p-3.5 rounded-2xl border border-cream-200 shadow-sm">
+                        <span id="days" class="block font-serif text-2xl sm:text-3xl font-bold text-dustyblue-800">00</span>
+                        <span class="text-[10px] uppercase tracking-widest text-gold-dark font-medium">Days</span>
+                    </div>
+                    <div class="bg-white p-3.5 rounded-2xl border border-cream-200 shadow-sm">
+                        <span id="hours" class="block font-serif text-2xl sm:text-3xl font-bold text-dustyblue-800">00</span>
+                        <span class="text-[10px] uppercase tracking-widest text-gold-dark font-medium">Hours</span>
+                    </div>
+                    <div class="bg-white p-3.5 rounded-2xl border border-cream-200 shadow-sm">
+                        <span id="minutes" class="block font-serif text-2xl sm:text-3xl font-bold text-dustyblue-800">00</span>
+                        <span class="text-[10px] uppercase tracking-widest text-gold-dark font-medium">Mins</span>
+                    </div>
+                    <div class="bg-white p-3.5 rounded-2xl border border-cream-200 shadow-sm">
+                        <span id="seconds" class="block font-serif text-2xl sm:text-3xl font-bold text-dustyblue-800">00</span>
+                        <span class="text-[10px] uppercase tracking-widest text-gold-dark font-medium">Secs</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#programs" class="inline-flex items-center space-x-2 bg-dustyblue-700 hover:bg-dustyblue-800 text-white px-7 py-3 rounded-full font-medium text-sm transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                    <span>Explore 3 Programs</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                </a>
+                <a href="#blessings" class="inline-flex items-center space-x-2 bg-white hover:bg-cream-100 text-dustyblue-800 border border-cream-300 px-7 py-3 rounded-full font-medium text-sm transition-all shadow-sm">
+                    <span>Send Wishes & Blessings</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="family" class="py-20 bg-white border-y border-cream-200 relative">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-14">
+                <span class="font-cursive text-3xl text-gold block mb-1">With the blessings of God & elders</span>
+                <h2 class="font-serif text-4xl sm:text-5xl font-semibold text-dustyblue-800">Our Families</h2>
+                <div class="w-20 h-0.5 bg-gold mx-auto mt-3"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+                
+                <!-- Groom Family Card -->
+                <div class="bg-cream-50 p-8 sm:p-10 rounded-3xl border border-cream-200 botanical-card text-center relative overflow-hidden group">
+                    <div class="absolute -top-10 -right-10 w-36 h-36 bg-dustyblue-50 rounded-full blur-2xl group-hover:bg-gold/10 transition-colors"></div>
+                    
+                    <span class="text-[11px] font-bold uppercase tracking-widest text-gold-dark bg-white px-4 py-1 rounded-full inline-block border border-cream-300 mb-6 shadow-sm">The Groom</span>
+                    <h3 class="font-serif text-3xl sm:text-4xl font-bold text-dustyblue-800 mb-2">Romin Antony</h3>
+                    <p class="text-xs uppercase tracking-widest text-gray-500 mb-6 font-semibold">Son of</p>
+                    
+                    <div class="space-y-2 text-dustyblue-800 mb-8">
+                        <p class="font-serif text-2xl font-medium">Mr. Thomas Antony</p>
+                        <p class="font-serif text-2xl font-medium">& Mrs. Rosakutty Antony</p>
+                    </div>
+
+                    <div class="pt-6 border-t border-cream-200/80 bg-white/60 rounded-2xl p-5">
+                        <p class="text-xs uppercase tracking-wider text-gold-dark font-bold mb-1">Ancestral Residence</p>
+                        <p class="font-serif text-xl font-bold text-charcoal">Mulakuppadam House</p>
+                        <p class="text-sm text-gray-600">Perumpanachy, Changanassery / Kottayam, Kerala</p>
+                    </div>
+                </div>
+
+                <!-- Bride Family Card -->
+                <div class="bg-cream-50 p-8 sm:p-10 rounded-3xl border border-cream-200 botanical-card text-center relative overflow-hidden group">
+                    <div class="absolute -top-10 -right-10 w-36 h-36 bg-dustyblue-50 rounded-full blur-2xl group-hover:bg-gold/10 transition-colors"></div>
+
+                    <span class="text-[11px] font-bold uppercase tracking-widest text-gold-dark bg-white px-4 py-1 rounded-full inline-block border border-cream-300 mb-6 shadow-sm">The Bride</span>
+                    <h3 class="font-serif text-3xl sm:text-4xl font-bold text-dustyblue-800 mb-2">Aleena Neerambuzha</h3>
+                    <p class="text-xs uppercase tracking-widest text-gray-500 mb-6 font-semibold">Daughter of</p>
+                    
+                    <div class="space-y-2 text-dustyblue-800 mb-8">
+                        <p class="font-serif text-2xl font-medium">Mr. Shaiju Neerambuzha</p>
+                        <p class="font-serif text-2xl font-medium">& Mrs. Beena Philip</p>
+                    </div>
+
+                    <div class="pt-6 border-t border-cream-200/80 bg-white/60 rounded-2xl p-5">
+                        <p class="text-xs uppercase tracking-wider text-gold-dark font-bold mb-1">Ancestral Residence</p>
+                        <p class="font-serif text-xl font-bold text-charcoal">Neerambuzha House</p>
+                        <p class="text-sm text-gray-600">Vazhavatta Town, Wayanad, Kerala</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="mt-12 text-center">
+                <div class="inline-block bg-dustyblue-50 border border-dustyblue-100 rounded-2xl px-8 py-3.5">
+                    <p class="text-sm font-serif text-dustyblue-800">With Best Wishes from <span class="font-bold text-gold-dark">Nisha & Roshan</span> and Families</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="programs" class="py-24 bg-cream-50 relative">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="font-cursive text-3xl text-gold block mb-1">Celebrations Schedule</span>
+                <h2 class="font-serif text-4xl sm:text-5xl font-semibold text-dustyblue-800">The 3 Main Programs</h2>
+                <p class="text-gray-600 text-sm mt-2">Detailed schedule of the wedding festivities</p>
+                <div class="w-20 h-0.5 bg-gold mx-auto mt-3"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <!-- PROGRAM 1: Madhuram Veppu -->
+                <div class="bg-white p-8 rounded-3xl border border-cream-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="w-10 h-10 rounded-full bg-gold/15 text-gold-dark font-serif font-bold flex items-center justify-center text-lg">1</span>
+                            <span class="text-[11px] uppercase tracking-widest font-bold text-dustyblue-700 bg-dustyblue-50 px-3 py-1 rounded-full border border-dustyblue-100">Pre-Wedding</span>
+                        </div>
+                        
+                        <h3 class="font-serif text-2xl font-bold text-dustyblue-800 mb-1">Madhuram Veppu</h3>
+                        <p class="font-cursive text-2xl text-gold mb-4">റോമിന് മധുരം കൊടുക്കട്ടെ</p>
+                        
+                        <div class="space-y-3.5 text-sm text-gray-700 border-t border-cream-100 pt-5 mb-6">
+                            <div class="flex items-center space-x-3">
+                                <svg class="w-5 h-5 text-gold shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                <span class="font-semibold text-charcoal">Thursday (Pre-Wedding Day)</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <svg class="w-5 h-5 text-gold shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <span class="font-bold text-dustyblue-800">1:00 PM Onwards</span>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <svg class="w-5 h-5 text-gold shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg>
+                                <span class="text-xs text-gray-600">Mulakuppadam House, Perumpanachy, Kottayam</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-cream-50 p-4 rounded-2xl border border-cream-200">
+                            <p class="text-xs text-gray-600 leading-relaxed">
+                                Traditional sweet-offering ceremony where maternal uncle and elders bless the groom with sweet plantain & milk before the wedding day.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-cream-100 flex items-center justify-between text-xs text-gray-500">
+                        <span>Dress Code: Festive Traditional</span>
+                        <span class="text-gold font-semibold">Groom's Residence</span>
+                    </div>
+                </div>
+
+                <!-- PROGRAM 2: The Engagement -->
+                <div class="bg-white p-8 rounded-3xl border-2 border-gold/70 shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-between relative transform lg:-translate-y-2">
+                    <span class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gold text-white text-[10px] uppercase font-bold tracking-widest px-4 py-1 rounded-full shadow-sm">Betrothal</span>
+                    <div>
+                        <div class="flex items-center justify-between mb-6 mt-1">
+                            <span class="w-10 h-10 rounded-full bg-gold text-white font-serif font-bold flex items-center justify-center text-lg">2</span>
+                            <span class="text-[11px] uppercase tracking-widest font-bold text-gold-dark bg-gold/10 px-3 py-1 rounded-full">Engagement</span>
+                        </div>
+                        
+                        <h3 class="font-serif text-2xl font-bold text-dustyblue-800 mb-1">The Engagement</h3>
+                        <p class="font-cursive text-2xl text-gold mb-4">Ring Exchange & Blessing</p>
+                        
+                        <div class="space-y-3.5 text-sm text-gray-700 border-t border-cream-100 pt-5 mb-6">
+                            <div class="flex items-center space-x-3">
+                                <svg class="w-5 h-5 text-gold shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                <span class="font-bold text-charcoal">Saturday, October 17, 2026</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <svg class="w-5 h-5 text-gold shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <span class="font-bold text-dustyblue-800">12:00 PM Afternoon</span>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <svg class="w-5 h-5 text-gold shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg>
+                                <span class="text-xs text-gray-600">Church Engagement Ceremony & Grand Lunch Reception</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-dustyblue-50/70 p-4 rounded-2xl border border-dustyblue-100">
+                            <p class="text-xs text-gray-600 leading-relaxed">
+                                Solemn exchange of rings between Romin & Aleena witnessed by family and loved ones, followed by a celebratory reception.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-cream-100 flex items-center justify-between text-xs text-gray-500">
+                        <span>RSVP by Sep 15</span>
+                        <span class="text-gold-dark font-semibold">Reception to follow</span>
+                    </div>
+                </div>
+
+                <!-- PROGRAM 3: The Wedding -->
+                <div class="bg-white p-8 rounded-3xl border border-cream-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="w-10 h-10 rounded-full bg-dustyblue-700 text-white font-serif font-bold flex items-center justify-center text-lg">3</span>
+                            <span class="text-[11px] uppercase tracking-widest font-bold text-white bg-dustyblue-700 px-3 py-1 rounded-full">Wedding Service</span>
+                        </div>
+                        
+                        <h3 class="font-serif text-2xl font-bold text-dustyblue-800 mb-1">The Wedding</h3>
+                        <p class="font-cursive text-2xl text-gold mb-4">Wedding Mass & Feast</p>
+                        
+                        <div class="space-y-3.5 text-sm text-gray-700 border-t border-cream-100 pt-5 mb-6">
+                            <div class="flex items-center space-x-3">
+                                <svg class="w-5 h-5 text-gold shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                <span class="font-bold text-charcoal">Sunday, October 25, 2026</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <svg class="w-5 h-5 text-gold shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <span class="font-bold text-dustyblue-800">Morning Wedding Mass</span>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <svg class="w-5 h-5 text-gold shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg>
+                                <span class="font-semibold text-dustyblue-800">St. Joseph Church, Veroor</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-cream-50 p-4 rounded-2xl border border-cream-200">
+                            <p class="text-xs text-gray-600 leading-relaxed">
+                                Wedding service at St. Joseph Church Veroor, binding of Minnu (Thali), Manthrakodi blessing, followed by wedding reception.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-cream-100 flex items-center justify-between text-xs text-gray-500">
+                        <span>Church Wedding Mass</span>
+                        <span class="text-dustyblue-700 font-semibold">St. Joseph Church</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="traditions" class="py-20 bg-white border-t border-cream-200">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-14">
+                <span class="font-cursive text-3xl text-gold block mb-1">Cultural Heritage</span>
+                <h2 class="font-serif text-4xl font-semibold text-dustyblue-800">Christian Wedding Traditions</h2>
+                <p class="text-xs text-gray-500 uppercase tracking-widest mt-1">Sacred Symbols & Rituals</p>
+                <div class="w-20 h-0.5 bg-gold mx-auto mt-3"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                
+                <div class="p-6 bg-cream-50 rounded-2xl border border-cream-200 text-center">
+                    <div class="w-12 h-12 bg-white text-gold rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm font-serif font-bold text-xl">
+                        1
+                    </div>
+                    <h4 class="font-serif text-xl font-bold text-dustyblue-800 mb-2">Madhuram Veppu</h4>
+                    <p class="text-xs text-gray-600 leading-relaxed">
+                        Pre-wedding ritual where elders feed the bride and groom sweet banana and milk, signifying sweet beginnings.
+                    </p>
+                </div>
+
+                <div class="p-6 bg-cream-50 rounded-2xl border border-cream-200 text-center">
+                    <div class="w-12 h-12 bg-white text-gold rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm font-serif font-bold text-xl">
+                        2
+                    </div>
+                    <h4 class="font-serif text-xl font-bold text-dustyblue-800 mb-2">The Minnu (Thali)</h4>
+                    <p class="text-xs text-gray-600 leading-relaxed">
+                        Sacred leaf-shaped gold pendant tied around the bride's neck with seven threads taken from the Manthrakodi saree.
+                    </p>
+                </div>
+
+                <div class="p-6 bg-cream-50 rounded-2xl border border-cream-200 text-center">
+                    <div class="w-12 h-12 bg-white text-gold rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm font-serif font-bold text-xl">
+                        3
+                    </div>
+                    <h4 class="font-serif text-xl font-bold text-dustyblue-800 mb-2">The Manthrakodi</h4>
+                    <p class="text-xs text-gray-600 leading-relaxed">
+                        Rich silk wedding saree gifted by the groom and blessed by the priest, draped over the bride's head during vows.
+                    </p>
+                </div>
+
+                <!-- Simplified tradition wording (No "nuptial crowning") -->
+                <div class="p-6 bg-cream-50 rounded-2xl border border-cream-200 text-center">
+                    <div class="w-12 h-12 bg-white text-gold rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm font-serif font-bold text-xl">
+                        4
+                    </div>
+                    <h4 class="font-serif text-xl font-bold text-dustyblue-800 mb-2">Solemn Vows & Rings</h4>
+                    <p class="text-xs text-gray-600 leading-relaxed">
+                        The exchanging of holy wedding vows and rings before God, family, and loved ones during the church mass.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="venue" class="py-24 bg-cream-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="font-cursive text-3xl text-gold block mb-1">Destinations & Travel</span>
+                <h2 class="font-serif text-4xl sm:text-5xl font-semibold text-dustyblue-800">Wedding Venues</h2>
+                <div class="w-20 h-0.5 bg-gold mx-auto mt-3"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                
+                <div class="space-y-6">
+                    <!-- Venue Card 1: Main Church -->
+                    <div class="p-7 bg-white rounded-3xl border border-cream-200 shadow-md">
+                        <div class="flex items-start space-x-4">
+                            <div class="p-3 bg-dustyblue-50 text-dustyblue-700 rounded-2xl shrink-0 mt-1">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5m0 0h4m-4 0V10m0 0V5m0 5h4"></path></svg>
+                            </div>
+                            <div class="flex-1">
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-gold-dark bg-gold/10 px-3 py-1 rounded-full">Wedding Mass Location</span>
+                                <h3 class="font-serif text-2xl font-bold text-dustyblue-800 mt-2">St. Joseph Church, Veroor</h3>
+                                <p class="text-sm text-gray-600 mt-1">Veroor, Changanassery / Kottayam District, Kerala</p>
+                                <div class="mt-4 flex flex-wrap gap-3">
+                                    <button onclick="copyToClipboard('St. Joseph Church, Veroor, Changanassery, Kottayam', 'Church address copied!')" class="inline-flex items-center text-xs font-semibold text-dustyblue-700 hover:text-gold bg-cream-50 px-3 py-2 rounded-xl border border-cream-200">
+                                        <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 052-2h2a2 2 0 012 2"></path></svg>
+                                        Copy Address
+                                    </button>
+                                    <a href="https://maps.google.com/?q=St.+Joseph+Church+Veroor" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-xs font-semibold text-white bg-dustyblue-600 hover:bg-dustyblue-700 px-4 py-2 rounded-xl">
+                                        Open Maps
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Venue Card 2: Groom House -->
+                    <div class="p-7 bg-white rounded-3xl border border-cream-200 shadow-md">
+                        <div class="flex items-start space-x-4">
+                            <div class="p-3 bg-cream-100 text-gold-dark rounded-2xl shrink-0 mt-1">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                            </div>
+                            <div class="flex-1">
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-dustyblue-700 bg-dustyblue-50 px-3 py-1 rounded-full">Madhuram Veppu Venue</span>
+                                <h3 class="font-serif text-2xl font-bold text-dustyblue-800 mt-2">Mulakuppadam House</h3>
+                                <p class="text-sm text-gray-600 mt-1">Perumpanachy, Changanassery, Kottayam, Kerala</p>
+                                <p class="text-xs text-gray-500 mt-2">Groom: Romin Antony (Son of Mr. Thomas Antony & Mrs. Rosakutty Antony)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Venue Card 3: Bride House -->
+                    <div class="p-7 bg-white rounded-3xl border border-cream-200 shadow-md">
+                        <div class="flex items-start space-x-4">
+                            <div class="p-3 bg-sage-50 text-sage-700 rounded-2xl shrink-0 mt-1">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5m0 0h4m-4 0V10m0 0V5m0 5h4"></path></svg>
+                            </div>
+                            <div class="flex-1">
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-sage-800 bg-sage-50 px-3 py-1 rounded-full">Bride Residence</span>
+                                <h3 class="font-serif text-2xl font-bold text-dustyblue-800 mt-2">Neerambuzha House</h3>
+                                <p class="text-sm text-gray-600 mt-1">Vazhavatta Town, Wayanad District, Kerala</p>
+                                <p class="text-xs text-gray-500 mt-2">Bride: Aleena Neerambuzha (Daughter of Mr. Shaiju Neerambuzha & Mrs. Beena Philip)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Travel Guide -->
+                <div class="bg-white p-8 sm:p-10 rounded-3xl border border-cream-200 shadow-xl space-y-6">
+                    <h3 class="font-serif text-3xl font-bold text-dustyblue-800">Travel & Logistics Guide</h3>
+                    <div class="w-12 h-0.5 bg-gold"></div>
+
+                    <div class="space-y-4 text-sm text-gray-700">
+                        <div class="p-4 bg-cream-50 rounded-2xl border border-cream-200">
+                            <h5 class="font-bold text-dustyblue-800 flex items-center space-x-2">
+                                <svg class="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                                <span>Nearest Airport</span>
+                            </h5>
+                            <p class="text-xs text-gray-600 mt-1">Cochin International Airport (COK) - Approx 2.5 hours drive to Kottayam/Changanassery.</p>
+                        </div>
+
+                        <div class="p-4 bg-cream-50 rounded-2xl border border-cream-200">
+                            <h5 class="font-bold text-dustyblue-800 flex items-center space-x-2">
+                                <svg class="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>
+                                <span>Nearest Railway Station</span>
+                            </h5>
+                            <p class="text-xs text-gray-600 mt-1">Changanassery (CGY) & Kottayam (KTYM) Railway Stations are nearest to St. Joseph Church Veroor.</p>
+                        </div>
+
+                        <div class="p-4 bg-cream-50 rounded-2xl border border-cream-200">
+                            <h5 class="font-bold text-dustyblue-800 flex items-center space-x-2">
+                                <svg class="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg>
+                                <span>Accommodation Assistance</span>
+                            </h5>
+                            <p class="text-xs text-gray-600 mt-1">Outstation guests needing stay arrangements in Kottayam or Wayanad may reach out directly to the families.</p>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 text-center">
+                        <p class="text-xs text-gray-500 italic">"We look forward to welcoming all relatives and friends to bless Romin & Aleena!"</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="py-24 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="font-cursive text-3xl text-gold block mb-1">Treasured Moments</span>
+                <h2 class="font-serif text-4xl sm:text-5xl font-semibold text-dustyblue-800">Gallery of Love</h2>
+                <div class="w-20 h-0.5 bg-gold mx-auto mt-3"></div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Featured Couple Portrait -->
+                <div class="gallery-item relative overflow-hidden rounded-2xl cursor-pointer group shadow-lg border-2 border-gold/40" onclick="openLightbox('images/couple.jpg', 'Romin & Aleena - The Wedding Union')">
+                    <img src="images/couple.jpg" alt="Romin & Aleena" class="w-full h-80 object-cover object-top group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dustyblue-900/80 via-dustyblue-900/30 to-transparent opacity-70 group-hover:opacity-90 transition-opacity flex flex-col justify-end p-5">
+                        <span class="text-[10px] uppercase font-bold tracking-widest text-gold-light bg-dustyblue-800/80 self-start px-2.5 py-0.5 rounded mb-1">Featured Couple</span>
+                        <span class="text-white font-serif text-lg font-bold">Romin & Aleena</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item relative overflow-hidden rounded-2xl cursor-pointer group shadow-md" onclick="openLightbox('https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=1200&q=80', 'Engagement Smiles')">
+                    <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=800&q=80" alt="Engagement Shoot" class="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-dustyblue-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <span class="text-white font-serif text-lg font-medium px-4 text-center">Engagement Celebration</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item relative overflow-hidden rounded-2xl cursor-pointer group shadow-md" onclick="openLightbox('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1200&q=80', 'Joyous Togetherness')">
+                    <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80" alt="Joyous Moments" class="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-dustyblue-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <span class="text-white font-serif text-lg font-medium px-4 text-center">Joyous Togetherness</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item relative overflow-hidden rounded-2xl cursor-pointer group shadow-md" onclick="openLightbox('https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=1200&q=80', 'Traditional Warmth')">
+                    <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=800&q=80" alt="Traditional Warmth" class="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-dustyblue-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <span class="text-white font-serif text-lg font-medium px-4 text-center">Traditional Warmth</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="fixed inset-0 z-50 bg-black/90 hidden flex items-center justify-center p-4" onclick="closeLightbox()">
+        <button class="absolute top-6 right-6 text-white text-4xl hover:text-gold transition-colors" onclick="closeLightbox()">&times;</button>
+        <div class="max-w-4xl max-h-[85vh] text-center" onclick="event.stopPropagation()">
+            <img id="lightbox-img" src="" alt="Enlarged photo" class="max-h-[75vh] mx-auto rounded-lg shadow-2xl">
+            <p id="lightbox-caption" class="text-white font-serif text-lg mt-4"></p>
+        </div>
+    </div>
+
+    <section id="faq" class="py-24 bg-cream-50 border-t border-cream-200">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="font-cursive text-3xl text-gold block mb-1">Information Guide</span>
+                <h2 class="font-serif text-4xl font-semibold text-dustyblue-800">Frequently Asked Questions</h2>
+                <div class="w-16 h-0.5 bg-gold mx-auto mt-3"></div>
+            </div>
+
+            <div class="space-y-4">
+                <div class="bg-white rounded-2xl border border-cream-200 overflow-hidden shadow-sm">
+                    <button class="faq-toggle w-full px-6 py-5 text-left font-serif text-lg font-semibold text-dustyblue-800 flex justify-between items-center focus:outline-none">
+                        <span>What is the dress code for the Wedding Mass & Reception?</span>
+                        <svg class="w-5 h-5 text-gold transform transition-transform duration-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-5 text-sm text-gray-600 leading-relaxed border-t border-cream-100 pt-3">
+                        Traditional Kerala formal wear (Sarees, Settu Sarees, Suits, or Kurtas/Sherwanis) is recommended for both church solemnization and the grand reception.
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl border border-cream-200 overflow-hidden shadow-sm">
+                    <button class="faq-toggle w-full px-6 py-5 text-left font-serif text-lg font-semibold text-dustyblue-800 flex justify-between items-center focus:outline-none">
+                        <span>Is parking available at St. Joseph Church Veroor?</span>
+                        <svg class="w-5 h-5 text-gold transform transition-transform duration-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-5 text-sm text-gray-600 leading-relaxed border-t border-cream-100 pt-3">
+                        Yes, ample parking space for cars and buses is available on the church premises and neighboring designated grounds.
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl border border-cream-200 overflow-hidden shadow-sm">
+                    <button class="faq-toggle w-full px-6 py-5 text-left font-serif text-lg font-semibold text-dustyblue-800 flex justify-between items-center focus:outline-none">
+                        <span>What time should guests arrive for the Wedding Mass?</span>
+                        <svg class="w-5 h-5 text-gold transform transition-transform duration-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-5 text-sm text-gray-600 leading-relaxed border-t border-cream-100 pt-3">
+                        We kindly request guests to be seated inside St. Joseph Church at least 20 minutes prior to the start of the Holy Mass.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="blessings" class="py-24 bg-white">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-cream-50 p-8 sm:p-12 rounded-3xl shadow-xl border border-cream-200">
+                <div class="text-center mb-10">
+                    <span class="font-cursive text-3xl text-gold block mb-1">Shower Your Love</span>
+                    <h2 class="font-serif text-4xl font-semibold text-dustyblue-800">Blessings & Wishes</h2>
+                    <p class="text-gray-600 text-sm mt-2">Send your prayers and greetings for Romin & Aleena</p>
+                    <div class="w-16 h-0.5 bg-gold mx-auto mt-3"></div>
+                </div>
+
+                <form id="blessingForm" class="space-y-6">
+                    <div>
+                        <label for="senderName" class="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-2">Your Name *</label>
+                        <input type="text" id="senderName" required placeholder="e.g. Uncle Kurian & Family" class="w-full px-4 py-3.5 rounded-xl border border-cream-300 focus:ring-2 focus:ring-gold focus:border-gold outline-none transition-all">
+                    </div>
+
+                    <div>
+                        <label for="blessingMessage" class="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-2">Your Blessing Message *</label>
+                        <textarea id="blessingMessage" rows="4" required placeholder="Wishing dear Romin & Aleena a lifetime of God's grace, joy, and peace..." class="w-full px-4 py-3.5 rounded-xl border border-cream-300 focus:ring-2 focus:ring-gold focus:border-gold outline-none transition-all"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full bg-dustyblue-700 hover:bg-dustyblue-800 text-white font-medium py-4 rounded-xl shadow-lg hover:shadow-xl transition-all text-base transform hover:-translate-y-0.5">
+                        Send Your Wishes
+                    </button>
+                </form>
+
+                <div class="mt-12 pt-8 border-t border-cream-200">
+                    <h4 class="font-serif text-xl font-bold text-dustyblue-800 mb-4">Messages from Loved Ones</h4>
+                    <div id="blessingList" class="space-y-4">
+                        <div class="p-4 bg-white rounded-2xl border border-cream-200 shadow-sm">
+                            <p class="text-xs font-bold uppercase tracking-wider text-gold-dark mb-1">Nisha & Roshan</p>
+                            <p class="text-sm text-gray-700 italic">"Wishing dear Romin and Aleena a blessed wedding and a beautiful journey ahead together under Almighty's grace!"</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-dustyblue-800 text-white py-16 text-center border-t border-dustyblue-700">
+        <div class="max-w-4xl mx-auto px-4">
+            <h2 class="font-serif text-4xl font-normal mb-2">Romin <span class="font-cursive text-gold-light text-5xl">&</span> Aleena</h2>
+            <p class="text-cream-200 font-light text-xs uppercase tracking-[0.25em] mb-4">October 2026 &bull; Kottayam & Wayanad, Kerala</p>
+            <p class="text-gray-300 text-xs tracking-widest uppercase mb-4">Best Wishes from Nisha & Roshan and Families</p>
+            <div class="mt-6 text-xs text-dustyblue-100/60">&copy; 2026 Romin & Aleena Wedding Celebration.</div>
+        </div>
+    </footer>
+
+    <script>
+        // --- 1. COUNTDOWN TIMER (Oct 25, 2026) ---
+        const weddingDate = new Date("October 25, 2026 10:00:00").getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const difference = weddingDate - now;
+
+            if (difference > 0) {
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+                document.getElementById("days").innerText = days < 10 ? "0" + days : days;
+                document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+                document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+                document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+            } else {
+                document.getElementById("countdown").innerHTML = "<div class='text-2xl font-serif text-dustyblue-800 col-span-4'>The Wedding Day Has Arrived!</div>";
+            }
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // --- 2. MOBILE MENU TOGGLE ---
+        const menuBtn = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const hamburgerIcon = document.getElementById('hamburger-icon');
+        const closeIcon = document.getElementById('close-icon');
+
+        menuBtn.addEventListener('click', () => {
+            const isOpen = !mobileMenu.classList.contains('hidden');
+            if (isOpen) {
+                mobileMenu.classList.add('hidden');
+                hamburgerIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+            } else {
+                mobileMenu.classList.remove('hidden');
+                hamburgerIcon.classList.add('hidden');
+                closeIcon.classList.remove('hidden');
+            }
+        });
+
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                hamburgerIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+            });
+        });
+
+        // --- 3. BLESSINGS FORM ---
+        const blessingForm = document.getElementById('blessingForm');
+        const blessingList = document.getElementById('blessingList');
+
+        blessingForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const sender = document.getElementById('senderName').value;
+            const message = document.getElementById('blessingMessage').value;
+
+            const newCard = document.createElement('div');
+            newCard.className = 'p-4 bg-white rounded-2xl border border-cream-200 shadow-sm';
+            newCard.innerHTML = `
+                <p class="text-xs font-bold uppercase tracking-wider text-gold-dark mb-1">${escapeHtml(sender)}</p>
+                <p class="text-sm text-gray-700 italic">"${escapeHtml(message)}"</p>
+            `;
+            
+            blessingList.prepend(newCard);
+            blessingForm.reset();
+            showToast("Thank you! Your blessing message has been shared.");
+        });
+
+        function escapeHtml(str) {
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+        }
+
+        // --- 4. LIGHTBOX GALLERY ---
+        function openLightbox(src, caption) {
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox-caption').innerText = caption;
+            document.getElementById('lightbox').classList.remove('hidden');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.add('hidden');
+        }
+
+        // --- 5. FAQ ACCORDION ---
+        document.querySelectorAll('.faq-toggle').forEach(button => {
+            button.addEventListener('click', () => {
+                const content = button.nextElementSibling;
+                const icon = button.querySelector('svg');
+                
+                content.classList.toggle('hidden');
+                icon.classList.toggle('rotate-180');
+            });
+        });
+
+        // --- 6. TOAST NOTIFICATION & COPY ---
+        function copyToClipboard(text, message) {
+            const tempInput = document.createElement("input");
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+
+            showToast(message);
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toast-message');
+            
+            toastMessage.innerText = msg;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // --- 7. SCROLL-PARALLAX & FLOATING LEAVES EFFECT ---
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const scrollLeaves = document.querySelectorAll('.scroll-leaf');
+            
+            scrollLeaves.forEach(leaf => {
+                const speed = parseFloat(leaf.getAttribute('data-speed')) || 0.05;
+                leaf.style.transform = `translateY(${scrolled * speed * 8}px) rotate(${scrolled * 0.04}deg)`;
+            });
+        });
+    </script>
+</body>
+</html>
