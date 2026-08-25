@@ -204,23 +204,23 @@
     </div>
 
     <!-- Floating Background Music Player Widget -->
-    <div id="music-player-widget" class="fixed bottom-6 left-6 z-50 flex items-center bg-white/95 backdrop-blur-md border border-gold/40 shadow-2xl rounded-full p-2 pr-4 transition-all duration-300 hover:shadow-gold/20 hover:border-gold group">
-        <audio id="bg-audio" autoplay loop preload="auto" src="https://raw.githubusercontent.com/pappykunj/romin-alina-wedding/main/All%20of%20Me%20-%20John%20Legend%20-%20Violin%20and%20Guitar%20Cover%20-%20Daniel%20Jang.mp3"></audio>
+    <div id="music-player-widget" class="fixed bottom-6 left-6 z-50 flex items-center bg-white/95 backdrop-blur-md border border-gold/50 shadow-2xl rounded-full p-2 pr-4.5 transition-all duration-300 hover:shadow-gold/30 hover:border-gold group ring-4 ring-gold/30 animate-pulse" onclick="toggleMusic()" role="button" aria-label="Play or pause background music">
+        <audio id="bg-audio" autoplay loop preload="auto" src="https://raw.githubusercontent.com/pappykunj/romin-alina-wedding/main/All%20of%20Me%20-%20John%20Legend%20-%20Violin%20and%20Guitar%20Cover%20-%20Daniel%20Jang.mp3#t=10"></audio>
         
-        <button id="music-toggle-btn" onclick="toggleMusic()" class="w-10 h-10 rounded-full bg-dustyblue-800 text-gold-light hover:bg-gold hover:text-white flex items-center justify-center shadow-md transition-all shrink-0 focus:outline-none" aria-label="Play or Pause Wedding Music">
+        <button id="music-toggle-btn" class="w-11 h-11 rounded-full bg-gold text-white flex items-center justify-center shadow-md transition-all shrink-0 focus:outline-none group-hover:scale-105" aria-label="Play or Pause Wedding Music">
             <!-- Play Icon -->
-            <svg id="play-icon" class="w-4 h-4 translate-x-0.5" fill="currentColor" viewBox="0 0 24 24">
+            <svg id="play-icon" class="w-5 h-5 translate-x-0.5" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M8 5v14l11-7z"/>
             </svg>
             <!-- Pause Icon -->
-            <svg id="pause-icon" class="w-4 h-4 hidden" fill="currentColor" viewBox="0 0 24 24">
+            <svg id="pause-icon" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
             </svg>
         </button>
 
-        <div class="ml-3 flex flex-col justify-center cursor-pointer select-none" onclick="toggleMusic()">
-            <div class="flex items-center space-x-1.5">
-                <span id="music-status-text" class="text-[11px] font-bold uppercase tracking-wider text-dustyblue-800">Wedding Music</span>
+        <div class="ml-3 flex flex-col justify-center cursor-pointer select-none">
+            <div class="flex items-center space-x-2">
+                <span id="music-status-text" class="text-xs font-bold uppercase tracking-wider text-gold-dark">Tap to Play 🎵</span>
                 <!-- Soundwave Equalizer Bars -->
                 <div id="music-equalizer" class="flex items-end space-x-0.5 h-4.5 music-paused">
                     <span class="w-1 bg-gold rounded-full music-bar-1" style="height: 4px;"></span>
@@ -793,14 +793,6 @@
                                     </a>
                                 </div>
                             </div>
-
-                            <!-- Bride Ancestral Home -->
-                            <div class="p-4 bg-sage-50/70 rounded-2xl border border-sage-100">
-                                <span class="text-[10px] font-bold uppercase tracking-wider text-sage-800 bg-white px-2.5 py-0.5 rounded-full border border-sage-200">Bride Ancestral Residence</span>
-                                <h4 class="font-serif text-lg font-bold text-charcoal mt-1">Neerambuzha House</h4>
-                                <p class="text-xs text-gray-600 mt-0.5">Vazhavatta Town, Wayanad District, Kerala</p>
-                                <p class="text-[11px] text-gray-500 italic pt-1">Alina Neerambuzha (Daughter of Mr. Shaiju & Mrs. Beena)</p>
-                            </div>
                         </div>
                     </div>
 
@@ -1210,6 +1202,8 @@
         const pauseIcon = document.getElementById('pause-icon');
         const musicEqualizer = document.getElementById('music-equalizer');
         const musicStatusText = document.getElementById('music-status-text');
+        const musicWidget = document.getElementById('music-player-widget');
+        const musicBtn = document.getElementById('music-toggle-btn');
         let isMusicPlaying = false;
         let hasUserManuallyPaused = false;
 
@@ -1220,21 +1214,55 @@
                 pauseIcon.classList.remove('hidden');
                 musicEqualizer.classList.remove('music-paused');
                 musicStatusText.innerText = 'Now Playing';
+                musicStatusText.className = 'text-xs font-bold uppercase tracking-wider text-dustyblue-800';
+                if (musicWidget) {
+                    musicWidget.classList.remove('ring-4', 'ring-gold/30', 'animate-pulse');
+                }
+                if (musicBtn) {
+                    musicBtn.className = 'w-11 h-11 rounded-full bg-dustyblue-800 text-gold-light hover:bg-gold hover:text-white flex items-center justify-center shadow-md transition-all shrink-0 focus:outline-none group-hover:scale-105';
+                }
             } else {
                 playIcon.classList.remove('hidden');
                 pauseIcon.classList.add('hidden');
                 musicEqualizer.classList.add('music-paused');
-                musicStatusText.innerText = 'Music Paused';
+                musicStatusText.innerText = hasUserManuallyPaused ? 'Tap to Resume 🎵' : 'Tap to Play 🎵';
+                musicStatusText.className = 'text-xs font-bold uppercase tracking-wider text-gold-dark';
+                if (musicWidget) {
+                    musicWidget.classList.add('ring-4', 'ring-gold/30', 'animate-pulse');
+                }
+                if (musicBtn) {
+                    musicBtn.className = 'w-11 h-11 rounded-full bg-gold text-white flex items-center justify-center shadow-md transition-all shrink-0 focus:outline-none group-hover:scale-105';
+                }
             }
+        }
+
+        let hasSetStartTime = false;
+
+        if (bgAudio) {
+            bgAudio.addEventListener('loadedmetadata', () => {
+                if (!hasSetStartTime) {
+                    try { bgAudio.currentTime = 10; } catch (e) {}
+                    hasSetStartTime = true;
+                }
+            });
         }
 
         function playMusic() {
             if (!bgAudio) return;
             bgAudio.volume = 0.5;
+            if (bgAudio.currentTime < 10 && !hasSetStartTime) {
+                try {
+                    bgAudio.currentTime = 10;
+                    hasSetStartTime = true;
+                } catch (e) {}
+            }
             const playPromise = bgAudio.play();
             if (playPromise !== undefined) {
                 playPromise.then(() => {
                     updateMusicUI(true);
+                    if (bgAudio.currentTime < 9.5) {
+                        try { bgAudio.currentTime = 10; } catch (e) {}
+                    }
                 }).catch(error => {
                     console.log("Autoplay waiting for user gesture:", error);
                     updateMusicUI(false);
