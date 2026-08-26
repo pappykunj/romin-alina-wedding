@@ -181,6 +181,57 @@
 </head>
 <body class="bg-cream-50 text-charcoal font-sans antialiased selection:bg-dustyblue-600 selection:text-white relative overflow-x-hidden">
 
+    <!-- ========================================== -->
+    <!-- ✨ FULLSCREEN ENTRANCE / TAP TO ENTER SCREEN -->
+    <!-- ========================================== -->
+    <div id="invitation-entrance-screen" class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-cream-50 transition-all duration-700 p-6 sm:p-12 cursor-pointer select-none overflow-hidden" onclick="openInvitationScreen(event)">
+        
+        <!-- Elegant Fullscreen Inner Frame Border -->
+        <div class="absolute inset-3 sm:inset-6 md:inset-8 border border-gold/40 rounded-3xl pointer-events-none"></div>
+        <div class="absolute inset-5 sm:inset-8 md:inset-10 border border-gold/20 rounded-2xl pointer-events-none"></div>
+
+        <!-- Ornate Corner Flourishes -->
+        <div class="w-12 h-12 absolute top-5 left-5 sm:top-9 sm:left-9 border-t-2 border-l-2 border-gold/60 rounded-tl-2xl pointer-events-none"></div>
+        <div class="w-12 h-12 absolute top-5 right-5 sm:top-9 sm:right-9 border-t-2 border-r-2 border-gold/60 rounded-tr-2xl pointer-events-none"></div>
+        <div class="w-12 h-12 absolute bottom-5 left-5 sm:bottom-9 sm:left-9 border-b-2 border-l-2 border-gold/60 rounded-bl-2xl pointer-events-none"></div>
+        <div class="w-12 h-12 absolute bottom-5 right-5 sm:bottom-9 sm:right-9 border-b-2 border-r-2 border-gold/60 rounded-br-2xl pointer-events-none"></div>
+
+        <!-- Center Content -->
+        <div class="relative z-10 max-w-xl text-center flex flex-col items-center my-auto">
+            
+            <!-- Top Holy Emblem -->
+            <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gold/15 text-gold-dark border border-gold/40 flex items-center justify-center shadow-md mb-6 sm:mb-8 transform hover:scale-105 transition-transform">
+                <svg class="w-8 h-8 sm:w-10 sm:h-10 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2v8m-3-5h6" stroke="currentColor" stroke-width="2"/>
+                    <circle cx="8.5" cy="15.5" r="4.5" />
+                    <circle cx="15.5" cy="15.5" r="4.5" />
+                </svg>
+            </div>
+
+            <p class="font-serif text-xs sm:text-sm md:text-base uppercase tracking-[0.35em] text-gold-dark font-semibold mb-3 sm:mb-4">
+                The Wedding Celebration Of
+            </p>
+
+            <h1 class="font-serif text-5xl sm:text-7xl md:text-8xl font-bold text-dustyblue-800 tracking-tight leading-tight mb-3">
+                Romin <span class="font-cursive text-gold text-6xl sm:text-8xl md:text-9xl font-normal block sm:inline">&</span> Alina
+            </h1>
+
+            <div class="w-24 h-0.5 bg-gold/60 my-5 sm:my-6 mx-auto"></div>
+
+            <p class="text-xs sm:text-sm uppercase tracking-widest text-charcoal font-medium mb-10 sm:mb-12">
+                October 2026 &bull; Kottayam & Wayanad, Kerala
+            </p>
+
+            <!-- Interactive Enter Button -->
+            <button id="open-invitation-btn" onclick="openInvitationScreen(event)" class="px-9 sm:px-12 py-4 sm:py-4.5 bg-dustyblue-700 hover:bg-dustyblue-800 text-white rounded-full font-serif text-sm sm:text-base tracking-widest uppercase shadow-xl hover:shadow-2xl hover:scale-105 transition-all flex items-center space-x-3 border border-gold/50 ring-4 ring-gold/25 animate-pulse">
+                <span>Enter Celebrations</span>
+                <svg class="w-4 h-4 text-gold-light" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
     <div id="floating-leaves-container" class="fixed inset-0 pointer-events-none z-10 overflow-hidden">
         <!-- Leaves will be dynamically initialized via JS with floating keyframes -->
         <svg class="floating-leaf w-8 h-8 text-sage-600/40" style="left: 5%; animation-duration: 16s; animation-delay: 0s;" fill="currentColor" viewBox="0 0 24 24">
@@ -618,27 +669,43 @@
                             <div class="p-3.5 bg-cream-50 rounded-2xl border border-cream-200 space-y-1.5">
                                 <span class="text-[9px] font-bold uppercase tracking-wider text-dustyblue-800 bg-white px-2 py-0.5 rounded-full border border-cream-200">Holy Wedding Mass</span>
                                 <h4 class="font-serif text-base font-bold text-charcoal">St. Joseph Church</h4>
-                                <p class="text-xs text-gray-600">Veroor, Changanassery Kottayam District, Kerala</p>
+                                <p class="text-xs text-gray-600">Veroor, Changanassery, Kottayam</p>
                                 <div class="pt-2 flex flex-wrap gap-2">
-                                    <button onclick="copyToClipboard('St. Joseph Church, Veroor, Changanassery, Kottayam', 'Church address copied!')" class="inline-flex items-center text-[11px] font-semibold text-dustyblue-700 hover:text-gold bg-white px-2.5 py-1 rounded-lg border border-cream-300 shadow-xs">
+                                    <button onclick="copyToClipboard('St. Joseph Church, Veroor, Changanassery, Kottayam, Kerala', 'Church address copied!')" class="inline-flex items-center text-[11px] font-semibold text-dustyblue-700 hover:text-gold bg-white px-2.5 py-1 rounded-lg border border-cream-300 shadow-xs">
                                         <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 052-2h2a2 2 0 012 2"></path></svg>
                                         Copy
                                     </button>
-                                    <a href="https://maps.google.com/?q=St.+Joseph+Church+Veroor" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-[11px] font-semibold text-white bg-dustyblue-600 hover:bg-dustyblue-700 px-3 py-1 rounded-lg shadow-xs">
-                                        Open Maps
+                                    <a href="https://maps.google.com/?q=St.+Joseph+Church+Veroor" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-[11px] font-semibold text-white bg-gold hover:bg-gold-dark px-3 py-1 rounded-lg shadow-xs">
+                                        Open Church Map
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Reception Venue -->
+                            <div class="p-3.5 bg-dustyblue-50/60 rounded-2xl border border-dustyblue-100">
+                                <span class="text-[9px] font-bold uppercase tracking-wider text-dustyblue-700 bg-white px-2 py-0.5 rounded-full border border-dustyblue-100">Grand Wedding Reception</span>
+                                <h4 class="font-serif text-base font-bold text-charcoal mt-1">Contour Backwaters Resort & Convention Centre</h4>
+                                <p class="text-xs text-gray-600">Alappuzha - Changanassery Hwy, Changanassery</p>
+                                <div class="mt-2.5 flex flex-wrap gap-2">
+                                    <button onclick="copyToClipboard('Contour Backwaters Hotel Resort & Convention Centre, Alappuzha - Changanassery Hwy, Changanassery, Kerala 686101', 'Reception venue address copied!')" class="inline-flex items-center text-[11px] font-semibold text-dustyblue-700 hover:text-gold bg-white px-2.5 py-1 rounded-lg border border-cream-300 shadow-xs">
+                                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 052-2h2a2 2 0 012 2"></path></svg>
+                                        Copy
+                                    </button>
+                                    <a href="https://maps.app.goo.gl/KjZngmpvrn8eS37d8" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-[11px] font-semibold text-white bg-dustyblue-700 hover:bg-dustyblue-800 px-3 py-1 rounded-lg shadow-xs">
+                                        Open Reception Map
                                     </a>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="bg-cream-50 p-3.5 rounded-2xl border border-cream-200">
+                        <div class="bg-dustyblue-50/50 p-3.5 rounded-2xl border border-dustyblue-100/70">
                             <p class="text-xs text-gray-600 leading-relaxed">
-                                Wedding service at St. Joseph Church Veroor, binding of Minnu (Thali), Manthrakodi blessing, followed by wedding reception.
+                                Wedding service at St. Joseph Church Veroor, binding of Minnu (Thali), Manthrakodi blessing, followed by Grand Reception & Feast at Contour Backwaters Resort, Changanassery.
                             </p>
                         </div>
                     </div>
                     <div class="mt-5 pt-3.5 border-t border-cream-100 flex items-center justify-between text-xs text-gray-500">
-                        <span>Veroor, Kottayam</span>
+                        <span>Changanassery, Kottayam</span>
                         <span class="text-dustyblue-700 font-semibold">Program 3</span>
                     </div>
                 </div>
@@ -1303,6 +1370,33 @@
 
         // Initialize with random track
         loadTrack(currentTrackIndex, false);
+
+        // --- 8. ENTRANCE GATE & TAP TO OPEN HANDLER ---
+        function openInvitationScreen(event) {
+            if (event) {
+                event.stopPropagation();
+            }
+            const entrance = document.getElementById('invitation-entrance-screen');
+            if (entrance && !entrance.classList.contains('pointer-events-none')) {
+                hasUserManuallyPaused = false;
+                if (bgAudio) {
+                    bgAudio.muted = false;
+                    bgAudio.volume = 0.25;
+                    playMusic(true);
+                }
+                entrance.classList.add('opacity-0', 'scale-105', 'pointer-events-none');
+                setTimeout(() => {
+                    entrance.remove();
+                }, 750);
+
+                const currentTrack = PLAYLIST[currentTrackIndex];
+                if (currentTrack) {
+                    setTimeout(() => {
+                        showToast(currentTrack.toast);
+                    }, 400);
+                }
+            }
+        }
 
         // When current track finishes, automatically shuffle to the next track
         if (bgAudio) {
