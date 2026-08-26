@@ -255,7 +255,7 @@
     </div>
 
     <!-- Floating Background Music Player Widget -->
-    <div id="music-player-widget" class="fixed bottom-6 left-6 z-50 flex items-center bg-white/95 backdrop-blur-md border border-gold/50 shadow-2xl rounded-full p-2 pr-4.5 transition-all duration-300 hover:shadow-gold/30 hover:border-gold group ring-4 ring-gold/30 animate-pulse" onclick="toggleMusic(event)" role="button" aria-label="Play or pause background music">
+    <div id="music-player-widget" class="fixed bottom-6 left-6 z-50 flex items-center bg-white/95 backdrop-blur-md border border-gold/50 shadow-2xl rounded-full p-2 pr-3 transition-all duration-300 hover:shadow-gold/30 hover:border-gold group ring-4 ring-gold/30 animate-pulse" onclick="toggleMusic(event)" role="button" aria-label="Play or pause background music">
         <audio id="bg-audio" preload="auto"></audio>
         
         <button id="music-toggle-btn" class="w-11 h-11 rounded-full bg-gold text-white flex items-center justify-center shadow-md transition-all shrink-0 focus:outline-none group-hover:scale-105" aria-label="Play or Pause Wedding Music">
@@ -269,7 +269,7 @@
             </svg>
         </button>
 
-        <div class="ml-3 flex flex-col justify-center cursor-pointer select-none">
+        <div class="ml-3 mr-1 flex flex-col justify-center cursor-pointer select-none">
             <div class="flex items-center space-x-2">
                 <span id="music-status-text" class="text-xs font-bold uppercase tracking-wider text-gold-dark">Tap to Play 🎵</span>
                 <!-- Soundwave Equalizer Bars -->
@@ -280,8 +280,15 @@
                     <span class="w-1 bg-gold rounded-full music-bar-4" style="height: 4px;"></span>
                 </div>
             </div>
-            <p id="music-track-title" class="text-[10px] text-gray-500 truncate max-w-[130px] sm:max-w-[170px]">All of Me • Violin & Guitar</p>
+            <p id="music-track-title" class="text-[10px] text-gray-500 truncate max-w-[120px] sm:max-w-[150px]">All of Me • Violin & Guitar</p>
         </div>
+
+        <!-- Next Track Button -->
+        <button id="music-next-btn" onclick="playNextTrack(event)" class="ml-1 w-8 h-8 rounded-full bg-cream-100 hover:bg-gold hover:text-white text-dustyblue-800 flex items-center justify-center border border-cream-200 shadow-xs transition-all shrink-0 focus:outline-none hover:scale-110 active:scale-95" aria-label="Play Next Song" title="Next Song">
+            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/>
+            </svg>
+        </button>
     </div>
 
     <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-dustyblue-800 text-white px-5 py-3.5 rounded-xl shadow-2xl flex items-center space-x-3 pointer-events-none">
@@ -1398,13 +1405,24 @@
             }
         }
 
+        // --- 9. MANUAL NEXT TRACK CONTROLLER ---
+        function playNextTrack(event) {
+            if (event) {
+                event.stopPropagation();
+            }
+            hasUserManuallyPaused = false;
+            let nextIndex = (currentTrackIndex + 1) % PLAYLIST.length;
+            loadTrack(nextIndex, true);
+            const track = PLAYLIST[nextIndex];
+            if (track) {
+                showToast(track.toast);
+            }
+        }
+
         // When current track finishes, automatically shuffle to the next track
         if (bgAudio) {
             bgAudio.addEventListener('ended', () => {
-                let nextIndex = (currentTrackIndex + 1) % PLAYLIST.length;
-                loadTrack(nextIndex, true);
-                const track = PLAYLIST[nextIndex];
-                showToast(track.toast);
+                playNextTrack();
             });
         }
 
