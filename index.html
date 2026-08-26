@@ -1070,47 +1070,71 @@
             }
         }
 
-        blessingForm.addEventListener('submit', (e) => {
+        // ==========================================
+        // 📋 GOOGLE SHEETS RSVP ENDPOINT CONFIGURATION
+        // Replace this with your deployed Google Apps Script Web App URL:
+        // ==========================================
+        const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbx5kvYxZzlXMeTPYqDXHGXz34ShHmAhPugs4-KtNValGdOcfXba5879NxQjr8e8Ngba/exec"; 
+
+        blessingForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const sender = document.getElementById('senderName').value;
-            const message = document.getElementById('blessingMessage').value;
+            const submitBtn = blessingForm.querySelector('button[type="submit"]');
+            const originalBtnContent = submitBtn.innerHTML;
+
+            const sender = document.getElementById('senderName').value.trim();
+            const phone = document.getElementById('senderPhone')?.value.trim() || '';
+            const message = document.getElementById('blessingMessage').value.trim();
             const attendance = document.querySelector('input[name="rsvpAttendance"]:checked')?.value || 'attending';
-            const guestCount = document.getElementById('guestCount')?.value || '2 Guests';
+            const guestCount = attendance === 'attending' ? (document.getElementById('guestCount')?.value || '2 Guests') : '0 Guests';
             
             // Gather selected events
-            const selectedEvents = Array.from(document.querySelectorAll('input[name="rsvpEvents"]:checked')).map(cb => cb.value);
-            const eventsString = selectedEvents.length > 0 ? selectedEvents.join(' • ') : 'All Celebrations';
+            const selectedEvents = attendance === 'attending'
+                ? Array.from(document.querySelectorAll('input[name="rsvpEvents"]:checked')).map(cb => cb.value)
+                : [];
+            const eventsString = selectedEvents.length > 0 ? selectedEvents.join(', ') : (attendance === 'attending' ? 'All Celebrations' : 'None (Declined)');
 
-            let badgeHtml = '';
-            if (attendance === 'attending') {
-                badgeHtml = `
-                    <div class="text-right">
-                        <span class="text-[10px] font-bold uppercase tracking-wider bg-sage-50 text-sage-800 border border-sage-200 px-2.5 py-0.5 rounded-full inline-block">✨ Attending • ${escapeHtml(guestCount)}</span>
-                        ${selectedEvents.length ? `<span class="block text-[10px] text-gray-500 mt-1">${escapeHtml(eventsString)}</span>` : ''}
-                    </div>
-                `;
-            } else {
-                badgeHtml = `
-                    <span class="text-[10px] font-bold uppercase tracking-wider bg-cream-100 text-charcoal border border-cream-300 px-2.5 py-0.5 rounded-full">🕊️ Regretfully Declines</span>
-                `;
-            }
-
-            const newCard = document.createElement('div');
-            newCard.className = 'p-4.5 bg-white rounded-2xl border border-cream-200 shadow-sm transition-all animate-fadeIn';
-            newCard.innerHTML = `
-                <div class="flex items-start justify-between mb-2">
-                    <p class="text-xs font-bold uppercase tracking-wider text-gold-dark mt-0.5">${escapeHtml(sender)}</p>
-                    ${badgeHtml}
-                </div>
-                <p class="text-sm text-gray-700 italic leading-relaxed">"${escapeHtml(message)}"</p>
+            // Show loading state
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `
+                <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white inline-block" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                <span>Submitting RSVP...</span>
             `;
-            
-            if (blessingList) {
-                blessingList.prepend(newCard);
+
+            const rsvpData = {
+                timestamp: new Date().toLocaleString(),
+                name: sender,
+                phone: phone,
+                attendance: attendance === 'attending' ? 'Attending' : 'Declined',
+                guestCount: guestCount,
+                events: eventsString,
+                message: message
+            };
+
+            // If Google Sheets Webhook URL is set, send data
+            if (GOOGLE_SHEET_URL && GOOGLE_SHEET_URL.startsWith('http')) {
+                try {
+                    await fetch(GOOGLE_SHEET_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(rsvpData)
+                    });
+                } catch (error) {
+                    console.error("Error submitting to Google Sheet:", error);
+                }
             }
+
+            // Reset Form and show success confirmation
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnContent;
             blessingForm.reset();
             toggleRsvpEvents(true);
-            showToast("Thank you! Your RSVP and blessing have been recorded.");
+            showToast("✨ Thank you! Your RSVP and blessings have been received.");
         });
 
         function escapeHtml(str) {
