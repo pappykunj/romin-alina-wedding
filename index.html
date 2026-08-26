@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Romin & Alina - Wedding Celebrations</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -48,16 +50,22 @@
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
     <style>
-        .font-cursive { font-family: 'Alex Brush', cursive; }
+        .font-cursive {
+            font-family: 'Alex Brush', cursive;
+        }
+
         .hero-bg {
             background-color: #FAF8F5;
             background-image: radial-gradient(#D9E3EE 0.8px, transparent 0.8px), radial-gradient(#D9E3EE 0.8px, #FAF8F5 0.8px);
             background-size: 32px 32px;
             background-position: 0 0, 16px 16px;
         }
+
         .botanical-card {
             box-shadow: 0 4px 25px -5px rgba(75, 107, 148, 0.08), 0 0 0 1px rgba(197, 155, 39, 0.18);
         }
@@ -68,12 +76,15 @@
                 transform: translateY(-10vh) rotate(0deg) translateX(0px);
                 opacity: 0;
             }
+
             15% {
                 opacity: 0.65;
             }
+
             85% {
                 opacity: 0.65;
             }
+
             100% {
                 transform: translateY(110vh) rotate(360deg) translateX(80px);
                 opacity: 0;
@@ -96,9 +107,12 @@
 
         /* Hero Minimal Animated Portrait */
         @keyframes floatHero {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: translateY(0px);
             }
+
             50% {
                 transform: translateY(-8px);
             }
@@ -108,15 +122,19 @@
             0% {
                 transform: rotate(0deg);
             }
+
             100% {
                 transform: rotate(360deg);
             }
         }
 
         @keyframes subtleGlow {
-            0%, 100% {
+
+            0%,
+            100% {
                 box-shadow: 0 10px 30px -5px rgba(75, 107, 148, 0.2), 0 0 0 2px rgba(197, 155, 39, 0.35);
             }
+
             50% {
                 box-shadow: 0 20px 45px -5px rgba(197, 155, 39, 0.4), 0 0 0 3px rgba(197, 155, 39, 0.65);
             }
@@ -157,19 +175,40 @@
             0% {
                 transform: translateX(0);
             }
+
             100% {
                 transform: translateX(calc(-50% - 0.75rem));
             }
         }
 
         @keyframes soundWave {
-            0%, 100% { height: 4px; }
-            50% { height: 18px; }
+
+            0%,
+            100% {
+                height: 4px;
+            }
+
+            50% {
+                height: 18px;
+            }
         }
-        .music-bar-1 { animation: soundWave 1.1s ease-in-out infinite; }
-        .music-bar-2 { animation: soundWave 1.4s ease-in-out infinite 0.2s; }
-        .music-bar-3 { animation: soundWave 0.9s ease-in-out infinite 0.4s; }
-        .music-bar-4 { animation: soundWave 1.3s ease-in-out infinite 0.1s; }
+
+        .music-bar-1 {
+            animation: soundWave 1.1s ease-in-out infinite;
+        }
+
+        .music-bar-2 {
+            animation: soundWave 1.4s ease-in-out infinite 0.2s;
+        }
+
+        .music-bar-3 {
+            animation: soundWave 0.9s ease-in-out infinite 0.4s;
+        }
+
+        .music-bar-4 {
+            animation: soundWave 1.3s ease-in-out infinite 0.1s;
+        }
+
         .music-paused .music-bar-1,
         .music-paused .music-bar-2,
         .music-paused .music-bar-3,
@@ -179,41 +218,60 @@
         }
     </style>
 </head>
-<body class="bg-cream-50 text-charcoal font-sans antialiased selection:bg-dustyblue-600 selection:text-white relative overflow-x-hidden">
+
+<body
+    class="bg-cream-50 text-charcoal font-sans antialiased selection:bg-dustyblue-600 selection:text-white relative overflow-x-hidden">
 
     <!-- ========================================== -->
     <!-- ✨ FULLSCREEN ENTRANCE / TAP TO ENTER SCREEN -->
     <!-- ========================================== -->
-    <div id="invitation-entrance-screen" class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-cream-50 transition-all duration-700 p-6 sm:p-12 cursor-pointer select-none overflow-hidden" onclick="openInvitationScreen(event)">
-        
+    <div id="invitation-entrance-screen"
+        class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-cream-50 transition-all duration-700 p-6 sm:p-12 cursor-pointer select-none overflow-hidden"
+        onclick="openInvitationScreen(event)">
+
         <!-- Elegant Fullscreen Inner Frame Border -->
         <div class="absolute inset-3 sm:inset-6 md:inset-8 border border-gold/40 rounded-3xl pointer-events-none"></div>
-        <div class="absolute inset-5 sm:inset-8 md:inset-10 border border-gold/20 rounded-2xl pointer-events-none"></div>
+        <div class="absolute inset-5 sm:inset-8 md:inset-10 border border-gold/20 rounded-2xl pointer-events-none">
+        </div>
 
         <!-- Ornate Corner Flourishes -->
-        <div class="w-12 h-12 absolute top-5 left-5 sm:top-9 sm:left-9 border-t-2 border-l-2 border-gold/60 rounded-tl-2xl pointer-events-none"></div>
-        <div class="w-12 h-12 absolute top-5 right-5 sm:top-9 sm:right-9 border-t-2 border-r-2 border-gold/60 rounded-tr-2xl pointer-events-none"></div>
-        <div class="w-12 h-12 absolute bottom-5 left-5 sm:bottom-9 sm:left-9 border-b-2 border-l-2 border-gold/60 rounded-bl-2xl pointer-events-none"></div>
-        <div class="w-12 h-12 absolute bottom-5 right-5 sm:bottom-9 sm:right-9 border-b-2 border-r-2 border-gold/60 rounded-br-2xl pointer-events-none"></div>
+        <div
+            class="w-12 h-12 absolute top-5 left-5 sm:top-9 sm:left-9 border-t-2 border-l-2 border-gold/60 rounded-tl-2xl pointer-events-none">
+        </div>
+        <div
+            class="w-12 h-12 absolute top-5 right-5 sm:top-9 sm:right-9 border-t-2 border-r-2 border-gold/60 rounded-tr-2xl pointer-events-none">
+        </div>
+        <div
+            class="w-12 h-12 absolute bottom-5 left-5 sm:bottom-9 sm:left-9 border-b-2 border-l-2 border-gold/60 rounded-bl-2xl pointer-events-none">
+        </div>
+        <div
+            class="w-12 h-12 absolute bottom-5 right-5 sm:bottom-9 sm:right-9 border-b-2 border-r-2 border-gold/60 rounded-br-2xl pointer-events-none">
+        </div>
 
         <!-- Center Content -->
         <div class="relative z-10 max-w-xl text-center flex flex-col items-center my-auto">
-            
+
             <!-- Top Holy Emblem -->
-            <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gold/15 text-gold-dark border border-gold/40 flex items-center justify-center shadow-md mb-6 sm:mb-8 transform hover:scale-105 transition-transform">
-                <svg class="w-8 h-8 sm:w-10 sm:h-10 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 2v8m-3-5h6" stroke="currentColor" stroke-width="2"/>
+            <div
+                class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gold/15 text-gold-dark border border-gold/40 flex items-center justify-center shadow-md mb-6 sm:mb-8 transform hover:scale-105 transition-transform">
+                <svg class="w-8 h-8 sm:w-10 sm:h-10 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2v8m-3-5h6" stroke="currentColor" stroke-width="2" />
                     <circle cx="8.5" cy="15.5" r="4.5" />
                     <circle cx="15.5" cy="15.5" r="4.5" />
                 </svg>
             </div>
 
-            <p class="font-serif text-xs sm:text-sm md:text-base uppercase tracking-[0.35em] text-gold-dark font-semibold mb-3 sm:mb-4">
+            <p
+                class="font-serif text-xs sm:text-sm md:text-base uppercase tracking-[0.35em] text-gold-dark font-semibold mb-3 sm:mb-4">
                 The Wedding Celebration Of
             </p>
 
-            <h1 class="font-serif text-5xl sm:text-7xl md:text-8xl font-bold text-dustyblue-800 tracking-tight leading-tight mb-3">
-                Romin <span class="font-cursive text-gold text-6xl sm:text-8xl md:text-9xl font-normal block sm:inline">&</span> Alina
+            <h1
+                class="font-serif text-5xl sm:text-7xl md:text-8xl font-bold text-dustyblue-800 tracking-tight leading-tight mb-3">
+                Romin <span
+                    class="font-cursive text-gold text-6xl sm:text-8xl md:text-9xl font-normal block sm:inline">&</span>
+                Alina
             </h1>
 
             <div class="w-24 h-0.5 bg-gold/60 my-5 sm:my-6 mx-auto"></div>
@@ -223,10 +281,11 @@
             </p>
 
             <!-- Interactive Enter Button -->
-            <button id="open-invitation-btn" onclick="openInvitationScreen(event)" class="px-9 sm:px-12 py-4 sm:py-4.5 bg-dustyblue-700 hover:bg-dustyblue-800 text-white rounded-full font-serif text-sm sm:text-base tracking-widest uppercase shadow-xl hover:shadow-2xl hover:scale-105 transition-all flex items-center space-x-3 border border-gold/50 ring-4 ring-gold/25 animate-pulse">
+            <button id="open-invitation-btn" onclick="openInvitationScreen(event)"
+                class="px-9 sm:px-12 py-4 sm:py-4.5 bg-dustyblue-700 hover:bg-dustyblue-800 text-white rounded-full font-serif text-sm sm:text-base tracking-widest uppercase shadow-xl hover:shadow-2xl hover:scale-105 transition-all flex items-center space-x-3 border border-gold/50 ring-4 ring-gold/25 animate-pulse">
                 <span>Enter Celebrations</span>
                 <svg class="w-4 h-4 text-gold-light" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+                    <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
                 </svg>
             </button>
         </div>
@@ -234,44 +293,58 @@
 
     <div id="floating-leaves-container" class="fixed inset-0 pointer-events-none z-10 overflow-hidden">
         <!-- Leaves will be dynamically initialized via JS with floating keyframes -->
-        <svg class="floating-leaf w-8 h-8 text-sage-600/40" style="left: 5%; animation-duration: 16s; animation-delay: 0s;" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C12,14.7 15.5,9.4 17,8M17.5,3C14.5,4 12,6.5 10.5,9C13,10 16,8.5 18,6C19.5,4.5 19,3 17.5,3Z"/>
+        <svg class="floating-leaf w-8 h-8 text-sage-600/40"
+            style="left: 5%; animation-duration: 16s; animation-delay: 0s;" fill="currentColor" viewBox="0 0 24 24">
+            <path
+                d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C12,14.7 15.5,9.4 17,8M17.5,3C14.5,4 12,6.5 10.5,9C13,10 16,8.5 18,6C19.5,4.5 19,3 17.5,3Z" />
         </svg>
-        <svg class="floating-leaf w-6 h-6 text-dustyblue-600/30" style="left: 18%; animation-duration: 22s; animation-delay: 3s;" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4Z"/>
+        <svg class="floating-leaf w-6 h-6 text-dustyblue-600/30"
+            style="left: 18%; animation-duration: 22s; animation-delay: 3s;" fill="currentColor" viewBox="0 0 24 24">
+            <path
+                d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4Z" />
         </svg>
-        <svg class="floating-leaf w-10 h-10 text-gold/30" style="left: 35%; animation-duration: 19s; animation-delay: 5s;" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12,3C6.5,3 2,6.5 2,12C2,17.5 6.5,21 12,21C17.5,21 22,17.5 22,12C22,6.5 17.5,3 12,3M12,5C15.86,5 19,7.69 19,11C19,14.31 15.86,17 12,17C8.14,17 5,14.31 5,11C5,7.69 8.14,5 12,5Z"/>
+        <svg class="floating-leaf w-10 h-10 text-gold/30"
+            style="left: 35%; animation-duration: 19s; animation-delay: 5s;" fill="currentColor" viewBox="0 0 24 24">
+            <path
+                d="M12,3C6.5,3 2,6.5 2,12C2,17.5 6.5,21 12,21C17.5,21 22,17.5 22,12C22,6.5 17.5,3 12,3M12,5C15.86,5 19,7.69 19,11C19,14.31 15.86,17 12,17C8.14,17 5,14.31 5,11C5,7.69 8.14,5 12,5Z" />
         </svg>
-        <svg class="floating-leaf w-7 h-7 text-sage-700/35" style="left: 55%; animation-duration: 25s; animation-delay: 2s;" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C12,14.7 15.5,9.4 17,8Z"/>
+        <svg class="floating-leaf w-7 h-7 text-sage-700/35"
+            style="left: 55%; animation-duration: 25s; animation-delay: 2s;" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C12,14.7 15.5,9.4 17,8Z" />
         </svg>
-        <svg class="floating-leaf w-9 h-9 text-dustyblue-700/25" style="left: 75%; animation-duration: 18s; animation-delay: 7s;" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12,2L15,9L22,9L16,14L18,21L12,17L6,21L8,14L2,9L9,9L12,2Z"/>
+        <svg class="floating-leaf w-9 h-9 text-dustyblue-700/25"
+            style="left: 75%; animation-duration: 18s; animation-delay: 7s;" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12,2L15,9L22,9L16,14L18,21L12,17L6,21L8,14L2,9L9,9L12,2Z" />
         </svg>
-        <svg class="floating-leaf w-6 h-6 text-gold/35" style="left: 90%; animation-duration: 21s; animation-delay: 4s;" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C12,14.7 15.5,9.4 17,8Z"/>
+        <svg class="floating-leaf w-6 h-6 text-gold/35" style="left: 90%; animation-duration: 21s; animation-delay: 4s;"
+            fill="currentColor" viewBox="0 0 24 24">
+            <path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C12,14.7 15.5,9.4 17,8Z" />
         </svg>
     </div>
 
     <!-- Floating Background Music Player Widget -->
-    <div id="music-player-widget" class="fixed bottom-6 left-6 z-50 flex items-center bg-white/95 backdrop-blur-md border border-gold/50 shadow-2xl rounded-full p-2 pr-3 transition-all duration-300 hover:shadow-gold/30 hover:border-gold group ring-4 ring-gold/30 animate-pulse" onclick="toggleMusic(event)" role="button" aria-label="Play or pause background music">
+    <div id="music-player-widget"
+        class="fixed bottom-6 left-6 z-50 flex items-center bg-white/95 backdrop-blur-md border border-gold/50 shadow-2xl rounded-full p-2 pr-3 transition-all duration-300 hover:shadow-gold/30 hover:border-gold group ring-4 ring-gold/30 animate-pulse"
+        onclick="toggleMusic(event)" role="button" aria-label="Play or pause background music">
         <audio id="bg-audio" preload="auto"></audio>
-        
-        <button id="music-toggle-btn" class="w-11 h-11 rounded-full bg-gold text-white flex items-center justify-center shadow-md transition-all shrink-0 focus:outline-none group-hover:scale-105" aria-label="Play or Pause Wedding Music">
+
+        <button id="music-toggle-btn"
+            class="w-11 h-11 rounded-full bg-gold text-white flex items-center justify-center shadow-md transition-all shrink-0 focus:outline-none group-hover:scale-105"
+            aria-label="Play or Pause Wedding Music">
             <!-- Play Icon -->
             <svg id="play-icon" class="w-5 h-5 translate-x-0.5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z"/>
+                <path d="M8 5v14l11-7z" />
             </svg>
             <!-- Pause Icon -->
             <svg id="pause-icon" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
             </svg>
         </button>
 
         <div class="ml-3 mr-1 flex flex-col justify-center cursor-pointer select-none">
             <div class="flex items-center space-x-2">
-                <span id="music-status-text" class="text-xs font-bold uppercase tracking-wider text-gold-dark">Tap to Play 🎵</span>
+                <span id="music-status-text" class="text-xs font-bold uppercase tracking-wider text-gold-dark">Tap to
+                    Play 🎵</span>
                 <!-- Soundwave Equalizer Bars -->
                 <div id="music-equalizer" class="flex items-end space-x-0.5 h-4.5 music-paused">
                     <span class="w-1 bg-gold rounded-full music-bar-1" style="height: 4px;"></span>
@@ -280,44 +353,59 @@
                     <span class="w-1 bg-gold rounded-full music-bar-4" style="height: 4px;"></span>
                 </div>
             </div>
-            <p id="music-track-title" class="text-[10px] text-gray-500 truncate max-w-[120px] sm:max-w-[150px]">All of Me • Violin & Guitar</p>
+            <p id="music-track-title" class="text-[10px] text-gray-500 truncate max-w-[120px] sm:max-w-[150px]">All of
+                Me • Violin & Guitar</p>
         </div>
 
         <!-- Next Track Button -->
-        <button id="music-next-btn" onclick="playNextTrack(event)" class="ml-1 w-8 h-8 rounded-full bg-cream-100 hover:bg-gold hover:text-white text-dustyblue-800 flex items-center justify-center border border-cream-200 shadow-xs transition-all shrink-0 focus:outline-none hover:scale-110 active:scale-95" aria-label="Play Next Song" title="Next Song">
+        <button id="music-next-btn" onclick="playNextTrack(event)"
+            class="ml-1 w-8 h-8 rounded-full bg-cream-100 hover:bg-gold hover:text-white text-dustyblue-800 flex items-center justify-center border border-cream-200 shadow-xs transition-all shrink-0 focus:outline-none hover:scale-110 active:scale-95"
+            aria-label="Play Next Song" title="Next Song">
             <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/>
+                <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" />
             </svg>
         </button>
     </div>
 
-    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-dustyblue-800 text-white px-5 py-3.5 rounded-xl shadow-2xl flex items-center space-x-3 pointer-events-none">
-        <svg class="w-5 h-5 text-gold-light shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+    <div id="toast"
+        class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-dustyblue-800 text-white px-5 py-3.5 rounded-xl shadow-2xl flex items-center space-x-3 pointer-events-none">
+        <svg class="w-5 h-5 text-gold-light shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+        </svg>
         <span id="toast-message" class="text-xs sm:text-sm font-medium">Notification message</span>
     </div>
 
-    <nav id="navbar" class="fixed top-0 left-0 right-0 z-40 transition-all duration-300 bg-white/90 backdrop-blur-md border-b border-cream-200">
+    <nav id="navbar"
+        class="fixed top-0 left-0 right-0 z-40 transition-all duration-300 bg-white/90 backdrop-blur-md border-b border-cream-200">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
                 <a href="#hero" class="group flex items-center space-x-2">
-                    <span class="font-serif text-2xl font-bold tracking-wider text-dustyblue-800 group-hover:text-gold transition-colors">R <span class="text-gold font-cursive text-3xl">&</span> A</span>
+                    <span
+                        class="font-serif text-2xl font-bold tracking-wider text-dustyblue-800 group-hover:text-gold transition-colors">R
+                        <span class="text-gold font-cursive text-3xl">&</span> A</span>
                 </a>
 
-                <div class="hidden md:flex items-center space-x-7 text-xs font-semibold tracking-widest uppercase text-dustyblue-800">
+                <div
+                    class="hidden md:flex items-center space-x-7 text-xs font-semibold tracking-widest uppercase text-dustyblue-800">
                     <a href="#hero" class="hover:text-gold transition-colors">Home</a>
                     <a href="#family" class="hover:text-gold transition-colors">Families</a>
                     <a href="#programs" class="hover:text-gold transition-colors">Celebrations & Venues</a>
                     <a href="#traditions" class="hover:text-gold transition-colors">Traditions</a>
                     <a href="#gallery" class="hover:text-gold transition-colors">Gallery</a>
                     <a href="#faq" class="hover:text-gold transition-colors">FAQ</a>
-                    <a href="#blessings" class="bg-dustyblue-600 hover:bg-dustyblue-700 text-white px-4 py-2 rounded-full transition-all shadow-md">RSVP & Wishes</a>
+                    <a href="#blessings"
+                        class="bg-dustyblue-600 hover:bg-dustyblue-700 text-white px-4 py-2 rounded-full transition-all shadow-md">RSVP
+                        & Wishes</a>
                 </div>
 
                 <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-button" class="p-2 rounded-lg text-dustyblue-800 focus:outline-none" aria-label="Toggle Navigation">
+                    <button id="mobile-menu-button" class="p-2 rounded-lg text-dustyblue-800 focus:outline-none"
+                        aria-label="Toggle Navigation">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path id="hamburger-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                            <path id="close-icon" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            <path id="hamburger-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16"></path>
+                            <path id="close-icon" class="hidden" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                         </svg>
                     </button>
                 </div>
@@ -325,72 +413,104 @@
         </div>
 
         <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-cream-200 px-4 pt-2 pb-6 space-y-3">
-            <a href="#hero" class="mobile-nav-link block px-3 py-2 rounded-md text-sm font-medium hover:bg-cream-100">Home</a>
-            <a href="#family" class="mobile-nav-link block px-3 py-2 rounded-md text-sm font-medium hover:bg-cream-100">Families</a>
-            <a href="#programs" class="mobile-nav-link block px-3 py-2 rounded-md text-sm font-medium hover:bg-cream-100">Celebrations & Venues</a>
-            <a href="#traditions" class="mobile-nav-link block px-3 py-2 rounded-md text-sm font-medium hover:bg-cream-100">Traditions</a>
-            <a href="#gallery" class="mobile-nav-link block px-3 py-2 rounded-md text-sm font-medium hover:bg-cream-100">Gallery</a>
-            <a href="#faq" class="mobile-nav-link block px-3 py-2 rounded-md text-sm font-medium hover:bg-cream-100">FAQ</a>
-            <a href="#blessings" class="mobile-nav-link block px-3 py-2 rounded-md text-sm font-medium bg-dustyblue-600 text-white text-center rounded-xl">RSVP & Wishes</a>
+            <a href="#hero"
+                class="mobile-nav-link block px-3 py-2 rounded-md text-sm font-medium hover:bg-cream-100">Home</a>
+            <a href="#family"
+                class="mobile-nav-link block px-3 py-2 rounded-md text-sm font-medium hover:bg-cream-100">Families</a>
+            <a href="#programs"
+                class="mobile-nav-link block px-3 py-2 rounded-md text-sm font-medium hover:bg-cream-100">Celebrations &
+                Venues</a>
+            <a href="#traditions"
+                class="mobile-nav-link block px-3 py-2 rounded-md text-sm font-medium hover:bg-cream-100">Traditions</a>
+            <a href="#gallery"
+                class="mobile-nav-link block px-3 py-2 rounded-md text-sm font-medium hover:bg-cream-100">Gallery</a>
+            <a href="#faq"
+                class="mobile-nav-link block px-3 py-2 rounded-md text-sm font-medium hover:bg-cream-100">FAQ</a>
+            <a href="#blessings"
+                class="mobile-nav-link block px-3 py-2 rounded-md text-sm font-medium bg-dustyblue-600 text-white text-center rounded-xl">RSVP
+                & Wishes</a>
         </div>
     </nav>
 
-    <section id="hero" class="relative min-h-screen pt-28 pb-16 flex items-center justify-center hero-bg overflow-hidden">
-        
+    <section id="hero"
+        class="relative min-h-screen pt-28 pb-16 flex items-center justify-center hero-bg overflow-hidden">
+
         <!-- Scroll-reactive Parallax Floral Leaves (Left & Right background accents) -->
-        <div class="scroll-leaf absolute top-24 left-4 sm:left-12 opacity-30 text-sage-600 pointer-events-none" data-speed="0.08">
+        <div class="scroll-leaf absolute top-24 left-4 sm:left-12 opacity-30 text-sage-600 pointer-events-none"
+            data-speed="0.08">
             <svg class="w-24 sm:w-36 h-24 sm:h-36" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C12,14.7 15.5,9.4 17,8M17.5,3C14.5,4 12,6.5 10.5,9C13,10 16,8.5 18,6C19.5,4.5 19,3 17.5,3Z"/>
+                <path
+                    d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C12,14.7 15.5,9.4 17,8M17.5,3C14.5,4 12,6.5 10.5,9C13,10 16,8.5 18,6C19.5,4.5 19,3 17.5,3Z" />
             </svg>
         </div>
-        <div class="scroll-leaf absolute top-40 right-4 sm:right-12 opacity-30 text-dustyblue-600 pointer-events-none" data-speed="-0.06">
+        <div class="scroll-leaf absolute top-40 right-4 sm:right-12 opacity-30 text-dustyblue-600 pointer-events-none"
+            data-speed="-0.06">
             <svg class="w-28 sm:w-40 h-28 sm:h-40" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4Z"/>
+                <path
+                    d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4Z" />
             </svg>
         </div>
 
         <div class="max-w-4xl mx-auto px-4 text-center relative z-10 flex flex-col items-center">
-            
+
             <!-- Floral Header Ornament with Cross -->
             <div class="w-36 h-10 mb-2 text-gold flex items-center justify-center space-x-2">
                 <svg viewBox="0 0 120 40" class="w-full h-full fill-current">
-                    <path d="M60,18 C45,3 20,8 0,18 C20,28 45,33 60,18 C75,33 100,28 120,18 C100,8 75,3 60,18 Z" opacity="0.25"/>
-                    <rect x="58" y="6" width="4" height="24" rx="1" fill="#C59B27"/>
-                    <rect x="51" y="11" width="18" height="4" rx="1" fill="#C59B27"/>
+                    <path d="M60,18 C45,3 20,8 0,18 C20,28 45,33 60,18 C75,33 100,28 120,18 C100,8 75,3 60,18 Z"
+                        opacity="0.25" />
+                    <rect x="58" y="6" width="4" height="24" rx="1" fill="#C59B27" />
+                    <rect x="51" y="11" width="18" height="4" rx="1" fill="#C59B27" />
                 </svg>
             </div>
 
-            <p class="font-serif italic text-lg sm:text-2xl text-dustyblue-700 tracking-widest uppercase mb-1">Together with their families</p>
-            
+            <p class="font-serif italic text-lg sm:text-2xl text-dustyblue-700 tracking-widest uppercase mb-1">Together
+                with their families</p>
+
             <h1 class="font-serif text-5xl sm:text-7xl lg:text-8xl font-normal text-dustyblue-800 tracking-tight mb-2">
-                Romin <span class="font-cursive text-gold text-6xl sm:text-8xl lg:text-9xl align-middle px-1">&</span> Alina
+                Romin <span class="font-cursive text-gold text-6xl sm:text-8xl lg:text-9xl align-middle px-1">&</span>
+                Alina
             </h1>
-            
-            <p class="text-xs sm:text-sm font-semibold uppercase tracking-[0.25em] text-gold-dark mb-6 bg-white/90 px-6 py-2 rounded-full border border-cream-300 shadow-sm">
+
+            <p
+                class="text-xs sm:text-sm font-semibold uppercase tracking-[0.25em] text-gold-dark mb-6 bg-white/90 px-6 py-2 rounded-full border border-cream-300 shadow-sm">
                 Celebrating Our Wedding Union
             </p>
 
             <!-- Minimal Animated Arch Portrait of Romin & Alina -->
-            <div class="hero-portrait-container relative my-4 group cursor-pointer" onclick="openLightbox('https://github.com/pappykunj/romin-alina-wedding/blob/main/IMG-20260811-WA0040.jpg?raw=true', 'Romin & Alina')">
+            <div class="hero-portrait-container relative my-4 group cursor-pointer"
+                onclick="openLightbox('https://github.com/pappykunj/romin-alina-wedding/blob/main/IMG-20260811-WA0040.jpg?raw=true', 'Romin & Alina')">
                 <!-- Glowing Aura Ring behind -->
-                <div class="absolute -inset-2.5 rounded-t-full rounded-b-3xl bg-gradient-to-tr from-gold/40 via-dustyblue-600/30 to-gold/40 blur-md opacity-70 group-hover:opacity-100 transition-opacity duration-700"></div>
+                <div
+                    class="absolute -inset-2.5 rounded-t-full rounded-b-3xl bg-gradient-to-tr from-gold/40 via-dustyblue-600/30 to-gold/40 blur-md opacity-70 group-hover:opacity-100 transition-opacity duration-700">
+                </div>
 
-                <div class="relative w-64 sm:w-72 h-80 sm:h-96 rounded-t-full rounded-b-3xl bg-white p-2.5 border-2 border-gold/60 hero-portrait-card overflow-hidden shadow-2xl">
+                <div
+                    class="relative w-64 sm:w-72 h-80 sm:h-96 rounded-t-full rounded-b-3xl bg-white p-2.5 border-2 border-gold/60 hero-portrait-card overflow-hidden shadow-2xl">
                     <!-- Image Container with soft gradient overlay & subtle zoom on hover -->
                     <div class="relative w-full h-full rounded-t-full rounded-b-2xl overflow-hidden bg-cream-100">
-                        <img src="https://github.com/pappykunj/romin-alina-wedding/blob/main/IMG-20260811-WA0040.jpg?raw=true" alt="Romin & Alina" class="w-full h-full object-cover object-top transition-transform duration-1000 group-hover:scale-105">
-                        <div class="absolute inset-0 bg-gradient-to-t from-dustyblue-900/60 via-transparent to-transparent opacity-40 group-hover:opacity-20 transition-opacity duration-500"></div>
-                        
+                        <img src="https://github.com/pappykunj/romin-alina-wedding/blob/main/IMG-20260811-WA0040.jpg?raw=true"
+                            alt="Romin & Alina"
+                            class="w-full h-full object-cover object-top transition-transform duration-1000 group-hover:scale-105">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-dustyblue-900/60 via-transparent to-transparent opacity-40 group-hover:opacity-20 transition-opacity duration-500">
+                        </div>
+
                         <!-- Floating Botanical Couple Stamp -->
-                        <div class="absolute bottom-3 left-1/2 transform -translate-x-1/2 bg-white/90 backdrop-blur-md px-4 py-1.5 rounded-full border border-gold/40 shadow-md whitespace-nowrap">
-                            <span class="font-serif text-xs font-semibold text-dustyblue-800 tracking-wider">Romin <span class="font-cursive text-gold text-sm">&</span> Alina</span>
+                        <div
+                            class="absolute bottom-3 left-1/2 transform -translate-x-1/2 bg-white/90 backdrop-blur-md px-4 py-1.5 rounded-full border border-gold/40 shadow-md whitespace-nowrap">
+                            <span class="font-serif text-xs font-semibold text-dustyblue-800 tracking-wider">Romin <span
+                                    class="font-cursive text-gold text-sm">&</span> Alina</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Minimal Floating Cross & Ring Badge -->
-                <div class="absolute -top-3 -right-2 w-9 h-9 bg-white border border-gold/60 rounded-full flex items-center justify-center shadow-lg text-gold group-hover:scale-110 transition-transform">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 5h2v4h4v2h-4v6h-2v-6H7v-2h4V7z"/></svg>
+                <div
+                    class="absolute -top-3 -right-2 w-9 h-9 bg-white border border-gold/60 rounded-full flex items-center justify-center shadow-lg text-gold group-hover:scale-110 transition-transform">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 5h2v4h4v2h-4v6h-2v-6H7v-2h4V7z" />
+                    </svg>
                 </div>
             </div>
 
@@ -400,36 +520,50 @@
                     <span class="font-cursive text-xl sm:text-2xl text-gold">Counting down to our sacred union</span>
                     <span class="h-px w-6 sm:w-10 bg-gold/40"></span>
                 </div>
-                
+
                 <!-- Minimalist Luxury Glass Capsule -->
-                <div class="bg-white/85 backdrop-blur-md rounded-2xl sm:rounded-full py-3.5 px-3 sm:px-6 border border-gold/40 shadow-xl ring-1 ring-gold/15">
+                <div
+                    class="bg-white/85 backdrop-blur-md rounded-2xl sm:rounded-full py-3.5 px-3 sm:px-6 border border-gold/40 shadow-xl ring-1 ring-gold/15">
                     <div id="countdown" class="grid grid-cols-4 divide-x divide-gold/25 text-center items-center">
                         <div class="px-1.5 sm:px-3">
-                            <span id="days" class="block font-serif text-2xl sm:text-4xl font-normal text-dustyblue-800 tracking-tight">00</span>
-                            <span class="block text-[9px] sm:text-[10px] uppercase tracking-[0.25em] text-gold-dark font-bold mt-0.5">Days</span>
+                            <span id="days"
+                                class="block font-serif text-2xl sm:text-4xl font-normal text-dustyblue-800 tracking-tight">00</span>
+                            <span
+                                class="block text-[9px] sm:text-[10px] uppercase tracking-[0.25em] text-gold-dark font-bold mt-0.5">Days</span>
                         </div>
                         <div class="px-1.5 sm:px-3">
-                            <span id="hours" class="block font-serif text-2xl sm:text-4xl font-normal text-dustyblue-800 tracking-tight">00</span>
-                            <span class="block text-[9px] sm:text-[10px] uppercase tracking-[0.25em] text-gold-dark font-bold mt-0.5">Hours</span>
+                            <span id="hours"
+                                class="block font-serif text-2xl sm:text-4xl font-normal text-dustyblue-800 tracking-tight">00</span>
+                            <span
+                                class="block text-[9px] sm:text-[10px] uppercase tracking-[0.25em] text-gold-dark font-bold mt-0.5">Hours</span>
                         </div>
                         <div class="px-1.5 sm:px-3">
-                            <span id="minutes" class="block font-serif text-2xl sm:text-4xl font-normal text-dustyblue-800 tracking-tight">00</span>
-                            <span class="block text-[9px] sm:text-[10px] uppercase tracking-[0.25em] text-gold-dark font-bold mt-0.5">Mins</span>
+                            <span id="minutes"
+                                class="block font-serif text-2xl sm:text-4xl font-normal text-dustyblue-800 tracking-tight">00</span>
+                            <span
+                                class="block text-[9px] sm:text-[10px] uppercase tracking-[0.25em] text-gold-dark font-bold mt-0.5">Mins</span>
                         </div>
                         <div class="px-1.5 sm:px-3">
-                            <span id="seconds" class="block font-serif text-2xl sm:text-4xl font-normal text-dustyblue-800 tracking-tight">00</span>
-                            <span class="block text-[9px] sm:text-[10px] uppercase tracking-[0.25em] text-gold-dark font-bold mt-0.5">Secs</span>
+                            <span id="seconds"
+                                class="block font-serif text-2xl sm:text-4xl font-normal text-dustyblue-800 tracking-tight">00</span>
+                            <span
+                                class="block text-[9px] sm:text-[10px] uppercase tracking-[0.25em] text-gold-dark font-bold mt-0.5">Secs</span>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="flex flex-wrap justify-center gap-4">
-                <a href="#programs" class="inline-flex items-center space-x-2 bg-dustyblue-700 hover:bg-dustyblue-800 text-white px-7 py-3 rounded-full font-medium text-sm transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                <a href="#programs"
+                    class="inline-flex items-center space-x-2 bg-dustyblue-700 hover:bg-dustyblue-800 text-white px-7 py-3 rounded-full font-medium text-sm transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
                     <span>Explore 3 Programs</span>
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                    </svg>
                 </a>
-                <a href="#blessings" class="inline-flex items-center space-x-2 bg-white hover:bg-cream-100 text-dustyblue-800 border border-cream-300 px-7 py-3 rounded-full font-medium text-sm transition-all shadow-sm">
+                <a href="#blessings"
+                    class="inline-flex items-center space-x-2 bg-white hover:bg-cream-100 text-dustyblue-800 border border-cream-300 px-7 py-3 rounded-full font-medium text-sm transition-all shadow-sm">
                     <span>Send Wishes & Blessings</span>
                 </a>
             </div>
@@ -445,42 +579,54 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-                
+
                 <!-- Groom Family Card -->
-                <div class="bg-cream-50 p-8 sm:p-10 rounded-3xl border border-cream-200 botanical-card text-center relative overflow-hidden group">
-                    <div class="absolute -top-10 -right-10 w-36 h-36 bg-dustyblue-50 rounded-full blur-2xl group-hover:bg-gold/10 transition-colors"></div>
-                    
-                    <span class="text-[11px] font-bold uppercase tracking-widest text-gold-dark bg-white px-4 py-1 rounded-full inline-block border border-cream-300 mb-6 shadow-sm">The Groom</span>
+                <div
+                    class="bg-cream-50 p-8 sm:p-10 rounded-3xl border border-cream-200 botanical-card text-center relative overflow-hidden group">
+                    <div
+                        class="absolute -top-10 -right-10 w-36 h-36 bg-dustyblue-50 rounded-full blur-2xl group-hover:bg-gold/10 transition-colors">
+                    </div>
+
+                    <span
+                        class="text-[11px] font-bold uppercase tracking-widest text-gold-dark bg-white px-4 py-1 rounded-full inline-block border border-cream-300 mb-6 shadow-sm">The
+                        Groom</span>
                     <h3 class="font-serif text-3xl sm:text-4xl font-bold text-dustyblue-800 mb-2">Romin Antony</h3>
                     <p class="text-xs uppercase tracking-widest text-gray-500 mb-6 font-semibold">Son of</p>
-                    
+
                     <div class="space-y-2 text-dustyblue-800 mb-8">
                         <p class="font-serif text-2xl font-medium">Mr. Thomas Antony</p>
                         <p class="font-serif text-2xl font-medium">& Mrs. Rosakutty Antony</p>
                     </div>
 
                     <div class="pt-6 border-t border-cream-200/80 bg-white/60 rounded-2xl p-5">
-                        <p class="text-xs uppercase tracking-wider text-gold-dark font-bold mb-1">Ancestral Residence</p>
+                        <p class="text-xs uppercase tracking-wider text-gold-dark font-bold mb-1">Ancestral Residence
+                        </p>
                         <p class="font-serif text-xl font-bold text-charcoal">Mulakuppadam House</p>
                         <p class="text-sm text-gray-600">Perumpanachy, Changanassery Kottayam, Kerala</p>
                     </div>
                 </div>
 
                 <!-- Bride Family Card -->
-                <div class="bg-cream-50 p-8 sm:p-10 rounded-3xl border border-cream-200 botanical-card text-center relative overflow-hidden group">
-                    <div class="absolute -top-10 -right-10 w-36 h-36 bg-dustyblue-50 rounded-full blur-2xl group-hover:bg-gold/10 transition-colors"></div>
+                <div
+                    class="bg-cream-50 p-8 sm:p-10 rounded-3xl border border-cream-200 botanical-card text-center relative overflow-hidden group">
+                    <div
+                        class="absolute -top-10 -right-10 w-36 h-36 bg-dustyblue-50 rounded-full blur-2xl group-hover:bg-gold/10 transition-colors">
+                    </div>
 
-                    <span class="text-[11px] font-bold uppercase tracking-widest text-gold-dark bg-white px-4 py-1 rounded-full inline-block border border-cream-300 mb-6 shadow-sm">The Bride</span>
+                    <span
+                        class="text-[11px] font-bold uppercase tracking-widest text-gold-dark bg-white px-4 py-1 rounded-full inline-block border border-cream-300 mb-6 shadow-sm">The
+                        Bride</span>
                     <h3 class="font-serif text-3xl sm:text-4xl font-bold text-dustyblue-800 mb-2">Alina Neerambuzha</h3>
                     <p class="text-xs uppercase tracking-widest text-gray-500 mb-6 font-semibold">Daughter of</p>
-                    
+
                     <div class="space-y-2 text-dustyblue-800 mb-8">
                         <p class="font-serif text-2xl font-medium">Mr. Shaiju Neerambuzha</p>
                         <p class="font-serif text-2xl font-medium">& Mrs. Beena Philip</p>
                     </div>
 
                     <div class="pt-6 border-t border-cream-200/80 bg-white/60 rounded-2xl p-5">
-                        <p class="text-xs uppercase tracking-wider text-gold-dark font-bold mb-1">Ancestral Residence</p>
+                        <p class="text-xs uppercase tracking-wider text-gold-dark font-bold mb-1">Ancestral Residence
+                        </p>
                         <p class="font-serif text-xl font-bold text-charcoal">Neerambuzha House</p>
                         <p class="text-sm text-gray-600">Vazhavatta Town, Wayanad, Kerala</p>
                     </div>
@@ -490,7 +636,8 @@
 
             <div class="mt-12 text-center">
                 <div class="inline-block bg-dustyblue-50 border border-dustyblue-100 rounded-2xl px-8 py-3.5">
-                    <p class="text-sm font-serif text-dustyblue-800">With Best Wishes from <span class="font-bold text-gold-dark">Nisha, Roshan & Felix</span></p>
+                    <p class="text-sm font-serif text-dustyblue-800">With Best Wishes from <span
+                            class="font-bold text-gold-dark">Nisha, Roshan & Felix</span></p>
                 </div>
             </div>
         </div>
@@ -506,34 +653,48 @@
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                
+
                 <!-- PROGRAM 1: The Engagement -->
-                <div class="bg-white p-7 sm:p-8 rounded-3xl border border-cream-200 shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between">
+                <div
+                    class="bg-white p-7 sm:p-8 rounded-3xl border border-cream-200 shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between mb-5">
-                            <div class="w-12 h-12 rounded-2xl bg-gold/15 text-gold-dark flex items-center justify-center border border-gold/30 shadow-xs">
+                            <div
+                                class="w-12 h-12 rounded-2xl bg-gold/15 text-gold-dark flex items-center justify-center border border-gold/30 shadow-xs">
                                 <!-- Intertwined Engagement Rings with Diamond Sparkle -->
-                                <svg class="w-6 h-6 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <svg class="w-6 h-6 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                                     <circle cx="8.5" cy="13.5" r="5" />
                                     <circle cx="15.5" cy="13.5" r="5" />
-                                    <path d="M8.5 5.5l1.2 1.5h-2.4l1.2-1.5z" fill="currentColor"/>
-                                    <path d="M8.5 3.5v1M6.5 4.5l-.7-.7M10.5 4.5l.7-.7"/>
+                                    <path d="M8.5 5.5l1.2 1.5h-2.4l1.2-1.5z" fill="currentColor" />
+                                    <path d="M8.5 3.5v1M6.5 4.5l-.7-.7M10.5 4.5l.7-.7" />
                                 </svg>
                             </div>
-                            <span class="text-[10px] uppercase tracking-widest font-bold text-gold-dark bg-gold/10 px-3 py-1 rounded-full border border-gold/20">Program 1</span>
+                            <span
+                                class="text-[10px] uppercase tracking-widest font-bold text-gold-dark bg-gold/10 px-3 py-1 rounded-full border border-gold/20">Program
+                                1</span>
                         </div>
-                        
+
                         <h3 class="font-serif text-2xl font-bold text-dustyblue-800 mb-0.5">The Engagement</h3>
                         <p class="font-cursive text-xl text-gold mb-4">Ring Exchange & Blessing</p>
-                        
+
                         <!-- Date & Time -->
                         <div class="space-y-2 text-sm text-gray-700 border-t border-cream-100 pt-4 mb-5">
                             <div class="flex items-center space-x-2.5">
-                                <svg class="w-4 h-4 text-gold shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                <svg class="w-4 h-4 text-gold shrink-0" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                    </path>
+                                </svg>
                                 <span class="font-bold text-charcoal">Saturday, October 17, 2026</span>
                             </div>
                             <div class="flex items-center space-x-2.5">
-                                <svg class="w-4 h-4 text-gold shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <svg class="w-4 h-4 text-gold shrink-0" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
                                 <span class="font-bold text-dustyblue-800">12:00 PM Afternoon</span>
                             </div>
                         </div>
@@ -542,15 +703,26 @@
                         <div class="space-y-3.5 mb-5">
                             <!-- Church Venue -->
                             <div class="p-3.5 bg-cream-50 rounded-2xl border border-cream-200">
-                                <span class="text-[9px] font-bold uppercase tracking-wider text-gold-dark bg-white px-2 py-0.5 rounded-full border border-cream-200">Church Ceremony</span>
-                                <h4 class="font-serif text-base font-bold text-charcoal mt-1">St. Sebastian's Church</h4>
+                                <span
+                                    class="text-[9px] font-bold uppercase tracking-wider text-gold-dark bg-white px-2 py-0.5 rounded-full border border-cream-200">Church
+                                    Ceremony</span>
+                                <h4 class="font-serif text-base font-bold text-charcoal mt-1">St. Sebastian's Church
+                                </h4>
                                 <p class="text-xs text-gray-600">Kuzhivayal, Muttil South, Wayanad</p>
                                 <div class="mt-2.5 flex flex-wrap gap-2">
-                                    <button onclick="copyToClipboard('St. Sebastian\'s Church, Kuzhivayal Rd, Kottathara, Muttil South, Wayanad, Kerala 673122', 'Church address copied!')" class="inline-flex items-center text-[11px] font-semibold text-dustyblue-700 hover:text-gold bg-white px-2.5 py-1 rounded-lg border border-cream-300 shadow-xs">
-                                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 052-2h2a2 2 0 012 2"></path></svg>
+                                    <button
+                                        onclick="copyToClipboard('St. Sebastian\'s Church, Kuzhivayal Rd, Kottathara, Muttil South, Wayanad, Kerala 673122', 'Church address copied!')"
+                                        class="inline-flex items-center text-[11px] font-semibold text-dustyblue-700 hover:text-gold bg-white px-2.5 py-1 rounded-lg border border-cream-300 shadow-xs">
+                                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 052-2h2a2 2 0 012 2">
+                                            </path>
+                                        </svg>
                                         Copy
                                     </button>
-                                    <a href="https://maps.app.goo.gl/XtRnPBq8eMfuHiE46" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-[11px] font-semibold text-white bg-gold hover:bg-gold-dark px-3 py-1 rounded-lg shadow-xs">
+                                    <a href="https://maps.app.goo.gl/XtRnPBq8eMfuHiE46" target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="inline-flex items-center text-[11px] font-semibold text-white bg-gold hover:bg-gold-dark px-3 py-1 rounded-lg shadow-xs">
                                         Open Church Map
                                     </a>
                                 </div>
@@ -558,15 +730,25 @@
 
                             <!-- Reception Venue -->
                             <div class="p-3.5 bg-dustyblue-50/60 rounded-2xl border border-dustyblue-100">
-                                <span class="text-[9px] font-bold uppercase tracking-wider text-dustyblue-700 bg-white px-2 py-0.5 rounded-full border border-dustyblue-100">Grand Lunch Reception</span>
+                                <span
+                                    class="text-[9px] font-bold uppercase tracking-wider text-dustyblue-700 bg-white px-2 py-0.5 rounded-full border border-dustyblue-100">Grand
+                                    Lunch Reception</span>
                                 <h4 class="font-serif text-base font-bold text-charcoal mt-1">MR Auditorium</h4>
                                 <p class="text-xs text-gray-600">WMO Rd, Muttil, Wayanad</p>
                                 <div class="mt-2.5 flex flex-wrap gap-2">
-                                    <button onclick="copyToClipboard('MR Auditorium, WMO Rd, Muttil, Wayanad, Kerala 673122', 'Auditorium address copied!')" class="inline-flex items-center text-[11px] font-semibold text-dustyblue-700 hover:text-gold bg-white px-2.5 py-1 rounded-lg border border-cream-300 shadow-xs">
-                                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 052-2h2a2 2 0 012 2"></path></svg>
+                                    <button
+                                        onclick="copyToClipboard('MR Auditorium, WMO Rd, Muttil, Wayanad, Kerala 673122', 'Auditorium address copied!')"
+                                        class="inline-flex items-center text-[11px] font-semibold text-dustyblue-700 hover:text-gold bg-white px-2.5 py-1 rounded-lg border border-cream-300 shadow-xs">
+                                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 052-2h2a2 2 0 012 2">
+                                            </path>
+                                        </svg>
                                         Copy
                                     </button>
-                                    <a href="https://maps.app.goo.gl/JkYkx4H2mUMGSc2Z6" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-[11px] font-semibold text-white bg-dustyblue-700 hover:bg-dustyblue-800 px-3 py-1 rounded-lg shadow-xs">
+                                    <a href="https://maps.app.goo.gl/JkYkx4H2mUMGSc2Z6" target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="inline-flex items-center text-[11px] font-semibold text-white bg-dustyblue-700 hover:bg-dustyblue-800 px-3 py-1 rounded-lg shadow-xs">
                                         Open Auditorium Map
                                     </a>
                                 </div>
@@ -575,54 +757,74 @@
 
                         <div class="bg-dustyblue-50/50 p-3.5 rounded-2xl border border-dustyblue-100/70">
                             <p class="text-xs text-gray-600 leading-relaxed">
-                                Solemn exchange of rings between Romin & Alina at St. Sebastian's Church Kuzhivayal, followed by lunch reception & feast at MR Auditorium.
+                                Solemn exchange of rings between Romin & Alina at St. Sebastian's Church Kuzhivayal,
+                                followed by lunch reception & feast at MR Auditorium.
                             </p>
                         </div>
 
                         <!-- Card Download Trigger Button -->
                         <div class="mt-4 pt-3 border-t border-cream-200/80">
-                            <button onclick="openCardModal(1)" class="w-full py-2.5 px-4 rounded-xl bg-gold/10 hover:bg-gold text-gold-dark hover:text-white border border-gold/30 font-semibold text-xs tracking-wider uppercase flex items-center justify-center space-x-2 transition-all shadow-xs group cursor-pointer">
-                                <svg class="w-4 h-4 text-gold group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                            <button onclick="openCardModal(1)"
+                                class="w-full py-2.5 px-4 rounded-xl bg-gold/10 hover:bg-gold text-gold-dark hover:text-white border border-gold/30 font-semibold text-xs tracking-wider uppercase flex items-center justify-center space-x-2 transition-all shadow-xs group cursor-pointer">
+                                <svg class="w-4 h-4 text-gold group-hover:text-white transition-colors" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                                 </svg>
                                 <span>View & Download Card</span>
                             </button>
                         </div>
                     </div>
-                    <div class="mt-5 pt-3.5 border-t border-cream-100 flex items-center justify-between text-xs text-gray-500">
+                    <div
+                        class="mt-5 pt-3.5 border-t border-cream-100 flex items-center justify-between text-xs text-gray-500">
                         <span>Wayanad, Kerala</span>
                         <span class="text-gold-dark font-semibold">Program 1</span>
                     </div>
                 </div>
 
                 <!-- PROGRAM 2: Madhuram Veppu -->
-                <div class="bg-white p-7 sm:p-8 rounded-3xl border border-cream-200 shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between">
+                <div
+                    class="bg-white p-7 sm:p-8 rounded-3xl border border-cream-200 shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between mb-5">
-                            <div class="w-12 h-12 rounded-2xl bg-sage-50 text-sage-700 flex items-center justify-center border border-sage-200 shadow-xs">
+                            <div
+                                class="w-12 h-12 rounded-2xl bg-sage-50 text-sage-700 flex items-center justify-center border border-sage-200 shadow-xs">
                                 <!-- Traditional Sweet Blessing Bowl / Uruli -->
-                                <svg class="w-6 h-6 text-sage-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M4 11h16c0 4.5-3.5 7.5-8 7.5s-8-3-8-7.5z"/>
-                                    <path d="M12 18.5v2.5m-4 0h8"/>
-                                    <path d="M12 5c1 1.2 1 2.5 0 3.5-1-.9-1-2.2 0-3.5z" fill="currentColor" opacity="0.25"/>
-                                    <circle cx="8.5" cy="7.5" r="1.5" fill="currentColor"/>
-                                    <circle cx="15.5" cy="7.5" r="1.5" fill="currentColor"/>
+                                <svg class="w-6 h-6 text-sage-700" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M4 11h16c0 4.5-3.5 7.5-8 7.5s-8-3-8-7.5z" />
+                                    <path d="M12 18.5v2.5m-4 0h8" />
+                                    <path d="M12 5c1 1.2 1 2.5 0 3.5-1-.9-1-2.2 0-3.5z" fill="currentColor"
+                                        opacity="0.25" />
+                                    <circle cx="8.5" cy="7.5" r="1.5" fill="currentColor" />
+                                    <circle cx="15.5" cy="7.5" r="1.5" fill="currentColor" />
                                 </svg>
                             </div>
-                            <span class="text-[10px] uppercase tracking-widest font-bold text-dustyblue-700 bg-dustyblue-50 px-3 py-1 rounded-full border border-dustyblue-100">Program 2</span>
+                            <span
+                                class="text-[10px] uppercase tracking-widest font-bold text-dustyblue-700 bg-dustyblue-50 px-3 py-1 rounded-full border border-dustyblue-100">Program
+                                2</span>
                         </div>
-                        
+
                         <h3 class="font-serif text-2xl font-bold text-dustyblue-800 mb-0.5">Madhuram Veppu</h3>
                         <p class="font-cursive text-xl text-gold mb-4">Sweet Blessing & Evening Feast</p>
-                        
+
                         <!-- Date & Time -->
                         <div class="space-y-2 text-sm text-gray-700 border-t border-cream-100 pt-4 mb-5">
                             <div class="flex items-center space-x-2.5">
-                                <svg class="w-4 h-4 text-gold shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                <svg class="w-4 h-4 text-gold shrink-0" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                    </path>
+                                </svg>
                                 <span class="font-bold text-charcoal">Friday, October 23, 2026</span>
                             </div>
                             <div class="flex items-center space-x-2.5">
-                                <svg class="w-4 h-4 text-gold shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <svg class="w-4 h-4 text-gold shrink-0" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
                                 <span class="font-bold text-dustyblue-800">6:00 PM Evening</span>
                             </div>
                         </div>
@@ -630,16 +832,26 @@
                         <!-- Venues & Navigation Links -->
                         <div class="space-y-3.5 mb-5">
                             <div class="p-3.5 bg-cream-50 rounded-2xl border border-cream-200 space-y-1.5">
-                                <span class="text-[9px] font-bold uppercase tracking-wider text-dustyblue-800 bg-white px-2 py-0.5 rounded-full border border-cream-200">Ceremony Venue</span>
+                                <span
+                                    class="text-[9px] font-bold uppercase tracking-wider text-dustyblue-800 bg-white px-2 py-0.5 rounded-full border border-cream-200">Ceremony
+                                    Venue</span>
                                 <h4 class="font-serif text-base font-bold text-charcoal">Mulakuppadam Backwaters</h4>
                                 <p class="text-xs text-gray-600">Kumarakom, Kottayam District, Kerala</p>
-                                
+
                                 <div class="pt-2 flex flex-wrap gap-2">
-                                    <button onclick="copyToClipboard('Mulakuppadam Backwaters, Kumarakom, Kottayam District, Kerala', 'Mulakuppadam Backwaters venue address copied!')" class="inline-flex items-center text-[11px] font-semibold text-dustyblue-700 hover:text-gold bg-white px-2.5 py-1 rounded-lg border border-cream-300 shadow-xs">
-                                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 052-2h2a2 2 0 012 2"></path></svg>
+                                    <button
+                                        onclick="copyToClipboard('Mulakuppadam Backwaters, Kumarakom, Kottayam District, Kerala', 'Mulakuppadam Backwaters venue address copied!')"
+                                        class="inline-flex items-center text-[11px] font-semibold text-dustyblue-700 hover:text-gold bg-white px-2.5 py-1 rounded-lg border border-cream-300 shadow-xs">
+                                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 052-2h2a2 2 0 012 2">
+                                            </path>
+                                        </svg>
                                         Copy
                                     </button>
-                                    <a href="https://maps.app.goo.gl/Niw9F9jjpBp3QqrY8" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-[11px] font-semibold text-white bg-dustyblue-700 hover:bg-dustyblue-800 px-3 py-1 rounded-lg shadow-xs">
+                                    <a href="https://maps.app.goo.gl/Niw9F9jjpBp3QqrY8" target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="inline-flex items-center text-[11px] font-semibold text-white bg-dustyblue-700 hover:bg-dustyblue-800 px-3 py-1 rounded-lg shadow-xs">
                                         Open Maps
                                     </a>
                                 </div>
@@ -648,52 +860,73 @@
 
                         <div class="bg-cream-50 p-3.5 rounded-2xl border border-cream-200">
                             <p class="text-xs text-gray-600 leading-relaxed">
-                                Traditional sweet-offering ceremony where maternal uncle and elders bless the groom with sweet plantain & milk before the wedding day at Mulakuppadam Backwaters, Kumarakom.
+                                Traditional sweet-offering ceremony where maternal uncle and elders bless the groom with
+                                sweet plantain & milk before the wedding day at Mulakuppadam Backwaters, Kumarakom.
                             </p>
                         </div>
 
                         <!-- Card Download Trigger Button -->
                         <div class="mt-4 pt-3 border-t border-cream-200/80">
-                            <button onclick="openCardModal(2)" class="w-full py-2.5 px-4 rounded-xl bg-gold/10 hover:bg-gold text-gold-dark hover:text-white border border-gold/30 font-semibold text-xs tracking-wider uppercase flex items-center justify-center space-x-2 transition-all shadow-xs group cursor-pointer">
-                                <svg class="w-4 h-4 text-gold group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                            <button onclick="openCardModal(2)"
+                                class="w-full py-2.5 px-4 rounded-xl bg-gold/10 hover:bg-gold text-gold-dark hover:text-white border border-gold/30 font-semibold text-xs tracking-wider uppercase flex items-center justify-center space-x-2 transition-all shadow-xs group cursor-pointer">
+                                <svg class="w-4 h-4 text-gold group-hover:text-white transition-colors" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                                 </svg>
                                 <span>View & Download Card</span>
                             </button>
                         </div>
                     </div>
-                    <div class="mt-5 pt-3.5 border-t border-cream-100 flex items-center justify-between text-xs text-gray-500">
+                    <div
+                        class="mt-5 pt-3.5 border-t border-cream-100 flex items-center justify-between text-xs text-gray-500">
                         <span>Mulakuppadam Backwaters, Kumarakom</span>
                         <span class="text-gold-dark font-semibold">Program 2</span>
                     </div>
                 </div>
 
                 <!-- PROGRAM 3: The Wedding -->
-                <div class="bg-white p-7 sm:p-8 rounded-3xl border border-cream-200 shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between">
+                <div
+                    class="bg-white p-7 sm:p-8 rounded-3xl border border-cream-200 shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between mb-5">
-                            <div class="w-12 h-12 rounded-2xl bg-dustyblue-700 text-white flex items-center justify-center shadow-xs">
+                            <div
+                                class="w-12 h-12 rounded-2xl bg-dustyblue-700 text-white flex items-center justify-center shadow-xs">
                                 <!-- Holy Cross & Sacred Union Knot -->
-                                <svg class="w-6 h-6 text-gold-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M12 2v9m-3-6h6" stroke="white" stroke-width="2"/>
-                                    <path d="M8.5 17a3.5 3.5 0 107 0 3.5 3.5 0 10-7 0" stroke="currentColor" stroke-width="1.8"/>
-                                    <path d="M12 13.5a3.5 3.5 0 013.5 3.5" stroke="white" stroke-width="1.8"/>
+                                <svg class="w-6 h-6 text-gold-light" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M12 2v9m-3-6h6" stroke="white" stroke-width="2" />
+                                    <path d="M8.5 17a3.5 3.5 0 107 0 3.5 3.5 0 10-7 0" stroke="currentColor"
+                                        stroke-width="1.8" />
+                                    <path d="M12 13.5a3.5 3.5 0 013.5 3.5" stroke="white" stroke-width="1.8" />
                                 </svg>
                             </div>
-                            <span class="text-[10px] uppercase tracking-widest font-bold text-white bg-dustyblue-700 px-3 py-1 rounded-full shadow-xs">Program 3</span>
+                            <span
+                                class="text-[10px] uppercase tracking-widest font-bold text-white bg-dustyblue-700 px-3 py-1 rounded-full shadow-xs">Program
+                                3</span>
                         </div>
-                        
+
                         <h3 class="font-serif text-2xl font-bold text-dustyblue-800 mb-0.5">The Wedding</h3>
                         <p class="font-cursive text-xl text-gold mb-4">Holy Matrimony & Feast</p>
-                        
+
                         <!-- Date & Time -->
                         <div class="space-y-2 text-sm text-gray-700 border-t border-cream-100 pt-4 mb-5">
                             <div class="flex items-center space-x-2.5">
-                                <svg class="w-4 h-4 text-gold shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                <svg class="w-4 h-4 text-gold shrink-0" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                    </path>
+                                </svg>
                                 <span class="font-bold text-charcoal">Sunday, October 25, 2026</span>
                             </div>
                             <div class="flex items-center space-x-2.5">
-                                <svg class="w-4 h-4 text-gold shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <svg class="w-4 h-4 text-gold shrink-0" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
                                 <span class="font-bold text-dustyblue-800">Morning Holy Wedding Mass</span>
                             </div>
                         </div>
@@ -702,15 +935,25 @@
                         <div class="space-y-3.5 mb-5">
                             <!-- Church Venue -->
                             <div class="p-3.5 bg-cream-50 rounded-2xl border border-cream-200 space-y-1.5">
-                                <span class="text-[9px] font-bold uppercase tracking-wider text-dustyblue-800 bg-white px-2 py-0.5 rounded-full border border-cream-200">Holy Wedding Mass</span>
+                                <span
+                                    class="text-[9px] font-bold uppercase tracking-wider text-dustyblue-800 bg-white px-2 py-0.5 rounded-full border border-cream-200">Holy
+                                    Wedding Mass</span>
                                 <h4 class="font-serif text-base font-bold text-charcoal">St. Joseph Church</h4>
                                 <p class="text-xs text-gray-600">Veroor, Changanassery, Kottayam</p>
                                 <div class="pt-2 flex flex-wrap gap-2">
-                                    <button onclick="copyToClipboard('St. Joseph Church, Veroor, Changanassery, Kottayam, Kerala', 'Church address copied!')" class="inline-flex items-center text-[11px] font-semibold text-dustyblue-700 hover:text-gold bg-white px-2.5 py-1 rounded-lg border border-cream-300 shadow-xs">
-                                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 052-2h2a2 2 0 012 2"></path></svg>
+                                    <button
+                                        onclick="copyToClipboard('St. Joseph Church, Veroor, Changanassery, Kottayam, Kerala', 'Church address copied!')"
+                                        class="inline-flex items-center text-[11px] font-semibold text-dustyblue-700 hover:text-gold bg-white px-2.5 py-1 rounded-lg border border-cream-300 shadow-xs">
+                                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 052-2h2a2 2 0 012 2">
+                                            </path>
+                                        </svg>
                                         Copy
                                     </button>
-                                    <a href="https://maps.google.com/?q=St.+Joseph+Church+Veroor" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-[11px] font-semibold text-white bg-gold hover:bg-gold-dark px-3 py-1 rounded-lg shadow-xs">
+                                    <a href="https://maps.google.com/?q=St.+Joseph+Church+Veroor" target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="inline-flex items-center text-[11px] font-semibold text-white bg-gold hover:bg-gold-dark px-3 py-1 rounded-lg shadow-xs">
                                         Open Church Map
                                     </a>
                                 </div>
@@ -718,15 +961,26 @@
 
                             <!-- Reception Venue -->
                             <div class="p-3.5 bg-dustyblue-50/60 rounded-2xl border border-dustyblue-100">
-                                <span class="text-[9px] font-bold uppercase tracking-wider text-dustyblue-700 bg-white px-2 py-0.5 rounded-full border border-dustyblue-100">Grand Wedding Reception</span>
-                                <h4 class="font-serif text-base font-bold text-charcoal mt-1">Contour Backwaters Resort & Convention Centre</h4>
+                                <span
+                                    class="text-[9px] font-bold uppercase tracking-wider text-dustyblue-700 bg-white px-2 py-0.5 rounded-full border border-dustyblue-100">Grand
+                                    Wedding Reception</span>
+                                <h4 class="font-serif text-base font-bold text-charcoal mt-1">Contour Backwaters Resort
+                                    & Convention Centre</h4>
                                 <p class="text-xs text-gray-600">Alappuzha - Changanassery Hwy, Changanassery</p>
                                 <div class="mt-2.5 flex flex-wrap gap-2">
-                                    <button onclick="copyToClipboard('Contour Backwaters Hotel Resort & Convention Centre, Alappuzha - Changanassery Hwy, Changanassery, Kerala 686101', 'Reception venue address copied!')" class="inline-flex items-center text-[11px] font-semibold text-dustyblue-700 hover:text-gold bg-white px-2.5 py-1 rounded-lg border border-cream-300 shadow-xs">
-                                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 052-2h2a2 2 0 012 2"></path></svg>
+                                    <button
+                                        onclick="copyToClipboard('Contour Backwaters Hotel Resort & Convention Centre, Alappuzha - Changanassery Hwy, Changanassery, Kerala 686101', 'Reception venue address copied!')"
+                                        class="inline-flex items-center text-[11px] font-semibold text-dustyblue-700 hover:text-gold bg-white px-2.5 py-1 rounded-lg border border-cream-300 shadow-xs">
+                                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 052-2h2a2 2 0 012 2">
+                                            </path>
+                                        </svg>
                                         Copy
                                     </button>
-                                    <a href="https://maps.app.goo.gl/KjZngmpvrn8eS37d8" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-[11px] font-semibold text-white bg-dustyblue-700 hover:bg-dustyblue-800 px-3 py-1 rounded-lg shadow-xs">
+                                    <a href="https://maps.app.goo.gl/KjZngmpvrn8eS37d8" target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="inline-flex items-center text-[11px] font-semibold text-white bg-dustyblue-700 hover:bg-dustyblue-800 px-3 py-1 rounded-lg shadow-xs">
                                         Open Reception Map
                                     </a>
                                 </div>
@@ -735,21 +989,27 @@
 
                         <div class="bg-dustyblue-50/50 p-3.5 rounded-2xl border border-dustyblue-100/70">
                             <p class="text-xs text-gray-600 leading-relaxed">
-                                Wedding service at St. Joseph Church Veroor, binding of Minnu (Thali), Manthrakodi blessing, followed by Grand Reception & Feast at Contour Backwaters Resort, Changanassery.
+                                Wedding service at St. Joseph Church Veroor, binding of Minnu (Thali), Manthrakodi
+                                blessing, followed by Grand Reception & Feast at Contour Backwaters Resort,
+                                Changanassery.
                             </p>
                         </div>
 
                         <!-- Card Download Trigger Button -->
                         <div class="mt-4 pt-3 border-t border-cream-200/80">
-                            <button onclick="openCardModal(3)" class="w-full py-2.5 px-4 rounded-xl bg-gold/10 hover:bg-gold text-gold-dark hover:text-white border border-gold/30 font-semibold text-xs tracking-wider uppercase flex items-center justify-center space-x-2 transition-all shadow-xs group cursor-pointer">
-                                <svg class="w-4 h-4 text-gold group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                            <button onclick="openCardModal(3)"
+                                class="w-full py-2.5 px-4 rounded-xl bg-gold/10 hover:bg-gold text-gold-dark hover:text-white border border-gold/30 font-semibold text-xs tracking-wider uppercase flex items-center justify-center space-x-2 transition-all shadow-xs group cursor-pointer">
+                                <svg class="w-4 h-4 text-gold group-hover:text-white transition-colors" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                                 </svg>
                                 <span>View & Download Card</span>
                             </button>
                         </div>
                     </div>
-                    <div class="mt-5 pt-3.5 border-t border-cream-100 flex items-center justify-between text-xs text-gray-500">
+                    <div
+                        class="mt-5 pt-3.5 border-t border-cream-100 flex items-center justify-between text-xs text-gray-500">
                         <span>Changanassery, Kottayam</span>
                         <span class="text-dustyblue-700 font-semibold">Program 3</span>
                     </div>
@@ -769,45 +1029,53 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-                
+
                 <div class="p-6 bg-cream-50 rounded-2xl border border-cream-200 text-center">
-                    <div class="w-12 h-12 bg-white text-gold rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm font-serif font-bold text-xl">
+                    <div
+                        class="w-12 h-12 bg-white text-gold rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm font-serif font-bold text-xl">
                         1
                     </div>
                     <h4 class="font-serif text-xl font-bold text-dustyblue-800 mb-2">Madhuram Veppu</h4>
                     <p class="text-xs text-gray-600 leading-relaxed">
-                        Pre-wedding ritual where elders feed the bride and groom sweet banana and milk, signifying sweet beginnings.
+                        Pre-wedding ritual where elders feed the bride and groom sweet banana and milk, signifying sweet
+                        beginnings.
                     </p>
                 </div>
 
                 <div class="p-6 bg-cream-50 rounded-2xl border border-cream-200 text-center">
-                    <div class="w-12 h-12 bg-white text-gold rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm font-serif font-bold text-xl">
+                    <div
+                        class="w-12 h-12 bg-white text-gold rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm font-serif font-bold text-xl">
                         2
                     </div>
                     <h4 class="font-serif text-xl font-bold text-dustyblue-800 mb-2">The Minnu (Thali)</h4>
                     <p class="text-xs text-gray-600 leading-relaxed">
-                        Sacred leaf-shaped gold pendant tied around the bride's neck with seven threads taken from the Manthrakodi saree.
+                        Sacred leaf-shaped gold pendant tied around the bride's neck with seven threads taken from the
+                        Manthrakodi saree.
                     </p>
                 </div>
 
                 <div class="p-6 bg-cream-50 rounded-2xl border border-cream-200 text-center">
-                    <div class="w-12 h-12 bg-white text-gold rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm font-serif font-bold text-xl">
+                    <div
+                        class="w-12 h-12 bg-white text-gold rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm font-serif font-bold text-xl">
                         3
                     </div>
                     <h4 class="font-serif text-xl font-bold text-dustyblue-800 mb-2">The Manthrakodi</h4>
                     <p class="text-xs text-gray-600 leading-relaxed">
-                        Rich silk wedding saree gifted by the groom and blessed by the priest, draped over the bride's head during vows.
+                        Rich silk wedding saree gifted by the groom and blessed by the priest, draped over the bride's
+                        head during vows.
                     </p>
                 </div>
 
                 <!-- Simplified tradition wording (No "nuptial crowning") -->
                 <div class="p-6 bg-cream-50 rounded-2xl border border-cream-200 text-center">
-                    <div class="w-12 h-12 bg-white text-gold rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm font-serif font-bold text-xl">
+                    <div
+                        class="w-12 h-12 bg-white text-gold rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm font-serif font-bold text-xl">
                         4
                     </div>
                     <h4 class="font-serif text-xl font-bold text-dustyblue-800 mb-2">Solemn Vows & Rings</h4>
                     <p class="text-xs text-gray-600 leading-relaxed">
-                        The exchanging of holy wedding vows and rings before God, family, and loved ones during the church mass.
+                        The exchanging of holy wedding vows and rings before God, family, and loved ones during the
+                        church mass.
                     </p>
                 </div>
 
@@ -828,59 +1096,85 @@
             <!-- Seamless Infinite Marquee Track (2 sets of 6 photos with zero stutter) -->
             <div class="gallery-marquee-container py-4">
                 <div class="gallery-marquee-track">
-                    
+
                     <!-- SET 1 (Photos 1 to 6) -->
                     <!-- Photo 1: Featured Couple -->
-                    <div class="gallery-item w-72 sm:w-80 md:w-[340px] shrink-0 h-96 relative overflow-hidden rounded-3xl cursor-pointer group shadow-lg border-2 border-gold/40" onclick="openLightbox('https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.23.34%20(1).jpeg?raw=true', 'Romin & Alina - The Wedding Union')">
-                        <img src="https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.23.34%20(1).jpeg?raw=true" alt="Romin & Alina" class="w-full h-full object-cover object-top group-hover:scale-108 transition-transform duration-700">
-                        <div class="absolute inset-0 bg-gradient-to-t from-dustyblue-900/80 via-dustyblue-900/25 to-transparent opacity-75 group-hover:opacity-90 transition-opacity flex flex-col justify-end p-6">
-                            <span class="text-[10px] uppercase font-bold tracking-widest text-gold-light bg-dustyblue-800/80 self-start px-2.5 py-0.5 rounded-full mb-1.5 border border-gold/30">Featured</span>
+                    <div class="gallery-item w-72 sm:w-80 md:w-[340px] shrink-0 h-96 relative overflow-hidden rounded-3xl cursor-pointer group shadow-lg border-2 border-gold/40"
+                        onclick="openLightbox('https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.23.34%20(1).jpeg?raw=true', 'Romin & Alina - The Wedding Union')">
+                        <img src="https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.23.34%20(1).jpeg?raw=true"
+                            alt="Romin & Alina"
+                            class="w-full h-full object-cover object-top group-hover:scale-108 transition-transform duration-700">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-dustyblue-900/80 via-dustyblue-900/25 to-transparent opacity-75 group-hover:opacity-90 transition-opacity flex flex-col justify-end p-6">
+                            <span
+                                class="text-[10px] uppercase font-bold tracking-widest text-gold-light bg-dustyblue-800/80 self-start px-2.5 py-0.5 rounded-full mb-1.5 border border-gold/30">Featured</span>
                             <h4 class="text-white font-serif text-xl font-bold">The Wedding Union</h4>
                             <p class="text-xs text-cream-200 mt-0.5">Romin & Alina</p>
                         </div>
                     </div>
 
                     <!-- Photo 2: Cherished Moments -->
-                    <div class="gallery-item w-72 sm:w-80 md:w-[340px] shrink-0 h-96 relative overflow-hidden rounded-3xl cursor-pointer group shadow-md border border-cream-200" onclick="openLightbox('https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.23.34%20(2).jpeg?raw=true', 'Romin & Alina - Cherished Moments')">
-                        <img src="https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.23.34%20(2).jpeg?raw=true" alt="Cherished Moments" class="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700">
-                        <div class="absolute inset-0 bg-gradient-to-t from-dustyblue-900/80 via-dustyblue-900/20 to-transparent opacity-70 group-hover:opacity-90 transition-opacity flex flex-col justify-end p-6">
+                    <div class="gallery-item w-72 sm:w-80 md:w-[340px] shrink-0 h-96 relative overflow-hidden rounded-3xl cursor-pointer group shadow-md border border-cream-200"
+                        onclick="openLightbox('https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.23.34%20(2).jpeg?raw=true', 'Romin & Alina - Cherished Moments')">
+                        <img src="https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.23.34%20(2).jpeg?raw=true"
+                            alt="Cherished Moments"
+                            class="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-dustyblue-900/80 via-dustyblue-900/20 to-transparent opacity-70 group-hover:opacity-90 transition-opacity flex flex-col justify-end p-6">
                             <h4 class="text-white font-serif text-xl font-bold">Cherished Moments</h4>
                             <p class="text-xs text-cream-200 mt-0.5">Romin & Alina</p>
                         </div>
                     </div>
 
                     <!-- Photo 3: The Proposal -->
-                    <div class="gallery-item w-72 sm:w-80 md:w-[340px] shrink-0 h-96 relative overflow-hidden rounded-3xl cursor-pointer group shadow-md border-2 border-gold/40" onclick="openLightbox('https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.33.44%20(1).jpeg?raw=true', 'Romin & Alina - The Proposal')">
-                        <img src="https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.33.44%20(1).jpeg?raw=true" alt="The Proposal" class="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700">
-                        <div class="absolute inset-0 bg-gradient-to-t from-dustyblue-900/80 via-dustyblue-900/20 to-transparent opacity-70 group-hover:opacity-90 transition-opacity flex flex-col justify-end p-6">
-                            <span class="text-[10px] uppercase font-bold tracking-widest text-gold-light bg-dustyblue-800/80 self-start px-2.5 py-0.5 rounded-full mb-1.5 border border-gold/30">Special</span>
+                    <div class="gallery-item w-72 sm:w-80 md:w-[340px] shrink-0 h-96 relative overflow-hidden rounded-3xl cursor-pointer group shadow-md border-2 border-gold/40"
+                        onclick="openLightbox('https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.33.44%20(1).jpeg?raw=true', 'Romin & Alina - The Proposal')">
+                        <img src="https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.33.44%20(1).jpeg?raw=true"
+                            alt="The Proposal"
+                            class="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-dustyblue-900/80 via-dustyblue-900/20 to-transparent opacity-70 group-hover:opacity-90 transition-opacity flex flex-col justify-end p-6">
+                            <span
+                                class="text-[10px] uppercase font-bold tracking-widest text-gold-light bg-dustyblue-800/80 self-start px-2.5 py-0.5 rounded-full mb-1.5 border border-gold/30">Special</span>
                             <h4 class="text-white font-serif text-xl font-bold">The Proposal</h4>
                             <p class="text-xs text-cream-200 mt-0.5">Romin & Alina</p>
                         </div>
                     </div>
 
                     <!-- Photo 4: Sweet Beginnings -->
-                    <div class="gallery-item w-72 sm:w-80 md:w-[340px] shrink-0 h-96 relative overflow-hidden rounded-3xl cursor-pointer group shadow-md border border-cream-200" onclick="openLightbox('https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.23.34.jpeg?raw=true', 'Romin & Alina - Sweet Beginnings')">
-                        <img src="https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.23.34.jpeg?raw=true" alt="Sweet Beginnings" class="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700">
-                        <div class="absolute inset-0 bg-gradient-to-t from-dustyblue-900/80 via-dustyblue-900/20 to-transparent opacity-70 group-hover:opacity-90 transition-opacity flex flex-col justify-end p-6">
+                    <div class="gallery-item w-72 sm:w-80 md:w-[340px] shrink-0 h-96 relative overflow-hidden rounded-3xl cursor-pointer group shadow-md border border-cream-200"
+                        onclick="openLightbox('https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.23.34.jpeg?raw=true', 'Romin & Alina - Sweet Beginnings')">
+                        <img src="https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.23.34.jpeg?raw=true"
+                            alt="Sweet Beginnings"
+                            class="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-dustyblue-900/80 via-dustyblue-900/20 to-transparent opacity-70 group-hover:opacity-90 transition-opacity flex flex-col justify-end p-6">
                             <h4 class="text-white font-serif text-xl font-bold">Sweet Beginnings</h4>
                             <p class="text-xs text-cream-200 mt-0.5">Romin & Alina</p>
                         </div>
                     </div>
 
                     <!-- Photo 5: Timeless Elegance -->
-                    <div class="gallery-item w-72 sm:w-80 md:w-[340px] shrink-0 h-96 relative overflow-hidden rounded-3xl cursor-pointer group shadow-md border border-cream-200" onclick="openLightbox('https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.46.13.jpeg?raw=true', 'Romin & Alina - Timeless Elegance')">
-                        <img src="https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.46.13.jpeg?raw=true" alt="Timeless Elegance" class="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700">
-                        <div class="absolute inset-0 bg-gradient-to-t from-dustyblue-900/80 via-dustyblue-900/20 to-transparent opacity-70 group-hover:opacity-90 transition-opacity flex flex-col justify-end p-6">
+                    <div class="gallery-item w-72 sm:w-80 md:w-[340px] shrink-0 h-96 relative overflow-hidden rounded-3xl cursor-pointer group shadow-md border border-cream-200"
+                        onclick="openLightbox('https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.46.13.jpeg?raw=true', 'Romin & Alina - Timeless Elegance')">
+                        <img src="https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.46.13.jpeg?raw=true"
+                            alt="Timeless Elegance"
+                            class="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-dustyblue-900/80 via-dustyblue-900/20 to-transparent opacity-70 group-hover:opacity-90 transition-opacity flex flex-col justify-end p-6">
                             <h4 class="text-white font-serif text-xl font-bold">Timeless Elegance</h4>
                             <p class="text-xs text-cream-200 mt-0.5">Romin & Alina</p>
                         </div>
                     </div>
 
                     <!-- Photo 6: Forever & Always -->
-                    <div class="gallery-item w-72 sm:w-80 md:w-[340px] shrink-0 h-96 relative overflow-hidden rounded-3xl cursor-pointer group shadow-md border-2 border-gold/30" onclick="openLightbox('https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.45.59.jpeg?raw=true', 'Romin & Alina - Forever & Always')">
-                        <img src="https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.45.59.jpeg?raw=true" alt="Forever & Always" class="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700">
-                        <div class="absolute inset-0 bg-gradient-to-t from-dustyblue-900/80 via-dustyblue-900/20 to-transparent opacity-70 group-hover:opacity-90 transition-opacity flex flex-col justify-end p-6">
+                    <div class="gallery-item w-72 sm:w-80 md:w-[340px] shrink-0 h-96 relative overflow-hidden rounded-3xl cursor-pointer group shadow-md border-2 border-gold/30"
+                        onclick="openLightbox('https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.45.59.jpeg?raw=true', 'Romin & Alina - Forever & Always')">
+                        <img src="https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.45.59.jpeg?raw=true"
+                            alt="Forever & Always"
+                            class="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-dustyblue-900/80 via-dustyblue-900/20 to-transparent opacity-70 group-hover:opacity-90 transition-opacity flex flex-col justify-end p-6">
                             <h4 class="text-white font-serif text-xl font-bold">Forever & Always</h4>
                             <p class="text-xs text-cream-200 mt-0.5">Romin & Alina</p>
                         </div>
@@ -888,56 +1182,82 @@
 
                     <!-- SET 2 (Identical Duplicate for Seamless Infinite Gliding with Zero Stutter) -->
                     <!-- Photo 1: Featured Couple -->
-                    <div class="gallery-item w-72 sm:w-80 md:w-[340px] shrink-0 h-96 relative overflow-hidden rounded-3xl cursor-pointer group shadow-lg border-2 border-gold/40" onclick="openLightbox('https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.23.34%20(1).jpeg?raw=true', 'Romin & Alina - The Wedding Union')">
-                        <img src="https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.23.34%20(1).jpeg?raw=true" alt="Romin & Alina" class="w-full h-full object-cover object-top group-hover:scale-108 transition-transform duration-700">
-                        <div class="absolute inset-0 bg-gradient-to-t from-dustyblue-900/80 via-dustyblue-900/25 to-transparent opacity-75 group-hover:opacity-90 transition-opacity flex flex-col justify-end p-6">
-                            <span class="text-[10px] uppercase font-bold tracking-widest text-gold-light bg-dustyblue-800/80 self-start px-2.5 py-0.5 rounded-full mb-1.5 border border-gold/30">Featured</span>
+                    <div class="gallery-item w-72 sm:w-80 md:w-[340px] shrink-0 h-96 relative overflow-hidden rounded-3xl cursor-pointer group shadow-lg border-2 border-gold/40"
+                        onclick="openLightbox('https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.23.34%20(1).jpeg?raw=true', 'Romin & Alina - The Wedding Union')">
+                        <img src="https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.23.34%20(1).jpeg?raw=true"
+                            alt="Romin & Alina"
+                            class="w-full h-full object-cover object-top group-hover:scale-108 transition-transform duration-700">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-dustyblue-900/80 via-dustyblue-900/25 to-transparent opacity-75 group-hover:opacity-90 transition-opacity flex flex-col justify-end p-6">
+                            <span
+                                class="text-[10px] uppercase font-bold tracking-widest text-gold-light bg-dustyblue-800/80 self-start px-2.5 py-0.5 rounded-full mb-1.5 border border-gold/30">Featured</span>
                             <h4 class="text-white font-serif text-xl font-bold">The Wedding Union</h4>
                             <p class="text-xs text-cream-200 mt-0.5">Romin & Alina</p>
                         </div>
                     </div>
 
                     <!-- Photo 2: Cherished Moments -->
-                    <div class="gallery-item w-72 sm:w-80 md:w-[340px] shrink-0 h-96 relative overflow-hidden rounded-3xl cursor-pointer group shadow-md border border-cream-200" onclick="openLightbox('https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.23.34%20(2).jpeg?raw=true', 'Romin & Alina - Cherished Moments')">
-                        <img src="https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.23.34%20(2).jpeg?raw=true" alt="Cherished Moments" class="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700">
-                        <div class="absolute inset-0 bg-gradient-to-t from-dustyblue-900/80 via-dustyblue-900/20 to-transparent opacity-70 group-hover:opacity-90 transition-opacity flex flex-col justify-end p-6">
+                    <div class="gallery-item w-72 sm:w-80 md:w-[340px] shrink-0 h-96 relative overflow-hidden rounded-3xl cursor-pointer group shadow-md border border-cream-200"
+                        onclick="openLightbox('https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.23.34%20(2).jpeg?raw=true', 'Romin & Alina - Cherished Moments')">
+                        <img src="https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.23.34%20(2).jpeg?raw=true"
+                            alt="Cherished Moments"
+                            class="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-dustyblue-900/80 via-dustyblue-900/20 to-transparent opacity-70 group-hover:opacity-90 transition-opacity flex flex-col justify-end p-6">
                             <h4 class="text-white font-serif text-xl font-bold">Cherished Moments</h4>
                             <p class="text-xs text-cream-200 mt-0.5">Romin & Alina</p>
                         </div>
                     </div>
 
                     <!-- Photo 3: The Proposal -->
-                    <div class="gallery-item w-72 sm:w-80 md:w-[340px] shrink-0 h-96 relative overflow-hidden rounded-3xl cursor-pointer group shadow-md border-2 border-gold/40" onclick="openLightbox('https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.33.44%20(1).jpeg?raw=true', 'Romin & Alina - The Proposal')">
-                        <img src="https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.33.44%20(1).jpeg?raw=true" alt="The Proposal" class="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700">
-                        <div class="absolute inset-0 bg-gradient-to-t from-dustyblue-900/80 via-dustyblue-900/20 to-transparent opacity-70 group-hover:opacity-90 transition-opacity flex flex-col justify-end p-6">
-                            <span class="text-[10px] uppercase font-bold tracking-widest text-gold-light bg-dustyblue-800/80 self-start px-2.5 py-0.5 rounded-full mb-1.5 border border-gold/30">Special</span>
+                    <div class="gallery-item w-72 sm:w-80 md:w-[340px] shrink-0 h-96 relative overflow-hidden rounded-3xl cursor-pointer group shadow-md border-2 border-gold/40"
+                        onclick="openLightbox('https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.33.44%20(1).jpeg?raw=true', 'Romin & Alina - The Proposal')">
+                        <img src="https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.33.44%20(1).jpeg?raw=true"
+                            alt="The Proposal"
+                            class="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-dustyblue-900/80 via-dustyblue-900/20 to-transparent opacity-70 group-hover:opacity-90 transition-opacity flex flex-col justify-end p-6">
+                            <span
+                                class="text-[10px] uppercase font-bold tracking-widest text-gold-light bg-dustyblue-800/80 self-start px-2.5 py-0.5 rounded-full mb-1.5 border border-gold/30">Special</span>
                             <h4 class="text-white font-serif text-xl font-bold">The Proposal</h4>
                             <p class="text-xs text-cream-200 mt-0.5">Romin & Alina</p>
                         </div>
                     </div>
 
                     <!-- Photo 4: Sweet Beginnings -->
-                    <div class="gallery-item w-72 sm:w-80 md:w-[340px] shrink-0 h-96 relative overflow-hidden rounded-3xl cursor-pointer group shadow-md border border-cream-200" onclick="openLightbox('https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.23.34.jpeg?raw=true', 'Romin & Alina - Sweet Beginnings')">
-                        <img src="https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.23.34.jpeg?raw=true" alt="Sweet Beginnings" class="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700">
-                        <div class="absolute inset-0 bg-gradient-to-t from-dustyblue-900/80 via-dustyblue-900/20 to-transparent opacity-70 group-hover:opacity-90 transition-opacity flex flex-col justify-end p-6">
+                    <div class="gallery-item w-72 sm:w-80 md:w-[340px] shrink-0 h-96 relative overflow-hidden rounded-3xl cursor-pointer group shadow-md border border-cream-200"
+                        onclick="openLightbox('https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.23.34.jpeg?raw=true', 'Romin & Alina - Sweet Beginnings')">
+                        <img src="https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.23.34.jpeg?raw=true"
+                            alt="Sweet Beginnings"
+                            class="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-dustyblue-900/80 via-dustyblue-900/20 to-transparent opacity-70 group-hover:opacity-90 transition-opacity flex flex-col justify-end p-6">
                             <h4 class="text-white font-serif text-xl font-bold">Sweet Beginnings</h4>
                             <p class="text-xs text-cream-200 mt-0.5">Romin & Alina</p>
                         </div>
                     </div>
 
                     <!-- Photo 5: Timeless Elegance -->
-                    <div class="gallery-item w-72 sm:w-80 md:w-[340px] shrink-0 h-96 relative overflow-hidden rounded-3xl cursor-pointer group shadow-md border border-cream-200" onclick="openLightbox('https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.46.13.jpeg?raw=true', 'Romin & Alina - Timeless Elegance')">
-                        <img src="https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.46.13.jpeg?raw=true" alt="Timeless Elegance" class="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700">
-                        <div class="absolute inset-0 bg-gradient-to-t from-dustyblue-900/80 via-dustyblue-900/20 to-transparent opacity-70 group-hover:opacity-90 transition-opacity flex flex-col justify-end p-6">
+                    <div class="gallery-item w-72 sm:w-80 md:w-[340px] shrink-0 h-96 relative overflow-hidden rounded-3xl cursor-pointer group shadow-md border border-cream-200"
+                        onclick="openLightbox('https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.46.13.jpeg?raw=true', 'Romin & Alina - Timeless Elegance')">
+                        <img src="https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.46.13.jpeg?raw=true"
+                            alt="Timeless Elegance"
+                            class="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-dustyblue-900/80 via-dustyblue-900/20 to-transparent opacity-70 group-hover:opacity-90 transition-opacity flex flex-col justify-end p-6">
                             <h4 class="text-white font-serif text-xl font-bold">Timeless Elegance</h4>
                             <p class="text-xs text-cream-200 mt-0.5">Romin & Alina</p>
                         </div>
                     </div>
 
                     <!-- Photo 6: Forever & Always -->
-                    <div class="gallery-item w-72 sm:w-80 md:w-[340px] shrink-0 h-96 relative overflow-hidden rounded-3xl cursor-pointer group shadow-md border-2 border-gold/30" onclick="openLightbox('https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.45.59.jpeg?raw=true', 'Romin & Alina - Forever & Always')">
-                        <img src="https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.45.59.jpeg?raw=true" alt="Forever & Always" class="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700">
-                        <div class="absolute inset-0 bg-gradient-to-t from-dustyblue-900/80 via-dustyblue-900/20 to-transparent opacity-70 group-hover:opacity-90 transition-opacity flex flex-col justify-end p-6">
+                    <div class="gallery-item w-72 sm:w-80 md:w-[340px] shrink-0 h-96 relative overflow-hidden rounded-3xl cursor-pointer group shadow-md border-2 border-gold/30"
+                        onclick="openLightbox('https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.45.59.jpeg?raw=true', 'Romin & Alina - Forever & Always')">
+                        <img src="https://github.com/pappykunj/romin-alina-wedding/blob/main/WhatsApp%20Image%202026-08-25%20at%2023.45.59.jpeg?raw=true"
+                            alt="Forever & Always"
+                            class="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-dustyblue-900/80 via-dustyblue-900/20 to-transparent opacity-70 group-hover:opacity-90 transition-opacity flex flex-col justify-end p-6">
                             <h4 class="text-white font-serif text-xl font-bold">Forever & Always</h4>
                             <p class="text-xs text-cream-200 mt-0.5">Romin & Alina</p>
                         </div>
@@ -949,8 +1269,10 @@
     </section>
 
     <!-- Lightbox Modal -->
-    <div id="lightbox" class="fixed inset-0 z-50 bg-black/90 hidden flex items-center justify-center p-4" onclick="closeLightbox()">
-        <button class="absolute top-6 right-6 text-white text-4xl hover:text-gold transition-colors" onclick="closeLightbox()">&times;</button>
+    <div id="lightbox" class="fixed inset-0 z-50 bg-black/90 hidden flex items-center justify-center p-4"
+        onclick="closeLightbox()">
+        <button class="absolute top-6 right-6 text-white text-4xl hover:text-gold transition-colors"
+            onclick="closeLightbox()">&times;</button>
         <div class="max-w-4xl max-h-[85vh] text-center" onclick="event.stopPropagation()">
             <img id="lightbox-img" src="" alt="Enlarged photo" class="max-h-[75vh] mx-auto rounded-lg shadow-2xl">
             <p id="lightbox-caption" class="text-white font-serif text-lg mt-4"></p>
@@ -960,94 +1282,135 @@
     <!-- ========================================== -->
     <!-- 💌 INVITATION CARD PREVIEW & DOWNLOAD MODAL -->
     <!-- ========================================== -->
-    <div id="card-preview-modal" class="fixed inset-0 z-50 bg-dustyblue-950/85 backdrop-blur-md hidden flex items-center justify-center p-3 sm:p-6 overflow-y-auto" onclick="closeCardModal()">
-        <div class="relative w-full max-w-lg bg-cream-50 rounded-3xl p-5 sm:p-8 shadow-2xl border-2 border-gold/40 my-auto flex flex-col items-center max-h-[92vh] overflow-y-auto" onclick="event.stopPropagation()">
-            
+    <div id="card-preview-modal"
+        class="fixed inset-0 z-50 bg-dustyblue-950/85 backdrop-blur-md hidden flex items-center justify-center p-3 sm:p-6 overflow-y-auto"
+        onclick="closeCardModal()">
+        <div class="relative w-full max-w-lg bg-cream-50 rounded-3xl p-5 sm:p-8 shadow-2xl border-2 border-gold/40 my-auto flex flex-col items-center max-h-[92vh] overflow-y-auto"
+            onclick="event.stopPropagation()">
+
             <!-- Close Button -->
-            <button class="absolute top-4 right-4 text-charcoal hover:text-gold text-3xl font-light leading-none p-2 transition-colors cursor-pointer" onclick="closeCardModal()">&times;</button>
+            <button
+                class="absolute top-4 right-4 text-charcoal hover:text-gold text-3xl font-light leading-none p-2 transition-colors cursor-pointer"
+                onclick="closeCardModal()">&times;</button>
 
             <!-- Program Selector Tabs Inside Modal -->
-            <div class="w-full flex items-center justify-center space-x-1.5 sm:space-x-2 bg-cream-200/70 p-1.5 rounded-2xl mb-5 mt-1 border border-cream-300">
-                <button id="card-tab-1" onclick="switchCardTab(1)" class="flex-1 py-2 px-2 sm:px-3 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all bg-white text-dustyblue-800 shadow-xs border border-gold/30">
+            <div
+                class="w-full flex items-center justify-center space-x-1.5 sm:space-x-2 bg-cream-200/70 p-1.5 rounded-2xl mb-5 mt-1 border border-cream-300">
+                <button id="card-tab-1" onclick="switchCardTab(1)"
+                    class="flex-1 py-2 px-2 sm:px-3 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all bg-white text-dustyblue-800 shadow-xs border border-gold/30">
                     Engagement
                 </button>
-                <button id="card-tab-2" onclick="switchCardTab(2)" class="flex-1 py-2 px-2 sm:px-3 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all text-gray-600 hover:text-dustyblue-800">
+                <button id="card-tab-2" onclick="switchCardTab(2)"
+                    class="flex-1 py-2 px-2 sm:px-3 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all text-gray-600 hover:text-dustyblue-800">
                     Madhuram Veppu
                 </button>
-                <button id="card-tab-3" onclick="switchCardTab(3)" class="flex-1 py-2 px-2 sm:px-3 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all text-gray-600 hover:text-dustyblue-800">
+                <button id="card-tab-3" onclick="switchCardTab(3)"
+                    class="flex-1 py-2 px-2 sm:px-3 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all text-gray-600 hover:text-dustyblue-800">
                     The Wedding
                 </button>
             </div>
 
             <!-- Dynamic Printable Luxury Invitation Card -->
-            <div id="invitation-card-container" class="relative w-full bg-[#FEFCFA] rounded-2xl p-5 sm:p-7 border-2 border-gold/50 shadow-lg text-center overflow-hidden flex flex-col items-center">
-                
+            <div id="invitation-card-container"
+                class="relative w-full max-w-[420px] mx-auto bg-[#FEFCFA] rounded-2xl p-5 sm:p-7 border-2 border-gold/50 shadow-xl text-center overflow-hidden flex flex-col items-center">
+
                 <!-- 🌸 Whispering Light Rose Petals & Palm Watermark Background (Luminous, Non-Obstructive ~0.08 Opacity) -->
                 <div class="absolute inset-0 pointer-events-none overflow-hidden select-none z-0 opacity-15">
                     <!-- Top-Left Delicate Palm Leaf -->
-                    <svg class="absolute -top-4 -left-4 w-44 h-44 text-gold-dark transform -rotate-12" viewBox="0 0 100 100" fill="none" stroke="currentColor">
-                        <path d="M50 0 C45 25 20 40 5 45 C25 45 42 35 48 10 M50 0 C48 30 30 55 10 65 C32 60 45 48 49 20 M50 0 C52 35 40 70 20 85 C40 75 48 58 50 30 M50 0 C60 35 68 70 80 85 C68 75 58 58 52 30 M50 0 C68 30 78 55 90 65 C76 60 62 48 53 20 M50 0 C72 25 88 40 95 45 C82 45 68 35 54 10 M50 0 L50 100" stroke-width="1.3"/>
+                    <svg class="absolute -top-4 -left-4 w-44 h-44 text-gold-dark transform -rotate-12"
+                        viewBox="0 0 100 100" fill="none" stroke="currentColor">
+                        <path
+                            d="M50 0 C45 25 20 40 5 45 C25 45 42 35 48 10 M50 0 C48 30 30 55 10 65 C32 60 45 48 49 20 M50 0 C52 35 40 70 20 85 C40 75 48 58 50 30 M50 0 C60 35 68 70 80 85 C68 75 58 58 52 30 M50 0 C68 30 78 55 90 65 C76 60 62 48 53 20 M50 0 C72 25 88 40 95 45 C82 45 68 35 54 10 M50 0 L50 100"
+                            stroke-width="1.3" />
                     </svg>
 
                     <!-- Bottom-Right Delicate Palm Leaf -->
-                    <svg class="absolute -bottom-6 -right-6 w-48 h-48 text-gold-dark transform rotate-180" viewBox="0 0 100 100" fill="none" stroke="currentColor">
-                        <path d="M50 0 C45 25 20 40 5 45 C25 45 42 35 48 10 M50 0 C48 30 30 55 10 65 C32 60 45 48 49 20 M50 0 C52 35 40 70 20 85 C40 75 48 58 50 30 M50 0 C60 35 68 70 80 85 C68 75 58 58 52 30 M50 0 C68 30 78 55 90 65 C76 60 62 48 53 20 M50 0 C72 25 88 40 95 45 C82 45 68 35 54 10 M50 0 L50 100" stroke-width="1.3"/>
+                    <svg class="absolute -bottom-6 -right-6 w-48 h-48 text-gold-dark transform rotate-180"
+                        viewBox="0 0 100 100" fill="none" stroke="currentColor">
+                        <path
+                            d="M50 0 C45 25 20 40 5 45 C25 45 42 35 48 10 M50 0 C48 30 30 55 10 65 C32 60 45 48 49 20 M50 0 C52 35 40 70 20 85 C40 75 48 58 50 30 M50 0 C60 35 68 70 80 85 C68 75 58 58 52 30 M50 0 C68 30 78 55 90 65 C76 60 62 48 53 20 M50 0 C72 25 88 40 95 45 C82 45 68 35 54 10 M50 0 L50 100"
+                            stroke-width="1.3" />
                     </svg>
 
                     <!-- Soft Floating Rose Petals (Organic Curved Shapes) -->
                     <!-- Petal 1: Top Right Floating Rose Petal -->
-                    <svg class="absolute top-10 right-4 w-9 h-9 text-rose-400 transform rotate-45" viewBox="0 0 32 32" fill="currentColor">
-                        <path d="M16 3 C10 8, 5 15, 7 23 C9 29, 21 30, 25 24 C28 17, 23 9, 16 3 Z M16 7 C18 13, 19 19, 16 25" stroke="currentColor" stroke-width="0.8" fill-opacity="0.85"/>
+                    <svg class="absolute top-10 right-4 w-9 h-9 text-rose-400 transform rotate-45" viewBox="0 0 32 32"
+                        fill="currentColor">
+                        <path
+                            d="M16 3 C10 8, 5 15, 7 23 C9 29, 21 30, 25 24 C28 17, 23 9, 16 3 Z M16 7 C18 13, 19 19, 16 25"
+                            stroke="currentColor" stroke-width="0.8" fill-opacity="0.85" />
                     </svg>
                     <!-- Petal 2: Mid-Left Floating Rose Petal -->
-                    <svg class="absolute top-1/3 left-2 w-8 h-8 text-rose-300 transform -rotate-25" viewBox="0 0 32 32" fill="currentColor">
-                        <path d="M16 3 C10 8, 5 15, 7 23 C9 29, 21 30, 25 24 C28 17, 23 9, 16 3 Z" fill-opacity="0.9"/>
+                    <svg class="absolute top-1/3 left-2 w-8 h-8 text-rose-300 transform -rotate-25" viewBox="0 0 32 32"
+                        fill="currentColor">
+                        <path d="M16 3 C10 8, 5 15, 7 23 C9 29, 21 30, 25 24 C28 17, 23 9, 16 3 Z" fill-opacity="0.9" />
                     </svg>
                     <!-- Petal 3: Mid-Right Soft Rose Petal -->
-                    <svg class="absolute top-1/2 right-3 w-7 h-7 text-rose-400 transform rotate-15" viewBox="0 0 32 32" fill="currentColor">
-                        <path d="M16 3 C10 8, 5 15, 7 23 C9 29, 21 30, 25 24 C28 17, 23 9, 16 3 Z" fill-opacity="0.8"/>
+                    <svg class="absolute top-1/2 right-3 w-7 h-7 text-rose-400 transform rotate-15" viewBox="0 0 32 32"
+                        fill="currentColor">
+                        <path d="M16 3 C10 8, 5 15, 7 23 C9 29, 21 30, 25 24 C28 17, 23 9, 16 3 Z" fill-opacity="0.8" />
                     </svg>
                     <!-- Petal 4: Lower-Left Soft Rose Petal -->
-                    <svg class="absolute bottom-24 left-3 w-8 h-8 text-rose-400 transform rotate-60" viewBox="0 0 32 32" fill="currentColor">
-                        <path d="M16 3 C10 8, 5 15, 7 23 C9 29, 21 30, 25 24 C28 17, 23 9, 16 3 Z M16 7 C18 13, 19 19, 16 25" stroke="currentColor" stroke-width="0.8" fill-opacity="0.85"/>
+                    <svg class="absolute bottom-24 left-3 w-8 h-8 text-rose-400 transform rotate-60" viewBox="0 0 32 32"
+                        fill="currentColor">
+                        <path
+                            d="M16 3 C10 8, 5 15, 7 23 C9 29, 21 30, 25 24 C28 17, 23 9, 16 3 Z M16 7 C18 13, 19 19, 16 25"
+                            stroke="currentColor" stroke-width="0.8" fill-opacity="0.85" />
                     </svg>
                     <!-- Petal 5: Lower-Right Soft Rose Petal -->
-                    <svg class="absolute bottom-12 right-5 w-7 h-7 text-rose-300 transform -rotate-40" viewBox="0 0 32 32" fill="currentColor">
-                        <path d="M16 3 C10 8, 5 15, 7 23 C9 29, 21 30, 25 24 C28 17, 23 9, 16 3 Z" fill-opacity="0.9"/>
+                    <svg class="absolute bottom-12 right-5 w-7 h-7 text-rose-300 transform -rotate-40"
+                        viewBox="0 0 32 32" fill="currentColor">
+                        <path d="M16 3 C10 8, 5 15, 7 23 C9 29, 21 30, 25 24 C28 17, 23 9, 16 3 Z" fill-opacity="0.9" />
                     </svg>
                     <!-- Petal 6: Top-Center Gentle Petal -->
-                    <svg class="absolute top-4 left-1/3 w-6 h-6 text-gold/60 transform rotate-30" viewBox="0 0 32 32" fill="currentColor">
-                        <path d="M16 3 C10 8, 5 15, 7 23 C9 29, 21 30, 25 24 C28 17, 23 9, 16 3 Z" fill-opacity="0.8"/>
+                    <svg class="absolute top-4 left-1/3 w-6 h-6 text-gold/60 transform rotate-30" viewBox="0 0 32 32"
+                        fill="currentColor">
+                        <path d="M16 3 C10 8, 5 15, 7 23 C9 29, 21 30, 25 24 C28 17, 23 9, 16 3 Z" fill-opacity="0.8" />
                     </svg>
                 </div>
-                
+
                 <!-- Ornate Gold Corner Borders -->
-                <div class="w-6 h-6 absolute top-2.5 left-2.5 border-t-2 border-l-2 border-gold/70 rounded-tl-lg pointer-events-none z-10"></div>
-                <div class="w-6 h-6 absolute top-2.5 right-2.5 border-t-2 border-r-2 border-gold/70 rounded-tr-lg pointer-events-none z-10"></div>
-                <div class="w-6 h-6 absolute bottom-2.5 left-2.5 border-b-2 border-l-2 border-gold/70 rounded-bl-lg pointer-events-none z-10"></div>
-                <div class="w-6 h-6 absolute bottom-2.5 right-2.5 border-b-2 border-r-2 border-gold/70 rounded-br-lg pointer-events-none z-10"></div>
+                <div
+                    class="w-6 h-6 absolute top-2.5 left-2.5 border-t-2 border-l-2 border-gold/70 rounded-tl-lg pointer-events-none z-10">
+                </div>
+                <div
+                    class="w-6 h-6 absolute top-2.5 right-2.5 border-t-2 border-r-2 border-gold/70 rounded-tr-lg pointer-events-none z-10">
+                </div>
+                <div
+                    class="w-6 h-6 absolute bottom-2.5 left-2.5 border-b-2 border-l-2 border-gold/70 rounded-bl-lg pointer-events-none z-10">
+                </div>
+                <div
+                    class="w-6 h-6 absolute bottom-2.5 right-2.5 border-b-2 border-r-2 border-gold/70 rounded-br-lg pointer-events-none z-10">
+                </div>
 
                 <!-- Top Emblem Badge -->
-                <div class="w-10 h-10 rounded-xl bg-gold/15 text-gold-dark border border-gold/40 flex items-center justify-center shadow-xs mb-2 relative z-10">
-                    <svg class="w-5 h-5 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 2v8m-3-5h6" stroke="currentColor" stroke-width="2"/>
+                <div
+                    class="w-10 h-10 rounded-xl bg-gold/15 text-gold-dark border border-gold/40 flex items-center justify-center shadow-xs mb-2 relative z-10">
+                    <svg class="w-5 h-5 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2v8m-3-5h6" stroke="currentColor" stroke-width="2" />
                         <circle cx="8.5" cy="15.5" r="4.5" />
                         <circle cx="15.5" cy="15.5" r="4.5" />
                     </svg>
                 </div>
 
-                <p id="card-subtitle" class="font-serif text-[10px] sm:text-xs uppercase tracking-[0.25em] text-gold-dark font-semibold mb-1 relative z-10">
+                <p id="card-subtitle"
+                    class="font-serif text-[10px] sm:text-xs uppercase tracking-[0.25em] text-gold-dark font-semibold mb-1 relative z-10">
                     The Engagement Celebration
                 </p>
 
                 <!-- Arch Photo of Couple -->
-                <div class="w-32 h-40 sm:w-36 sm:h-44 my-2 rounded-t-full rounded-b-xl overflow-hidden border-2 border-gold/60 shadow-md bg-cream-100 shrink-0 relative z-10">
-                    <img id="card-couple-img" src="https://github.com/pappykunj/romin-alina-wedding/blob/main/IMG-20260811-WA0040.jpg?raw=true" alt="Romin & Alina" class="w-full h-full object-cover object-top">
+                <div
+                    class="w-32 h-40 sm:w-36 sm:h-44 my-2 rounded-t-full rounded-b-xl overflow-hidden border-2 border-gold/60 shadow-md bg-cream-100 shrink-0 relative z-10">
+                    <img id="card-couple-img" crossorigin="anonymous"
+                        src="https://github.com/pappykunj/romin-alina-wedding/blob/main/IMG-20260811-WA0040.jpg?raw=true"
+                        alt="Romin & Alina" class="w-full h-full object-cover object-top">
                 </div>
 
                 <!-- Couple / Groom Names & Parentage -->
                 <div id="card-names-block" class="my-1 text-center relative z-10">
-                    <h3 id="card-couple-name" class="font-serif text-2xl sm:text-3xl font-bold text-dustyblue-800 tracking-tight leading-tight">
+                    <h3 id="card-couple-name"
+                        class="font-serif text-2xl sm:text-3xl font-bold text-dustyblue-800 tracking-tight leading-tight">
                         Romin <span class="font-cursive text-gold text-3xl">&</span> Alina
                     </h3>
                     <div id="card-parents-detail" class="text-[11px] text-gray-600 space-y-1 mt-1.5 leading-relaxed">
@@ -1059,12 +1422,15 @@
 
                 <!-- Event Specific Itinerary Info -->
                 <div id="card-details" class="space-y-1 text-xs text-charcoal my-1 max-w-sm relative z-10">
-                    <p id="card-date-time" class="font-bold text-dustyblue-800 text-sm">Saturday, October 17, 2026 &bull; 12:00 PM</p>
-                    <p id="card-venue-1" class="text-gray-700 font-medium">⛪ St. Sebastian's Church, Kuzhivayal, Wayanad</p>
+                    <p id="card-date-time" class="font-bold text-dustyblue-800 text-sm">Saturday, October 17, 2026
+                        &bull; 12:00 PM</p>
+                    <p id="card-venue-1" class="text-gray-700 font-medium">⛪ St. Sebastian's Church, Kuzhivayal, Wayanad
+                    </p>
                     <p id="card-venue-2" class="text-gray-600">🍽️ Reception: MR Auditorium, Muttil, Wayanad</p>
                 </div>
 
-                <p id="card-verse" class="font-cursive text-gold-dark text-sm sm:text-base mt-2 px-4 leading-snug relative z-10">
+                <p id="card-verse"
+                    class="font-cursive text-gold-dark text-sm sm:text-base mt-2 px-4 leading-snug relative z-10">
                     “With faith, hope & love, we begin our lifelong journey.”
                 </p>
 
@@ -1075,15 +1441,19 @@
 
             <!-- Modal Action Buttons -->
             <div class="w-full mt-5 flex flex-col sm:flex-row gap-3">
-                <button id="download-card-btn" onclick="downloadCurrentCardPng()" class="flex-1 py-3.5 px-5 bg-dustyblue-700 hover:bg-dustyblue-800 text-white rounded-2xl font-serif text-xs sm:text-sm tracking-widest uppercase shadow-lg hover:shadow-xl transition-all flex items-center justify-center space-x-2 border border-gold/40 cursor-pointer">
+                <button id="download-card-btn" onclick="downloadCurrentCardPng()"
+                    class="flex-1 py-3.5 px-5 bg-dustyblue-700 hover:bg-dustyblue-800 text-white rounded-2xl font-serif text-xs sm:text-sm tracking-widest uppercase shadow-lg hover:shadow-xl transition-all flex items-center justify-center space-x-2 border border-gold/40 cursor-pointer">
                     <svg class="w-4 h-4 text-gold-light" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                     </svg>
                     <span>Download Card (PNG)</span>
                 </button>
-                <button onclick="shareCardWhatsApp()" class="py-3.5 px-5 bg-[#25D366] hover:bg-[#20bd5a] text-white rounded-2xl font-medium text-xs sm:text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center space-x-2 cursor-pointer">
+                <button onclick="shareCardWhatsApp()"
+                    class="py-3.5 px-5 bg-[#25D366] hover:bg-[#20bd5a] text-white rounded-2xl font-medium text-xs sm:text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center space-x-2 cursor-pointer">
                     <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                        <path
+                            d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
                     </svg>
                     <span>Share</span>
                 </button>
@@ -1101,32 +1471,53 @@
 
             <div class="space-y-4">
                 <div class="bg-white rounded-2xl border border-cream-200 overflow-hidden shadow-sm">
-                    <button class="faq-toggle w-full px-6 py-5 text-left font-serif text-lg font-semibold text-dustyblue-800 flex justify-between items-center focus:outline-none">
+                    <button
+                        class="faq-toggle w-full px-6 py-5 text-left font-serif text-lg font-semibold text-dustyblue-800 flex justify-between items-center focus:outline-none">
                         <span>What is the dress code for the Wedding Mass & Reception?</span>
-                        <svg class="w-5 h-5 text-gold transform transition-transform duration-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        <svg class="w-5 h-5 text-gold transform transition-transform duration-300 shrink-0" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                            </path>
+                        </svg>
                     </button>
-                    <div class="faq-content hidden px-6 pb-5 text-sm text-gray-600 leading-relaxed border-t border-cream-100 pt-3">
-                        Traditional Kerala formal wear (Sarees, Settu Sarees, Suits, or Kurtas/Sherwanis) is recommended for both church solemnization and the grand reception.
+                    <div
+                        class="faq-content hidden px-6 pb-5 text-sm text-gray-600 leading-relaxed border-t border-cream-100 pt-3">
+                        Traditional Kerala formal wear (Sarees, Settu Sarees, Suits, or Kurtas/Sherwanis) is recommended
+                        for both church solemnization and the grand reception.
                     </div>
                 </div>
 
                 <div class="bg-white rounded-2xl border border-cream-200 overflow-hidden shadow-sm">
-                    <button class="faq-toggle w-full px-6 py-5 text-left font-serif text-lg font-semibold text-dustyblue-800 flex justify-between items-center focus:outline-none">
+                    <button
+                        class="faq-toggle w-full px-6 py-5 text-left font-serif text-lg font-semibold text-dustyblue-800 flex justify-between items-center focus:outline-none">
                         <span>Is parking available at St. Joseph Church Veroor?</span>
-                        <svg class="w-5 h-5 text-gold transform transition-transform duration-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        <svg class="w-5 h-5 text-gold transform transition-transform duration-300 shrink-0" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                            </path>
+                        </svg>
                     </button>
-                    <div class="faq-content hidden px-6 pb-5 text-sm text-gray-600 leading-relaxed border-t border-cream-100 pt-3">
-                        Yes, ample parking space for cars and buses is available on the church premises and neighboring designated grounds.
+                    <div
+                        class="faq-content hidden px-6 pb-5 text-sm text-gray-600 leading-relaxed border-t border-cream-100 pt-3">
+                        Yes, ample parking space for cars and buses is available on the church premises and neighboring
+                        designated grounds.
                     </div>
                 </div>
 
                 <div class="bg-white rounded-2xl border border-cream-200 overflow-hidden shadow-sm">
-                    <button class="faq-toggle w-full px-6 py-5 text-left font-serif text-lg font-semibold text-dustyblue-800 flex justify-between items-center focus:outline-none">
+                    <button
+                        class="faq-toggle w-full px-6 py-5 text-left font-serif text-lg font-semibold text-dustyblue-800 flex justify-between items-center focus:outline-none">
                         <span>What time should guests arrive for the Wedding Mass?</span>
-                        <svg class="w-5 h-5 text-gold transform transition-transform duration-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        <svg class="w-5 h-5 text-gold transform transition-transform duration-300 shrink-0" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                            </path>
+                        </svg>
                     </button>
-                    <div class="faq-content hidden px-6 pb-5 text-sm text-gray-600 leading-relaxed border-t border-cream-100 pt-3">
-                        We kindly request guests to be seated inside St. Joseph Church at least 20 minutes prior to the start of the Holy Mass.
+                    <div
+                        class="faq-content hidden px-6 pb-5 text-sm text-gray-600 leading-relaxed border-t border-cream-100 pt-3">
+                        We kindly request guests to be seated inside St. Joseph Church at least 20 minutes prior to the
+                        start of the Holy Mass.
                     </div>
                 </div>
             </div>
@@ -1139,28 +1530,41 @@
                 <div class="text-center mb-10">
                     <span class="font-cursive text-3xl text-gold block mb-1">Shower Your Love & Celebrate</span>
                     <h2 class="font-serif text-4xl font-semibold text-dustyblue-800">RSVP & Blessings</h2>
-                    <p class="text-gray-600 text-sm mt-2">Kindly let us know if you'll join our celebrations and send your prayers for Romin & Alina</p>
+                    <p class="text-gray-600 text-sm mt-2">Kindly let us know if you'll join our celebrations and send
+                        your prayers for Romin & Alina</p>
                     <div class="w-16 h-0.5 bg-gold mx-auto mt-3"></div>
                 </div>
 
                 <form id="blessingForm" class="space-y-6">
                     <!-- RSVP Attendance Choice -->
                     <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-dustyblue-800 mb-3">Will You Be Attending? *</label>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-dustyblue-800 mb-3">Will You
+                            Be Attending? *</label>
                         <div class="grid grid-cols-2 gap-3 sm:gap-4">
-                            <label class="relative flex items-center p-3.5 sm:p-4 bg-white rounded-2xl border-2 border-dustyblue-700 cursor-pointer shadow-xs hover:border-gold transition-all rsvp-radio-label" id="label-attending">
-                                <input type="radio" name="rsvpAttendance" value="Attending" checked class="w-4 h-4 text-dustyblue-700 focus:ring-gold border-gray-300" onchange="toggleRsvpEvents(true)">
+                            <label
+                                class="relative flex items-center p-3.5 sm:p-4 bg-white rounded-2xl border-2 border-dustyblue-700 cursor-pointer shadow-xs hover:border-gold transition-all rsvp-radio-label"
+                                id="label-attending">
+                                <input type="radio" name="rsvpAttendance" value="Attending" checked
+                                    class="w-4 h-4 text-dustyblue-700 focus:ring-gold border-gray-300"
+                                    onchange="toggleRsvpEvents(true)">
                                 <div class="ml-2 sm:ml-3">
-                                    <span class="block text-xs sm:text-sm font-bold text-dustyblue-800">✨ Joyfully Attending</span>
+                                    <span class="block text-xs sm:text-sm font-bold text-dustyblue-800">✨ Joyfully
+                                        Attending</span>
                                     <span class="text-[11px] text-gray-500 hidden sm:block">Joining celebrations</span>
                                 </div>
                             </label>
 
-                            <label class="relative flex items-center p-3.5 sm:p-4 bg-white/70 rounded-2xl border-2 border-cream-300 cursor-pointer shadow-xs hover:border-gold transition-all rsvp-radio-label" id="label-declining">
-                                <input type="radio" name="rsvpAttendance" value="Regretfully Unable" class="w-4 h-4 text-dustyblue-700 focus:ring-gold border-gray-300" onchange="toggleRsvpEvents(false)">
+                            <label
+                                class="relative flex items-center p-3.5 sm:p-4 bg-white/70 rounded-2xl border-2 border-cream-300 cursor-pointer shadow-xs hover:border-gold transition-all rsvp-radio-label"
+                                id="label-declining">
+                                <input type="radio" name="rsvpAttendance" value="Regretfully Unable"
+                                    class="w-4 h-4 text-dustyblue-700 focus:ring-gold border-gray-300"
+                                    onchange="toggleRsvpEvents(false)">
                                 <div class="ml-2 sm:ml-3">
-                                    <span class="block text-xs sm:text-sm font-bold text-gray-700">🕊️ Regretfully Unable</span>
-                                    <span class="text-[11px] text-gray-500 hidden sm:block">Sending prayers & love</span>
+                                    <span class="block text-xs sm:text-sm font-bold text-gray-700">🕊️ Regretfully
+                                        Unable</span>
+                                    <span class="text-[11px] text-gray-500 hidden sm:block">Sending prayers &
+                                        love</span>
                                 </div>
                             </label>
                         </div>
@@ -1169,32 +1573,45 @@
                     <!-- Attending Events Selection & Guest Count -->
                     <div id="rsvp-attendance-details" class="space-y-5 pt-1">
                         <div>
-                            <label class="block text-xs font-bold uppercase tracking-wider text-dustyblue-800 mb-2.5">Which Celebrations Will You Attend?</label>
-                            
+                            <label
+                                class="block text-xs font-bold uppercase tracking-wider text-dustyblue-800 mb-2.5">Which
+                                Celebrations Will You Attend?</label>
+
                             <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3">
                                 <!-- Program 1 -->
-                                <label class="flex items-start p-3 sm:p-3.5 bg-white rounded-2xl border border-cream-300 hover:border-gold/60 cursor-pointer transition-all shadow-2xs group select-none">
-                                    <input type="checkbox" name="rsvpEvents" value="Engagement" checked class="w-4 h-4 mt-0.5 text-dustyblue-700 rounded focus:ring-gold border-gray-300 shrink-0">
+                                <label
+                                    class="flex items-start p-3 sm:p-3.5 bg-white rounded-2xl border border-cream-300 hover:border-gold/60 cursor-pointer transition-all shadow-2xs group select-none">
+                                    <input type="checkbox" name="rsvpEvents" value="Engagement" checked
+                                        class="w-4 h-4 mt-0.5 text-dustyblue-700 rounded focus:ring-gold border-gray-300 shrink-0">
                                     <div class="ml-2.5">
-                                        <span class="block text-xs font-bold text-dustyblue-800 group-hover:text-gold-dark transition-colors">Engagement</span>
+                                        <span
+                                            class="block text-xs font-bold text-dustyblue-800 group-hover:text-gold-dark transition-colors">Engagement</span>
                                         <span class="block text-[10px] text-gray-500">Oct 17 • Wayanad</span>
                                     </div>
                                 </label>
 
                                 <!-- Program 2 -->
-                                <label class="flex items-start p-3 sm:p-3.5 bg-white rounded-2xl border border-cream-300 hover:border-gold/60 cursor-pointer transition-all shadow-2xs group select-none">
-                                    <input type="checkbox" name="rsvpEvents" value="Madhuram Veppu" checked class="w-4 h-4 mt-0.5 text-dustyblue-700 rounded focus:ring-gold border-gray-300 shrink-0">
+                                <label
+                                    class="flex items-start p-3 sm:p-3.5 bg-white rounded-2xl border border-cream-300 hover:border-gold/60 cursor-pointer transition-all shadow-2xs group select-none">
+                                    <input type="checkbox" name="rsvpEvents" value="Madhuram Veppu" checked
+                                        class="w-4 h-4 mt-0.5 text-dustyblue-700 rounded focus:ring-gold border-gray-300 shrink-0">
                                     <div class="ml-2.5">
-                                        <span class="block text-xs font-bold text-dustyblue-800 group-hover:text-gold-dark transition-colors">Madhuram Veppu</span>
+                                        <span
+                                            class="block text-xs font-bold text-dustyblue-800 group-hover:text-gold-dark transition-colors">Madhuram
+                                            Veppu</span>
                                         <span class="block text-[10px] text-gray-500">Oct 23 • Kumarakom</span>
                                     </div>
                                 </label>
 
                                 <!-- Program 3 -->
-                                <label class="flex items-start p-3 sm:p-3.5 bg-white rounded-2xl border border-cream-300 hover:border-gold/60 cursor-pointer transition-all shadow-2xs group select-none">
-                                    <input type="checkbox" name="rsvpEvents" value="Wedding" checked class="w-4 h-4 mt-0.5 text-dustyblue-700 rounded focus:ring-gold border-gray-300 shrink-0">
+                                <label
+                                    class="flex items-start p-3 sm:p-3.5 bg-white rounded-2xl border border-cream-300 hover:border-gold/60 cursor-pointer transition-all shadow-2xs group select-none">
+                                    <input type="checkbox" name="rsvpEvents" value="Wedding" checked
+                                        class="w-4 h-4 mt-0.5 text-dustyblue-700 rounded focus:ring-gold border-gray-300 shrink-0">
                                     <div class="ml-2.5">
-                                        <span class="block text-xs font-bold text-dustyblue-800 group-hover:text-gold-dark transition-colors">The Wedding</span>
+                                        <span
+                                            class="block text-xs font-bold text-dustyblue-800 group-hover:text-gold-dark transition-colors">The
+                                            Wedding</span>
                                         <span class="block text-[10px] text-gray-500">Oct 25 • Veroor</span>
                                     </div>
                                 </label>
@@ -1202,8 +1619,11 @@
                         </div>
 
                         <div>
-                            <label for="guestCount" class="block text-xs font-bold uppercase tracking-wider text-dustyblue-800 mb-2">Total Number of Guests</label>
-                            <select id="guestCount" class="w-full px-4 py-3 rounded-xl border border-cream-300 focus:ring-2 focus:ring-gold focus:border-gold outline-none text-sm text-gray-700 bg-white shadow-2xs">
+                            <label for="guestCount"
+                                class="block text-xs font-bold uppercase tracking-wider text-dustyblue-800 mb-2">Total
+                                Number of Guests</label>
+                            <select id="guestCount"
+                                class="w-full px-4 py-3 rounded-xl border border-cream-300 focus:ring-2 focus:ring-gold focus:border-gold outline-none text-sm text-gray-700 bg-white shadow-2xs">
                                 <option value="1 Guest">1 Guest</option>
                                 <option value="2 Guests" selected>2 Guests</option>
                                 <option value="3 Guests">3 Guests</option>
@@ -1216,23 +1636,37 @@
                     <!-- Personal Information -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label for="senderName" class="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-2">Your Name *</label>
-                            <input type="text" id="senderName" required placeholder="e.g. Uncle Kurian & Family" class="w-full px-4 py-3.5 rounded-xl border border-cream-300 focus:ring-2 focus:ring-gold focus:border-gold outline-none transition-all bg-white text-sm">
+                            <label for="senderName"
+                                class="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-2">Your Name
+                                *</label>
+                            <input type="text" id="senderName" required placeholder="e.g. Uncle Kurian & Family"
+                                class="w-full px-4 py-3.5 rounded-xl border border-cream-300 focus:ring-2 focus:ring-gold focus:border-gold outline-none transition-all bg-white text-sm">
                         </div>
                         <div>
-                            <label for="senderPhone" class="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-2">Phone / WhatsApp (Optional)</label>
-                            <input type="tel" id="senderPhone" placeholder="Enter Phone Number" class="w-full px-4 py-3.5 rounded-xl border border-cream-300 focus:ring-2 focus:ring-gold focus:border-gold outline-none transition-all bg-white text-sm">
+                            <label for="senderPhone"
+                                class="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-2">Phone /
+                                WhatsApp (Optional)</label>
+                            <input type="tel" id="senderPhone" placeholder="Enter Phone Number"
+                                class="w-full px-4 py-3.5 rounded-xl border border-cream-300 focus:ring-2 focus:ring-gold focus:border-gold outline-none transition-all bg-white text-sm">
                         </div>
                     </div>
 
                     <div>
-                        <label for="blessingMessage" class="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-2">Your Blessing Message (Optional)</label>
-                        <textarea id="blessingMessage" rows="3" placeholder="Wishing dear Romin & Alina a lifetime of God's grace, joy, and peace..." class="w-full px-4 py-3.5 rounded-xl border border-cream-300 focus:ring-2 focus:ring-gold focus:border-gold outline-none transition-all bg-white text-sm"></textarea>
+                        <label for="blessingMessage"
+                            class="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-2">Your Blessing
+                            Message (Optional)</label>
+                        <textarea id="blessingMessage" rows="3"
+                            placeholder="Wishing dear Romin & Alina a lifetime of God's grace, joy, and peace..."
+                            class="w-full px-4 py-3.5 rounded-xl border border-cream-300 focus:ring-2 focus:ring-gold focus:border-gold outline-none transition-all bg-white text-sm"></textarea>
                     </div>
 
-                    <button type="submit" class="w-full bg-dustyblue-700 hover:bg-dustyblue-800 text-white font-medium py-4 rounded-xl shadow-lg hover:shadow-xl transition-all text-base transform hover:-translate-y-0.5 flex items-center justify-center space-x-2">
+                    <button type="submit"
+                        class="w-full bg-dustyblue-700 hover:bg-dustyblue-800 text-white font-medium py-4 rounded-xl shadow-lg hover:shadow-xl transition-all text-base transform hover:-translate-y-0.5 flex items-center justify-center space-x-2">
                         <span>Confirm RSVP & Send Wishes</span>
-                        <svg class="w-4 h-4 text-gold-light" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        <svg class="w-4 h-4 text-gold-light" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                        </svg>
                     </button>
                 </form>
             </div>
@@ -1241,8 +1675,10 @@
 
     <footer class="bg-dustyblue-800 text-white py-16 text-center border-t border-dustyblue-700">
         <div class="max-w-4xl mx-auto px-4">
-            <h2 class="font-serif text-4xl font-normal mb-2">Romin <span class="font-cursive text-gold-light text-5xl">&</span> Alina</h2>
-            <p class="text-cream-200 font-light text-xs uppercase tracking-[0.25em] mb-4">October 2026 &bull; Kottayam & Wayanad, Kerala</p>
+            <h2 class="font-serif text-4xl font-normal mb-2">Romin <span
+                    class="font-cursive text-gold-light text-5xl">&</span> Alina</h2>
+            <p class="text-cream-200 font-light text-xs uppercase tracking-[0.25em] mb-4">October 2026 &bull; Kottayam &
+                Wayanad, Kerala</p>
             <div class="mt-6 text-xs text-dustyblue-100/60">&copy; 2026 Romin & Alina Wedding Celebration.</div>
         </div>
     </footer>
@@ -1335,7 +1771,7 @@
         // 📋 GOOGLE SHEETS RSVP ENDPOINT CONFIGURATION
         // Replace this with your deployed Google Apps Script Web App URL:
         // ==========================================
-        const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbx5kvYxZzlXMeTPYqDXHGXz34ShHmAhPugs4-KtNValGdOcfXba5879NxQjr8e8Ngba/exec"; 
+        const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbx5kvYxZzlXMeTPYqDXHGXz34ShHmAhPugs4-KtNValGdOcfXba5879NxQjr8e8Ngba/exec";
 
         blessingForm.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -1348,7 +1784,7 @@
             const attendance = document.querySelector('input[name="rsvpAttendance"]:checked')?.value || 'Attending';
             const isAttending = (attendance === 'Attending');
             const guestCount = isAttending ? (document.getElementById('guestCount')?.value || '2 Guests') : '0 Guests';
-            
+
             // Gather selected events
             const selectedEvents = isAttending
                 ? Array.from(document.querySelectorAll('input[name="rsvpEvents"]:checked')).map(cb => cb.value)
@@ -1567,254 +2003,60 @@
             if (!data) return;
 
             try {
-                // Render onto High-Resolution Canvas (1200x1800 Luxury Print/Share Digital Card)
-                const canvas = document.createElement('canvas');
-                const ctx = canvas.getContext('2d');
-                canvas.width = 1200;
-                canvas.height = 1800;
+                const cardElement = document.getElementById('invitation-card-container');
+                if (!cardElement) throw new Error("Card element not found");
 
-                // 1. Luxury Light Ivory Parchment Background (Luminous & Clean)
-                const bgGrad = ctx.createLinearGradient(0, 0, 0, canvas.height);
-                bgGrad.addColorStop(0, '#FEFCFA');
-                bgGrad.addColorStop(0.5, '#FAF7F2');
-                bgGrad.addColorStop(1, '#F5EFE6');
-                ctx.fillStyle = bgGrad;
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-                // 🌸 Ultra-Light Aesthetic Palm & Floating Rose Petals Watermark (Whisper-soft ~0.07 opacity)
-                ctx.save();
-                
-                // Fine-Line Palm Leaves
-                ctx.save();
-                ctx.globalAlpha = 0.06;
-                ctx.strokeStyle = '#B38B4D';
-                ctx.lineWidth = 1.8;
-                const drawPalmFrond = (cx, cy, scale, angle) => {
-                    ctx.save();
-                    ctx.translate(cx, cy);
-                    ctx.rotate(angle);
-                    ctx.scale(scale, scale);
-                    ctx.beginPath();
-                    ctx.moveTo(0, 0);
-                    ctx.quadraticCurveTo(20, -100, 40, -260);
-                    ctx.stroke();
-
-                    const leaflets = [
-                        { t: 0.15, l: 70, a: -0.6 }, { t: 0.15, l: 70, a: 0.6 },
-                        { t: 0.3, l: 110, a: -0.65 }, { t: 0.3, l: 110, a: 0.65 },
-                        { t: 0.45, l: 140, a: -0.7 }, { t: 0.45, l: 140, a: 0.7 },
-                        { t: 0.6, l: 150, a: -0.75 }, { t: 0.6, l: 150, a: 0.75 },
-                        { t: 0.75, l: 130, a: -0.8 }, { t: 0.75, l: 130, a: 0.8 },
-                        { t: 0.9, l: 90, a: -0.85 }, { t: 0.9, l: 90, a: 0.85 }
-                    ];
-                    leaflets.forEach(lf => {
-                        const sx = 20 * lf.t * lf.t;
-                        const sy = -260 * lf.t;
-                        ctx.beginPath();
-                        ctx.moveTo(sx, sy);
-                        ctx.quadraticCurveTo(sx + Math.cos(lf.a) * lf.l * 0.5, sy + Math.sin(lf.a) * lf.l * 0.5 - 15, sx + Math.cos(lf.a) * lf.l, sy + Math.sin(lf.a) * lf.l);
-                        ctx.stroke();
-                    });
-                    ctx.restore();
-                };
-                drawPalmFrond(60, 60, 1.4, 0.75);
-                drawPalmFrond(canvas.width - 60, canvas.height - 60, 1.5, -2.4);
-                ctx.restore();
-
-                // Realistic Floating Rose Petals (Organic Curved Shapes)
-                const drawRosePetal = (px, py, size, rot, isPink) => {
-                    ctx.save();
-                    ctx.translate(px, py);
-                    ctx.rotate(rot);
-                    ctx.fillStyle = isPink ? 'rgba(251, 113, 133, 0.075)' : 'rgba(212, 175, 55, 0.065)';
-                    ctx.strokeStyle = isPink ? 'rgba(244, 114, 182, 0.11)' : 'rgba(179, 139, 77, 0.09)';
-                    ctx.lineWidth = 1.4;
-                    ctx.beginPath();
-                    ctx.moveTo(0, -size);
-                    ctx.bezierCurveTo(-size * 0.7, -size * 0.4, -size * 0.8, size * 0.5, 0, size);
-                    ctx.bezierCurveTo(size * 0.8, size * 0.5, size * 0.7, -size * 0.4, 0, -size);
-                    ctx.fill();
-                    ctx.stroke();
-
-                    // Soft center vein
-                    ctx.beginPath();
-                    ctx.moveTo(0, -size * 0.65);
-                    ctx.quadraticCurveTo(size * 0.08, 0, 0, size * 0.65);
-                    ctx.stroke();
-                    ctx.restore();
-                };
-
-                // Scattered Drifting Rose Petals
-                drawRosePetal(160, 320, 26, 0.45, true);
-                drawRosePetal(canvas.width - 150, 440, 30, -0.65, true);
-                drawRosePetal(130, 850, 24, 0.3, false);
-                drawRosePetal(canvas.width - 140, 950, 22, -0.4, true);
-                drawRosePetal(120, 1220, 28, 0.8, true);
-                drawRosePetal(canvas.width - 130, 1340, 25, -1.1, true);
-                drawRosePetal(180, 1520, 26, -0.35, false);
-                drawRosePetal(canvas.width - 190, 1580, 28, 0.5, true);
-
-                ctx.restore(); // Restores normal full opacity & styling
-
-                // 2. Outer & Inner Gold Borders
-                ctx.strokeStyle = 'rgba(197, 168, 128, 0.75)';
-                ctx.lineWidth = 4;
-                ctx.strokeRect(40, 40, canvas.width - 80, canvas.height - 80);
-
-                ctx.strokeStyle = 'rgba(197, 168, 128, 0.35)';
-                ctx.lineWidth = 1.5;
-                ctx.strokeRect(54, 54, canvas.width - 108, canvas.height - 108);
-
-                // 3. Ornate Gold Corner Flourishes
-                const drawCornerFlourish = (x, y, flipX, flipY) => {
-                    ctx.save();
-                    ctx.translate(x, y);
-                    ctx.scale(flipX, flipY);
-                    ctx.strokeStyle = '#B38B4D';
-                    ctx.lineWidth = 3;
-                    ctx.beginPath();
-                    ctx.moveTo(0, 45);
-                    ctx.lineTo(0, 12);
-                    ctx.quadraticCurveTo(0, 0, 12, 0);
-                    ctx.lineTo(45, 0);
-                    ctx.stroke();
-                    ctx.restore();
-                };
-                drawCornerFlourish(62, 62, 1, 1);
-                drawCornerFlourish(canvas.width - 62, 62, -1, 1);
-                drawCornerFlourish(62, canvas.height - 62, 1, -1);
-                drawCornerFlourish(canvas.width - 62, canvas.height - 62, -1, -1);
-
-                // 4. Holy Cross & Emblem
-                ctx.textAlign = 'center';
-                ctx.fillStyle = '#B38B4D';
-                ctx.font = 'bold 36px serif';
-                ctx.fillText('✟', canvas.width / 2, 120);
-
-                // 5. Header Subtitle
-                ctx.font = '600 24px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-                ctx.fillStyle = '#9C7A3C';
-                ctx.fillText(data.subtitle.toUpperCase(), canvas.width / 2, 170);
-
-                // 6. Load and Draw Couple Image inside Arch Frame
-                const img = new Image();
-                img.crossOrigin = 'anonymous';
-                img.src = data.photoUrl;
-
-                await new Promise((resolve) => {
-                    img.onload = resolve;
-                    img.onerror = resolve; // Continue safely
+                // Render the exact on-screen DOM card at 3.5x crystal-clear Retina resolution
+                const canvas = await html2canvas(cardElement, {
+                    scale: 3.5,
+                    useCORS: true,
+                    allowTaint: true,
+                    backgroundColor: '#FEFCFA',
+                    logging: false,
+                    scrollX: 0,
+                    scrollY: 0
                 });
 
-                // Arch frame geometry
-                const archX = (canvas.width - 440) / 2;
-                const archY = 205;
-                const archW = 440;
-                const archH = 510;
-                const radius = archW / 2;
+                // High-Quality PNG Blob Delivery (100% full uncompressed quality)
+                canvas.toBlob(async (blob) => {
+                    if (!blob) {
+                        const link = document.createElement('a');
+                        link.download = data.fileName;
+                        link.href = canvas.toDataURL('image/png', 1.0);
+                        link.click();
+                        showToast(`📥 ${data.programName} card downloaded!`);
+                        return;
+                    }
 
-                ctx.save();
-                ctx.beginPath();
-                ctx.moveTo(archX, archY + radius);
-                ctx.arc(archX + radius, archY + radius, radius, Math.PI, 0, false);
-                ctx.lineTo(archX + archW, archY + archH - 20);
-                ctx.quadraticCurveTo(archX + archW, archY + archH, archX + archW - 20, archY + archH);
-                ctx.lineTo(archX + 20, archY + archH);
-                ctx.quadraticCurveTo(archX, archY + archH, archX, archY + archH - 20);
-                ctx.closePath();
-                ctx.clip();
+                    const file = new File([blob], data.fileName, { type: 'image/png' });
 
-                if (img.complete && img.naturalWidth > 0) {
-                    ctx.drawImage(img, archX, archY, archW, archH);
-                } else {
-                    ctx.fillStyle = '#EAE2D5';
-                    ctx.fillRect(archX, archY, archW, archH);
-                }
-                ctx.restore();
+                    // Native Mobile Share / Save to Photos in full quality
+                    if (navigator.canShare && navigator.canShare({ files: [file] }) && /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)) {
+                        try {
+                            await navigator.share({
+                                files: [file],
+                                title: `${data.programName} Invitation Card`,
+                                text: `${data.subtitle} - Romin & Alina`
+                            });
+                            showToast(`📥 ${data.programName} card ready!`);
+                            return;
+                        } catch (shareErr) {
+                            if (shareErr.name === 'AbortError') return;
+                        }
+                    }
 
-                // Arch Frame Gold Border
-                ctx.save();
-                ctx.strokeStyle = '#B38B4D';
-                ctx.lineWidth = 5;
-                ctx.beginPath();
-                ctx.moveTo(archX, archY + radius);
-                ctx.arc(archX + radius, archY + radius, radius, Math.PI, 0, false);
-                ctx.lineTo(archX + archW, archY + archH - 20);
-                ctx.quadraticCurveTo(archX + archW, archY + archH, archX + archW - 20, archY + archH);
-                ctx.lineTo(archX + 20, archY + archH);
-                ctx.quadraticCurveTo(archX, archY + archH, archX, archY + archH - 20);
-                ctx.closePath();
-                ctx.stroke();
-                ctx.restore();
+                    // Direct Blob URL download
+                    const blobUrl = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.download = data.fileName;
+                    link.href = blobUrl;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
 
-                // 7. Names and Detailed Parentage
-                let currentY = 780;
-                if (data.isSingleGroom) {
-                    ctx.fillStyle = '#1E3A5F';
-                    ctx.font = 'bold 56px "Playfair Display", Georgia, serif';
-                    ctx.fillText(data.groomName, canvas.width / 2, currentY);
-
-                    currentY += 45;
-                    ctx.fillStyle = '#4B5563';
-                    ctx.font = '22px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-                    ctx.fillText(data.groomParents, canvas.width / 2, currentY);
-                } else {
-                    ctx.fillStyle = '#1E3A5F';
-                    ctx.font = 'bold 52px "Playfair Display", Georgia, serif';
-                    ctx.fillText(`${data.groomName}  &  ${data.brideName}`, canvas.width / 2, currentY);
-
-                    currentY += 45;
-                    ctx.fillStyle = '#4B5563';
-                    ctx.font = '21px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-                    ctx.fillText(`Groom: ${data.groomParents}`, canvas.width / 2, currentY);
-
-                    currentY += 34;
-                    ctx.fillText(`Bride: ${data.brideParents}`, canvas.width / 2, currentY);
-                }
-
-                // Thin gold divider line
-                currentY += 40;
-                ctx.strokeStyle = 'rgba(179, 139, 77, 0.55)';
-                ctx.lineWidth = 2;
-                ctx.beginPath();
-                ctx.moveTo(canvas.width / 2 - 90, currentY);
-                ctx.lineTo(canvas.width / 2 + 90, currentY);
-                ctx.stroke();
-
-                // 8. Event Date & Time
-                currentY += 65;
-                ctx.fillStyle = '#1E3A5F';
-                ctx.font = 'bold 36px "Playfair Display", Georgia, serif';
-                ctx.fillText(data.dateTime, canvas.width / 2, currentY);
-
-                // 9. Venues & Locations
-                currentY += 65;
-                ctx.fillStyle = '#1F2937';
-                ctx.font = '600 28px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-                ctx.fillText(data.venue1, canvas.width / 2, currentY);
-
-                currentY += 50;
-                ctx.fillStyle = '#4B5563';
-                ctx.font = '500 26px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-                ctx.fillText(data.venue2, canvas.width / 2, currentY);
-
-                // 10. Verse
-                currentY += 75;
-                ctx.fillStyle = '#9C7A3C';
-                ctx.font = 'italic 28px Georgia, serif';
-                ctx.fillText(data.verse, canvas.width / 2, currentY);
-
-                // 11. Footer Compliment Line (No URL)
-                ctx.fillStyle = '#6B7280';
-                ctx.font = '500 22px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-                ctx.fillText('With the blessings of our parents, family & friends', canvas.width / 2, 1720);
-
-                // 12. Trigger Instant PNG Download
-                const link = document.createElement('a');
-                link.download = data.fileName;
-                link.href = canvas.toDataURL('image/png', 1.0);
-                link.click();
-                showToast(`📥 ${data.programName} card downloaded!`);
+                    setTimeout(() => URL.revokeObjectURL(blobUrl), 2000);
+                    showToast(`📥 ${data.programName} card downloaded!`);
+                }, 'image/png');
 
             } catch (err) {
                 console.error("Card generation error:", err);
@@ -1844,7 +2086,7 @@
             button.addEventListener('click', () => {
                 const content = button.nextElementSibling;
                 const icon = button.querySelector('svg');
-                
+
                 content.classList.toggle('hidden');
                 icon.classList.toggle('rotate-180');
             });
@@ -1865,7 +2107,7 @@
         function showToast(msg) {
             const toast = document.getElementById('toast');
             const toastMessage = document.getElementById('toast-message');
-            
+
             toastMessage.innerText = msg;
             toast.classList.remove('translate-y-20', 'opacity-0');
             toast.classList.add('translate-y-0', 'opacity-100');
@@ -1880,7 +2122,7 @@
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
             const scrollLeaves = document.querySelectorAll('.scroll-leaf');
-            
+
             scrollLeaves.forEach(leaf => {
                 const speed = parseFloat(leaf.getAttribute('data-speed')) || 0.05;
                 leaf.style.transform = `translateY(${scrolled * speed * 8}px) rotate(${scrolled * 0.04}deg)`;
@@ -1960,7 +2202,7 @@
             currentTrackIndex = index;
             const track = PLAYLIST[currentTrackIndex];
             if (!bgAudio || !track) return;
-            
+
             bgAudio.src = track.src;
             if (musicTrackTitle) {
                 musicTrackTitle.innerText = track.title;
@@ -1969,7 +2211,7 @@
 
             const handleMetadata = () => {
                 if (track.startTime > 0) {
-                    try { bgAudio.currentTime = track.startTime; } catch (e) {}
+                    try { bgAudio.currentTime = track.startTime; } catch (e) { }
                 }
                 bgAudio.removeEventListener('loadedmetadata', handleMetadata);
             };
@@ -2034,11 +2276,11 @@
         function playMusic(forceUnmute = false) {
             if (!bgAudio) return;
             const track = PLAYLIST[currentTrackIndex];
-            
+
             if (track && track.startTime > 0 && bgAudio.currentTime < track.startTime - 0.5) {
                 try {
                     bgAudio.currentTime = track.startTime;
-                } catch (e) {}
+                } catch (e) { }
             }
 
             if (forceUnmute) {
@@ -2100,7 +2342,7 @@
 
         // 2. High-priority universal gesture capture across mobile & desktop
         const unlockEvents = ['touchstart', 'touchend', 'pointerdown', 'mousedown', 'click', 'scroll', 'wheel', 'keydown'];
-        
+
         function unlockAndPlayAudio(e) {
             // Ignore if user specifically clicked the music widget (handled by toggleMusic)
             if (e && e.target && e.target.closest && e.target.closest('#music-player-widget')) {
@@ -2110,10 +2352,10 @@
 
             bgAudio.muted = false;
             bgAudio.volume = 0.25;
-            
+
             const track = PLAYLIST[currentTrackIndex];
             if (track && track.startTime > 0 && bgAudio.currentTime < track.startTime - 0.5) {
-                try { bgAudio.currentTime = track.startTime; } catch(e) {}
+                try { bgAudio.currentTime = track.startTime; } catch (e) { }
             }
 
             const promise = bgAudio.play();
@@ -2136,4 +2378,5 @@
         });
     </script>
 </body>
+
 </html>
