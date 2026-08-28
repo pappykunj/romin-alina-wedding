@@ -1283,15 +1283,18 @@
     <!-- 💌 INVITATION CARD PREVIEW & DOWNLOAD MODAL -->
     <!-- ========================================== -->
     <div id="card-preview-modal"
-        class="fixed inset-0 z-50 bg-dustyblue-950/85 backdrop-blur-md hidden flex items-center justify-center p-3 sm:p-6 overflow-y-auto"
+        class="fixed inset-0 z-50 bg-dustyblue-950/85 backdrop-blur-md hidden flex justify-center p-3 sm:p-6 overflow-y-auto"
         onclick="closeCardModal()">
-        <div class="relative w-full max-w-lg bg-cream-50 rounded-3xl p-5 sm:p-8 shadow-2xl border-2 border-gold/40 my-auto flex flex-col items-center max-h-[92vh] overflow-y-auto"
-            onclick="event.stopPropagation()">
+        <div id="card-modal-content" class="relative w-full max-w-lg my-auto" style="transform-origin: top center;" onclick="event.stopPropagation()">
 
-            <!-- Close Button -->
+            <!-- Close Button (sits outside the card, above its top-right corner) -->
             <button
-                class="absolute top-4 right-4 text-charcoal hover:text-gold text-3xl font-light leading-none p-2 transition-colors cursor-pointer"
-                onclick="closeCardModal()">&times;</button>
+                class="absolute -top-3 -right-3 z-10 w-9 h-9 flex items-center justify-center rounded-full bg-cream-50 text-charcoal hover:text-gold hover:bg-cream-100 hover:scale-110 hover:border-gold text-2xl leading-none shadow-lg border border-gold/40 transition-all duration-200 cursor-pointer"
+                onclick="closeCardModal()">
+                <span class="flex items-center justify-center w-full h-full leading-none -translate-y-[3px]">&times;</span>
+            </button>
+
+            <div class="w-full bg-cream-50 rounded-3xl p-4 sm:p-6 shadow-2xl border-2 border-gold/40 flex flex-col items-center">
 
             <!-- Program Selector Tabs Inside Modal -->
             <div
@@ -1312,7 +1315,7 @@
 
             <!-- Dynamic Printable Luxury Invitation Card -->
             <div id="invitation-card-container"
-                class="relative w-full max-w-[420px] mx-auto bg-[#FEFCFA] rounded-2xl p-5 sm:p-7 border-2 border-gold/50 shadow-xl text-center overflow-hidden flex flex-col items-center">
+                class="relative w-full max-w-[390px] mx-auto bg-[#FEFCFA] rounded-2xl p-4 sm:p-5 border-2 border-gold/50 shadow-xl text-center overflow-hidden flex flex-col items-center">
 
                 <!-- 🌸 Whispering Light Rose Petals & Palm Watermark Background (Luminous, Non-Obstructive ~0.08 Opacity) -->
                 <div class="absolute inset-0 pointer-events-none overflow-hidden select-none z-0 opacity-15">
@@ -1457,6 +1460,7 @@
                     </svg>
                     <span>Share</span>
                 </button>
+            </div>
             </div>
         </div>
     </div>
@@ -1916,6 +1920,30 @@
                 modal.classList.remove('hidden');
                 document.body.style.overflow = 'hidden';
             }
+            requestAnimationFrame(fitCardModalToScreen);
+            window.addEventListener('resize', fitCardModalToScreen);
+        }
+
+        // Scales the whole card modal down (if needed) so it always fits
+        // fully within the visible viewport, with no scrolling required.
+        function fitCardModalToScreen() {
+            const content = document.getElementById('card-modal-content');
+            const overlay = document.getElementById('card-preview-modal');
+            if (!content || !overlay || overlay.classList.contains('hidden')) return;
+
+            // Reset scale first so we measure the content's natural size
+            content.style.transform = 'scale(1)';
+
+            const overlayPadding = 24; // roughly matches the modal's own p-3/p-6 breathing room
+            const availableHeight = window.innerHeight - overlayPadding * 2;
+            const naturalHeight = content.offsetHeight;
+
+            let scale = 1;
+            if (naturalHeight > availableHeight) {
+                scale = Math.max(availableHeight / naturalHeight, 0.55); // never shrink below 55%
+            }
+
+            content.style.transform = `scale(${scale})`;
         }
 
         function closeCardModal() {
@@ -1924,6 +1952,7 @@
                 modal.classList.add('hidden');
                 document.body.style.overflow = '';
             }
+            window.removeEventListener('resize', fitCardModalToScreen);
         }
 
         function switchCardTab(programId) {
@@ -1975,6 +2004,8 @@
             if (venue1) venue1.innerText = data.venue1;
             if (venue2) venue2.innerText = data.venue2;
             if (verse) verse.innerText = data.verse;
+
+            requestAnimationFrame(fitCardModalToScreen);
         }
 
         function shareCardWhatsApp() {
@@ -2001,6 +2032,13 @@
 
             const data = CARDS_DATA[currentActiveCardId];
             if (!data) return;
+
+            // Fit-to-screen shrinks the whole modal with a CSS transform, which
+            // confuses html2canvas's layout capture (overlapping/garbled text).
+            // Temporarily reset it to full scale for the capture, then restore.
+            const modalContent = document.getElementById('card-modal-content');
+            const prevTransform = modalContent ? modalContent.style.transform : '';
+            if (modalContent) modalContent.style.transform = 'scale(1)';
 
             try {
                 const cardElement = document.getElementById('invitation-card-container');
@@ -2062,6 +2100,7 @@
                 console.error("Card generation error:", err);
                 showToast("Card downloaded!");
             } finally {
+                if (modalContent) modalContent.style.transform = prevTransform;
                 if (downloadBtn) {
                     downloadBtn.disabled = false;
                     downloadBtn.innerHTML = origContent;
