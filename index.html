@@ -332,11 +332,10 @@
 
     <!-- Floating Background Music Player Widget -->
     <div id="music-player-widget"
-        class="fixed bottom-6 left-6 z-50 flex items-center bg-white/95 backdrop-blur-md border border-gold/50 shadow-2xl rounded-full p-2 pr-3 transition-all duration-300 hover:shadow-gold/30 hover:border-gold group ring-4 ring-gold/30 animate-pulse"
-        onclick="toggleMuteAudio(event)" role="button" aria-label="Mute or unmute background music">
+        class="fixed bottom-6 left-6 z-50 flex items-center bg-white/95 backdrop-blur-md border border-gold/50 shadow-2xl rounded-full p-2 pr-3 transition-all duration-300 hover:shadow-gold/30 hover:border-gold group ring-4 ring-gold/30 animate-pulse">
         <audio id="bg-audio" preload="auto"></audio>
 
-        <!-- Primary Mute / Unmute Button (Replaces play/pause button with same UI) -->
+        <!-- Primary Mute / Unmute Round Button (Only clicking this button toggles Mute/Unmute) -->
         <button id="music-toggle-btn" onclick="toggleMuteAudio(event)"
             class="w-11 h-11 rounded-full bg-gold text-white flex items-center justify-center shadow-md transition-all shrink-0 focus:outline-none group-hover:scale-105"
             aria-label="Mute or Unmute Wedding Music" title="Mute/Unmute Audio (Preference Saved)">
@@ -350,7 +349,7 @@
             </svg>
         </button>
 
-        <div class="ml-3 mr-1 flex flex-col justify-center cursor-pointer select-none">
+        <div class="ml-3 mr-1 flex flex-col justify-center select-none">
             <div class="flex items-center space-x-2">
                 <span id="music-status-text" class="text-xs font-bold uppercase tracking-wider text-gold-dark">Tap to Mute 🎵</span>
                 <!-- Soundwave Equalizer Bars -->
@@ -2144,13 +2143,6 @@
                 setTimeout(() => {
                     entrance.remove();
                 }, 750);
-
-                const currentTrack = PLAYLIST[currentTrackIndex];
-                if (currentTrack) {
-                    setTimeout(() => {
-                        showToast(currentTrack.toast);
-                    }, 400);
-                }
             }
         }
 
@@ -2162,10 +2154,6 @@
             hasUserManuallyPaused = false;
             let nextIndex = (currentTrackIndex + 1) % PLAYLIST.length;
             loadTrack(nextIndex, true);
-            const track = PLAYLIST[nextIndex];
-            if (track) {
-                showToast(track.toast);
-            }
         }
 
         // When current track finishes, automatically shuffle to the next track
@@ -2230,13 +2218,11 @@
 
             if (newMuteState) {
                 updateMusicUI();
-                showToast("Audio Muted 🔇 (Preference saved)");
             } else {
                 bgAudio.muted = false;
                 bgAudio.volume = 0.25;
                 playMusic(true);
                 updateMusicUI();
-                showToast("Audio Unmuted 🎵 (Preference saved)");
             }
         }
 
@@ -2245,8 +2231,6 @@
                 event.stopPropagation();
             }
             if (!bgAudio) return;
-
-            const track = PLAYLIST[currentTrackIndex];
 
             // If muted, clicking main toggle unmutes & plays
             if (localStorage.getItem('audio_muted') === 'true' || bgAudio.muted) {
@@ -2257,15 +2241,11 @@
             if (!bgAudio.paused && !bgAudio.muted) {
                 hasUserManuallyPaused = true;
                 pauseMusic();
-                showToast("Background music paused");
             } else {
                 hasUserManuallyPaused = false;
                 bgAudio.muted = false;
                 bgAudio.volume = 0.25;
                 playMusic(true);
-                if (track) {
-                    showToast(track.toast);
-                }
             }
         }
 
