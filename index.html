@@ -698,7 +698,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg>
-                                <span class="font-bold text-dustyblue-800">Morning</span>
+                                <span class="font-bold text-dustyblue-800">11:00 AM Morning</span>
                             </div>
                         </div>
 
@@ -823,7 +823,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg>
-                                <span class="font-bold text-dustyblue-800">Evening Holy Wedding Mass</span>
+                                <span class="font-bold text-dustyblue-800">2:30 PM Afternoon</span>
                             </div>
                         </div>
 
@@ -1305,7 +1305,7 @@
                 <!-- Event Specific Itinerary Info -->
                 <div id="card-details" class="space-y-1 text-xs text-charcoal my-1 max-w-sm relative z-10">
                     <p id="card-date-time" class="font-bold text-dustyblue-800 text-sm">Saturday, October 17, 2026
-                        &bull; Morning</p>
+                        &bull; 11:00 AM</p>
                     <p id="card-venue-1" class="text-gray-700 font-medium">⛪ St. Sebastian's Church, Kuzhivayal, Wayanad
                     </p>
                     <p id="card-venue-2" class="text-gray-600">🍽️ Reception: MR Auditorium, Muttil, Wayanad</p>
@@ -1552,8 +1552,8 @@
     </footer>
 
     <script>
-        // --- 1. COUNTDOWN TIMER (Oct 25, 2026) ---
-        const weddingDate = new Date("October 25, 2026 18:00:00").getTime();
+        // --- 1. COUNTDOWN TIMER (Oct 25, 2026 2:30 PM) ---
+        const weddingDate = new Date("October 25, 2026 14:30:00").getTime();
 
         function updateCountdown() {
             const now = new Date().getTime();
@@ -1732,8 +1732,8 @@
                 groomName: "Romin Antony",
                 groomParents: "Son of Mr. Thomas Antony & Mrs. Rosakutty Antony (Mulakuppadam House, Changanassery)",
                 brideName: "Alina Neerambuzha",
-                brideParents: "Daughter of Mr. Shaiju Neerambuzha & Mrs. Beena Philip (Neerambuzha House, Wayanad)",
-                dateTime: "Saturday, October 17, 2026 • Morning",
+                brideParents: "Daughter of Mr. Shaju Neerambuzha & Mrs. Beena Philip (Neerambuzha House, Wayanad)",
+                dateTime: "Saturday, October 17, 2026 • 11:00 AM",
                 venue1: "⛪ Church: St. Sebastian's Church, Kuzhivayal, Wayanad",
                 venue2: "🍽️ Lunch Reception: MR Auditorium, Muttil, Wayanad",
                 verse: "“With faith, hope & love, we begin our lifelong journey.”",
@@ -1748,8 +1748,8 @@
                 groomName: "Romin Antony",
                 groomParents: "Son of Mr. Thomas Antony & Mrs. Rosakutty Antony (Mulakuppadam House, Changanassery)",
                 brideName: "Alina Neerambuzha",
-                brideParents: "Daughter of Mr. Shaiju Neerambuzha & Mrs. Beena Philip (Neerambuzha House, Wayanad)",
-                dateTime: "Sunday, October 25, 2026 • Evening Holy Mass",
+                brideParents: "Daughter of Mr. Shaju Neerambuzha & Mrs. Beena Philip (Neerambuzha House, Wayanad)",
+                dateTime: "Sunday, October 25, 2026 • 2:30 PM",
                 venue1: "⛪ Holy Mass: St. Joseph Church, Veroor, Changanassery",
                 venue2: "🏰 Reception: Contour Backwaters Resort & Convention Centre",
                 verse: "“Therefore what God has joined together, let no one separate.” — Mark 10:9",
@@ -2201,6 +2201,12 @@
             }
         }
 
+        function pauseMusic() {
+            if (!bgAudio) return;
+            bgAudio.pause();
+            updateMusicUI();
+        }
+
         function toggleMuteAudio(event) {
             if (event) {
                 event.stopPropagation();
@@ -2258,6 +2264,7 @@
         const unlockEvents = ['touchstart', 'touchend', 'pointerdown', 'mousedown', 'click', 'scroll', 'wheel', 'keydown'];
 
         function unlockAndPlayAudio(e) {
+            if (document.hidden) return; // Do not auto-trigger audio when tab is backgrounded
             if (e && e.target && e.target.closest && e.target.closest('#music-player-widget')) {
                 return;
             }
@@ -2274,7 +2281,7 @@
             const promise = bgAudio.play();
             if (promise !== undefined) {
                 promise.then(() => {
-                    updateMusicUI(true);
+                    updateMusicUI();
                     unlockEvents.forEach(evt => {
                         window.removeEventListener(evt, unlockAndPlayAudio, { capture: true });
                         document.removeEventListener(evt, unlockAndPlayAudio, { capture: true });
@@ -2288,6 +2295,48 @@
         unlockEvents.forEach(evt => {
             window.addEventListener(evt, unlockAndPlayAudio, { capture: true, passive: true });
             document.addEventListener(evt, unlockAndPlayAudio, { capture: true, passive: true });
+        });
+
+        // 3. Auto-pause music when exiting tab, minimizing browser, or locking mobile screen, and auto-resume on return
+        let wasPlayingBeforeHidden = false;
+
+        function handleVisibilityChange() {
+            if (!bgAudio) return;
+            if (document.hidden) {
+                // Tab switched, screen locked, or mobile app backgrounded
+                if (!bgAudio.paused && !bgAudio.muted) {
+                    wasPlayingBeforeHidden = true;
+                    bgAudio.pause();
+                    updateMusicUI();
+                }
+            } else {
+                // User returned to tab/app
+                if (wasPlayingBeforeHidden && !hasUserManuallyPaused && localStorage.getItem('audio_muted') !== 'true') {
+                    wasPlayingBeforeHidden = false;
+                    bgAudio.play().then(() => {
+                        updateMusicUI();
+                    }).catch(err => {
+                        console.log("Auto-resume waiting for user interaction:", err);
+                    });
+                }
+            }
+        }
+
+        document.addEventListener("visibilitychange", handleVisibilityChange);
+        window.addEventListener("pagehide", () => {
+            if (bgAudio && !bgAudio.paused && !bgAudio.muted) {
+                wasPlayingBeforeHidden = true;
+                bgAudio.pause();
+                updateMusicUI();
+            }
+        });
+        window.addEventListener("blur", () => {
+            // Additional safety for app switching / window defocus
+            if (document.hidden && bgAudio && !bgAudio.paused && !bgAudio.muted) {
+                wasPlayingBeforeHidden = true;
+                bgAudio.pause();
+                updateMusicUI();
+            }
         });
     </script>
 </body>
