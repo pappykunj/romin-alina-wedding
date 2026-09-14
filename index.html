@@ -1642,18 +1642,20 @@
 
         async function sharePdfOnWhatsApp() {
             const siteUrl = 'https://romin-alina.web.app';
-            let message = '';
             let shareTitle = '';
             const imgPath = currentInvitationType === 'engagement' ? 'engagement_invitation.jpg' : 'wedding_invitation.jpg';
             const fileName = currentInvitationType === 'engagement' ? 'Engagement_Invitation_Romin_Alina.jpg' : 'Wedding_Invitation_Romin_Alina.jpg';
 
+            let eventDetails = '';
             if (currentInvitationType === 'engagement') {
                 shareTitle = 'Romin & Alina Engagement Invitation';
-                message = `Hey! ❤️\n\nI’m so excited to share this with you! 🥹💍 My brother Romin is getting engaged to Alina, and I would absolutely love for you to be there and celebrate this special day with us! ❤️\n\n💍 *Engagement Day*\n📅 Saturday, 17th October 2026\n⛪ St. Sebastian's Church, Kuzhivayal, Muttil South, Wayanad\n⏰ 11:00 AM\n🍽️ Grand Lunch Reception at MR Auditorium, Muttil, Wayanad\n\nIt would mean so much to me and my family to have you there with us. ❤️ Come celebrate, eat, and make some beautiful memories with us! 🥰\n\n✨ *Wedding Website & RSVP:*\n${siteUrl}\n\nCan’t wait to celebrate with you all! ❤️\n\nWith lots of love,\nRoshan & Nisha`;
+                eventDetails = `Hey! ❤️\n\nI’m so excited to share this with you! 🥹💍 My brother Romin is getting engaged to Alina, and I would absolutely love for you to be there and celebrate this special day with us! ❤️\n\n💍 *Engagement Day*\n📅 Saturday, 17th October 2026\n⛪ St. Sebastian's Church, Kuzhivayal, Muttil South, Wayanad\n⏰ 11:00 AM\n🍽️ Grand Lunch Reception at MR Auditorium, Muttil, Wayanad\n\nIt would mean so much to me and my family to have you there with us. ❤️ Come celebrate, eat, and make some beautiful memories with us! 🥰\n\n✨ *Wedding Website & RSVP:*\n${siteUrl}`;
             } else {
                 shareTitle = 'Romin & Alina Wedding Invitation';
-                message = `Hey! ❤️\n\nI’m so excited to finally share this with you! 🥹💍 My brother Romin is getting married to Alina, and I would absolutely love for you to be there and celebrate these special days with us! ❤️\n\n💍 *Wedding Day*\n📅 Sunday, 25th October 2026\n⛪ St. Joseph Church, Veroor, Changanassery\n⏰ 2:30 PM\n🥂 Reception at Contour Backwaters Resort, Changanassery at 6:30 PM\n\nIt would mean so much to me and my family to have you there with us. ❤️ Come celebrate, eat, dance and make some beautiful memories with us! 🥰\n\n✨ *Wedding Website & RSVP:*\n${siteUrl}\n\nCan’t wait to celebrate with you all! ❤️\n\nWith lots of love,\nRoshan & Nisha`;
+                eventDetails = `Hey! ❤️\n\nI’m so excited to finally share this with you! 🥹💍 My brother Romin is getting married to Alina, and I would absolutely love for you to be there and celebrate these special days with us! ❤️\n\n💍 *Wedding Day*\n📅 Sunday, 25th October 2026\n⛪ St. Joseph Church, Veroor, Changanassery\n⏰ 2:30 PM\n🥂 Reception at Contour Backwaters Resort, Changanassery at 6:30 PM\n\nIt would mean so much to me and my family to have you there with us. ❤️ Come celebrate, eat, dance and make some beautiful memories with us! 🥰\n\n✨ *Wedding Website & RSVP:*\n${siteUrl}`;
             }
+
+            const signOff = `\n\nCan’t wait to celebrate with you all! ❤️\n\nWith lots of love,\nRoshan & Nisha`;
 
             // Check if Web Share API with File Sharing is supported (Mobile Safari, Chrome for Android, iOS/Android)
             if (navigator.share) {
@@ -1665,7 +1667,7 @@
                     if (navigator.canShare && navigator.canShare({ files: [file] })) {
                         await navigator.share({
                             title: shareTitle,
-                            text: message,
+                            text: eventDetails + signOff,
                             files: [file]
                         });
                         return;
@@ -1675,8 +1677,8 @@
                 }
             }
 
-            // Fallback: Standard WhatsApp API with custom text and image preview link
-            const fallbackMessage = message + `\n\n💌 *View Invitation Card:*\n${siteUrl}/${imgPath}`;
+            // Fallback: Standard WhatsApp API with custom text, invitation card link, and sign-off at the very end
+            const fallbackMessage = eventDetails + `\n\n💌 *View Invitation Card:*\n${siteUrl}/${imgPath}` + signOff;
             const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(fallbackMessage)}`;
             window.open(whatsappUrl, '_blank');
         }
