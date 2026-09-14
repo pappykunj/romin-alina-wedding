@@ -1617,8 +1617,8 @@
         let galleryRafId = null;
         let lastFrameTime = null;
         let virtualScroll = 0;
-        // Calm, luxurious speed: ~24 pixels per second across all refresh rates (60Hz / 120Hz)
-        const GALLERY_SPEED_PPS = 24; 
+        // Original smooth marquee speed: ~55 pixels per second (matching the 40s loop)
+        const GALLERY_SPEED_PPS = 55; 
 
         function startGalleryAutoplay() {
             if (!galleryContainer || !galleryTrack) return;
