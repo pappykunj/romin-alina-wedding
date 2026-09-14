@@ -1863,17 +1863,26 @@
             }
         }
 
-        // --- 9. MANUAL NEXT TRACK CONTROLLER ---
+        // --- 9. RANDOM NEXT TRACK CONTROLLER ---
+        function getRandomNextTrackIndex(excludeIndex) {
+            if (PLAYLIST.length <= 1) return 0;
+            let nextIndex;
+            do {
+                nextIndex = Math.floor(Math.random() * PLAYLIST.length);
+            } while (nextIndex === excludeIndex);
+            return nextIndex;
+        }
+
         function playNextTrack(event) {
             if (event) {
                 event.stopPropagation();
             }
             hasUserManuallyPaused = false;
-            let nextIndex = (currentTrackIndex + 1) % PLAYLIST.length;
+            let nextIndex = getRandomNextTrackIndex(currentTrackIndex);
             loadTrack(nextIndex, true);
         }
 
-        // When current track finishes, automatically shuffle to the next track
+        // When current track finishes, automatically pick another random track
         if (bgAudio) {
             bgAudio.addEventListener('ended', () => {
                 playNextTrack();
