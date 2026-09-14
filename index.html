@@ -152,33 +152,31 @@
             animation: auraRotate 20s linear infinite;
         }
 
-        /* Seamless Infinite Gallery Marquee */
+        /* Smooth Interactive Gallery Marquee */
         .gallery-marquee-container {
-            overflow: hidden;
+            overflow-x: auto;
             width: 100%;
             position: relative;
+            cursor: grab;
+            user-select: none;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .gallery-marquee-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .gallery-marquee-container.is-dragging {
+            cursor: grabbing;
         }
 
         .gallery-marquee-track {
             display: flex;
             gap: 1.5rem;
             width: max-content;
-            animation: marqueeSlide 40s linear infinite;
             will-change: transform;
-        }
-
-        .gallery-marquee-track:hover {
-            animation-play-state: paused;
-        }
-
-        @keyframes marqueeSlide {
-            0% {
-                transform: translateX(0);
-            }
-
-            100% {
-                transform: translateX(calc(-50% - 0.75rem));
-            }
         }
 
         @keyframes soundWave {
@@ -994,9 +992,19 @@
                 <div class="w-16 h-0.5 bg-gold mx-auto mt-3"></div>
             </div>
 
-            <!-- Seamless Infinite Marquee Track (2 sets of 6 photos with zero stutter) -->
-            <div class="gallery-marquee-container py-4">
-                <div class="gallery-marquee-track">
+            <!-- Interactive Infinite Carousel Track (Autoplays continuously + Manual Smooth Swipe/Drag & Arrow Buttons) -->
+            <div class="relative group/gallery">
+                <!-- Left Nav Arrow Button -->
+                <button type="button" aria-label="Scroll Gallery Left" onclick="manualScrollGallery(-1)"
+                    class="hidden sm:flex absolute left-3 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white/90 hover:bg-white text-dustyblue-800 hover:text-gold shadow-lg backdrop-blur-md border border-cream-200 items-center justify-center transition-all opacity-0 group-hover/gallery:opacity-100 hover:scale-110 focus:outline-none">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </button>
+
+                <!-- Marquee Container -->
+                <div id="gallery-container" class="gallery-marquee-container py-4">
+                    <div id="gallery-track" class="gallery-marquee-track">
 
                     <!-- SET 1 (Photos 1 to 6) -->
                     <!-- Photo 1: Featured Couple -->
@@ -1166,6 +1174,14 @@
 
                 </div>
             </div>
+
+            <!-- Right Nav Arrow Button -->
+            <button type="button" aria-label="Scroll Gallery Right" onclick="manualScrollGallery(1)"
+                class="hidden sm:flex absolute right-3 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white/90 hover:bg-white text-dustyblue-800 hover:text-gold shadow-lg backdrop-blur-md border border-cream-200 items-center justify-center transition-all opacity-0 group-hover/gallery:opacity-100 hover:scale-110 focus:outline-none">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+                </svg>
+            </button>
         </div>
     </section>
 
@@ -1586,8 +1602,134 @@
             return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
         }
 
-        // --- 4. LIGHTBOX & HORIZONTAL MARQUEE GALLERY ---
+        // --- 4. LIGHTBOX & HORIZONTAL INTERACTIVE MARQUEE GALLERY ---
+        let isGalleryDragging = false;
+        let galleryStartX = 0;
+        let galleryScrollStart = 0;
+        let galleryMovedDistance = 0;
+        let isGalleryHovered = false;
+        let galleryUserInteractingTimeout = null;
+        let isUserInteractingWithGallery = false;
+
+        const galleryContainer = document.getElementById('gallery-container');
+        const galleryTrack = document.getElementById('gallery-track');
+
+        let galleryRafId = null;
+        const galleryScrollSpeed = 0.75; // Pixels per frame (~45px per sec for gentle, elegant gliding)
+
+        function startGalleryAutoplay() {
+            if (!galleryContainer || !galleryTrack) return;
+
+            function step() {
+                if (!isGalleryHovered && !isGalleryDragging && !isUserInteractingWithGallery) {
+                    const halfWidth = galleryTrack.scrollWidth / 2;
+                    galleryContainer.scrollLeft += galleryScrollSpeed;
+                    if (galleryContainer.scrollLeft >= halfWidth) {
+                        galleryContainer.scrollLeft -= halfWidth;
+                    }
+                }
+                galleryRafId = requestAnimationFrame(step);
+            }
+            if (galleryRafId) cancelAnimationFrame(galleryRafId);
+            galleryRafId = requestAnimationFrame(step);
+        }
+
+        function pauseGalleryAutoplayTemporarily(resumeAfterMs = 2500) {
+            isUserInteractingWithGallery = true;
+            if (galleryUserInteractingTimeout) clearTimeout(galleryUserInteractingTimeout);
+            galleryUserInteractingTimeout = setTimeout(() => {
+                isUserInteractingWithGallery = false;
+            }, resumeAfterMs);
+        }
+
+        function manualScrollGallery(direction) {
+            if (!galleryContainer || !galleryTrack) return;
+            pauseGalleryAutoplayTemporarily(3000);
+            const scrollDistance = (galleryContainer.clientWidth > 640 ? 360 : 280) * direction;
+            galleryContainer.scrollBy({ left: scrollDistance, behavior: 'smooth' });
+
+            // Check wraparound after smooth scroll animation completes
+            setTimeout(() => {
+                const halfWidth = galleryTrack.scrollWidth / 2;
+                if (galleryContainer.scrollLeft >= halfWidth) {
+                    galleryContainer.scrollLeft -= halfWidth;
+                } else if (galleryContainer.scrollLeft <= 0) {
+                    galleryContainer.scrollLeft += halfWidth;
+                }
+            }, 600);
+        }
+
+        if (galleryContainer && galleryTrack) {
+            // Mouse Drag interaction
+            galleryContainer.addEventListener('mousedown', (e) => {
+                isGalleryDragging = true;
+                galleryMovedDistance = 0;
+                galleryStartX = e.pageX - galleryContainer.offsetLeft;
+                galleryScrollStart = galleryContainer.scrollLeft;
+                galleryContainer.classList.add('is-dragging');
+                pauseGalleryAutoplayTemporarily(2500);
+            });
+
+            window.addEventListener('mousemove', (e) => {
+                if (!isGalleryDragging) return;
+                e.preventDefault();
+                const x = e.pageX - galleryContainer.offsetLeft;
+                const walk = (x - galleryStartX) * 1.25;
+                galleryMovedDistance += Math.abs(x - galleryStartX);
+                galleryContainer.scrollLeft = galleryScrollStart - walk;
+
+                const halfWidth = galleryTrack.scrollWidth / 2;
+                if (galleryContainer.scrollLeft >= halfWidth) {
+                    galleryContainer.scrollLeft -= halfWidth;
+                    galleryScrollStart -= halfWidth;
+                } else if (galleryContainer.scrollLeft <= 0) {
+                    galleryContainer.scrollLeft += halfWidth;
+                    galleryScrollStart += halfWidth;
+                }
+            });
+
+            window.addEventListener('mouseup', () => {
+                if (isGalleryDragging) {
+                    isGalleryDragging = false;
+                    galleryContainer.classList.remove('is-dragging');
+                    pauseGalleryAutoplayTemporarily(2000);
+                }
+            });
+
+            // Touch events for mobile/tablet swipe
+            galleryContainer.addEventListener('touchstart', () => {
+                isGalleryDragging = true;
+                galleryMovedDistance = 0;
+                pauseGalleryAutoplayTemporarily(2500);
+            }, { passive: true });
+
+            galleryContainer.addEventListener('touchend', () => {
+                isGalleryDragging = false;
+                pauseGalleryAutoplayTemporarily(2500);
+            }, { passive: true });
+
+            // Horizontal wheel / trackpad scroll
+            galleryContainer.addEventListener('wheel', () => {
+                pauseGalleryAutoplayTemporarily(2000);
+            }, { passive: true });
+
+            // Hover pause & resume
+            galleryContainer.addEventListener('mouseenter', () => {
+                isGalleryHovered = true;
+            });
+            galleryContainer.addEventListener('mouseleave', () => {
+                isGalleryHovered = false;
+            });
+
+            // Start continuous autoplay loop
+            startGalleryAutoplay();
+        }
+
         function openLightbox(src, caption) {
+            // Prevent lightbox if user was dragging/swiping
+            if (galleryMovedDistance > 10) {
+                return;
+            }
             document.getElementById('lightbox-img').src = src;
             document.getElementById('lightbox-caption').innerText = caption;
             document.getElementById('lightbox').classList.remove('hidden');
@@ -1680,17 +1822,7 @@
             window.open(whatsappUrl, '_blank');
         }
 
-        // Marquee speed nudge for arrow buttons
-        function scrollGallery(direction) {
-            const track = document.querySelector('.gallery-marquee-track');
-            if (track) {
-                // Temporarily speed up or slow down
-                track.style.animationDuration = direction > 0 ? '15s' : '70s';
-                setTimeout(() => {
-                    track.style.animationDuration = '40s';
-                }, 1500);
-            }
-        }
+
 
         // --- 5. FAQ ACCORDION ---
         document.querySelectorAll('.faq-toggle').forEach(button => {
