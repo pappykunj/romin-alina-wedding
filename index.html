@@ -764,9 +764,9 @@
                             </p>
                         </div>
 
-                        <!-- PDF Invitation Action Buttons -->
+                        <!-- Invitation Card Action Buttons -->
                         <div class="mt-4 pt-3 border-t border-cream-200/80 flex gap-2">
-                            <button onclick="openPdfModal('https://raw.githubusercontent.com/pappykunj/romin-alina-wedding/main/engagement_Invitation._.pdf', 'Engagement Invitation', 'Engagement_Invitation_Romin_Alina.pdf', 'engagement')"
+                            <button onclick="openInvitationModal('engagement_invitation.jpg', 'Engagement Invitation', 'Engagement_Invitation_Romin_Alina.jpg', 'engagement')"
                                 class="flex-1 py-2.5 px-3 rounded-xl bg-dustyblue-700 hover:bg-dustyblue-800 text-white font-semibold text-xs tracking-wider uppercase flex items-center justify-center space-x-1.5 transition-all shadow-xs group cursor-pointer">
                                 <svg class="w-4 h-4 text-gold-light shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -776,8 +776,8 @@
                                 </svg>
                                 <span>View Invitation</span>
                             </button>
-                            <a href="https://raw.githubusercontent.com/pappykunj/romin-alina-wedding/main/engagement_Invitation._.pdf"
-                                download="Engagement_Invitation_Romin_Alina.pdf" target="_blank" rel="noopener noreferrer"
+                            <a href="engagement_invitation.jpg"
+                                download="Engagement_Invitation_Romin_Alina.jpg" target="_blank" rel="noopener noreferrer"
                                 class="py-2.5 px-3 rounded-xl bg-gold/10 hover:bg-gold text-gold-dark hover:text-white border border-gold/30 font-semibold text-xs tracking-wider uppercase flex items-center justify-center space-x-1.5 transition-all shadow-xs group cursor-pointer">
                                 <svg class="w-4 h-4 text-gold group-hover:text-white transition-colors shrink-0" fill="none"
                                     stroke="currentColor" viewBox="0 0 24 24">
@@ -901,9 +901,9 @@
                             </p>
                         </div>
 
-                        <!-- PDF Invitation Action Buttons -->
+                        <!-- Invitation Card Action Buttons -->
                         <div class="mt-4 pt-3 border-t border-cream-200/80 flex gap-2">
-                            <button onclick="openPdfModal('https://raw.githubusercontent.com/pappykunj/romin-alina-wedding/main/wedding_Invitation._.pdf', 'Wedding Invitation', 'Wedding_Invitation_Romin_Alina.pdf', 'wedding')"
+                            <button onclick="openInvitationModal('wedding_invitation.jpg', 'Wedding Invitation', 'Wedding_Invitation_Romin_Alina.jpg', 'wedding')"
                                 class="flex-1 py-2.5 px-3 rounded-xl bg-dustyblue-700 hover:bg-dustyblue-800 text-white font-semibold text-xs tracking-wider uppercase flex items-center justify-center space-x-1.5 transition-all shadow-xs group cursor-pointer">
                                 <svg class="w-4 h-4 text-gold-light shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -913,8 +913,8 @@
                                 </svg>
                                 <span>View Invitation</span>
                             </button>
-                            <a href="https://raw.githubusercontent.com/pappykunj/romin-alina-wedding/main/wedding_Invitation._.pdf"
-                                download="Wedding_Invitation_Romin_Alina.pdf" target="_blank" rel="noopener noreferrer"
+                            <a href="wedding_invitation.jpg"
+                                download="Wedding_Invitation_Romin_Alina.jpg" target="_blank" rel="noopener noreferrer"
                                 class="py-2.5 px-3 rounded-xl bg-gold/10 hover:bg-gold text-gold-dark hover:text-white border border-gold/30 font-semibold text-xs tracking-wider uppercase flex items-center justify-center space-x-1.5 transition-all shadow-xs group cursor-pointer">
                                 <svg class="w-4 h-4 text-gold group-hover:text-white transition-colors shrink-0" fill="none"
                                     stroke="currentColor" viewBox="0 0 24 24">
@@ -1183,31 +1183,31 @@
         </div>
     </div>
 
-    <!-- 📄 PDF INVITATION VIEWER OVERLAY MODAL -->
+    <!-- 📄 INVITATION CARD VIEWER OVERLAY MODAL -->
     <div id="pdf-viewer-modal" class="fixed inset-0 z-50 bg-dustyblue-950/85 backdrop-blur-md hidden flex items-center justify-center p-2 sm:p-4"
         onclick="closePdfModal()">
-        <div class="relative w-full max-w-3xl h-[92vh] max-h-[850px] bg-cream-50 rounded-3xl p-3 sm:p-4 shadow-2xl border-2 border-gold/40 flex flex-col items-center overflow-hidden"
+        <div class="relative w-full max-w-2xl max-h-[94vh] bg-cream-50 rounded-3xl p-3 sm:p-5 shadow-2xl border-2 border-gold/40 flex flex-col items-center overflow-hidden"
             onclick="event.stopPropagation()">
             <!-- Modal Header -->
-            <div class="w-full flex items-center justify-between pb-2.5 mb-2 border-b border-cream-300">
+            <div class="w-full flex items-center justify-between pb-3 mb-2 border-b border-cream-300">
                 <div>
                     <h3 id="pdf-modal-title" class="font-serif text-base sm:text-lg font-bold text-dustyblue-800">Invitation Card</h3>
                     <p class="text-[11px] text-gold-dark font-medium">Romin & Alina Wedding Celebrations</p>
                 </div>
-                <div class="flex items-center space-x-2">
+                <div class="flex items-center space-x-1.5 sm:space-x-2">
                     <button id="pdf-modal-share-btn" onclick="sharePdfOnWhatsApp()"
-                        class="px-3 py-1.5 bg-[#25D366] hover:bg-[#1EBE5D] text-white rounded-xl text-xs font-semibold uppercase tracking-wider shadow-xs transition-all flex items-center space-x-1.5 cursor-pointer">
-                        <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                        class="px-2.5 sm:px-3 py-1.5 bg-[#25D366] hover:bg-[#1EBE5D] text-white rounded-xl text-xs font-semibold uppercase tracking-wider shadow-xs transition-all flex items-center space-x-1 sm:space-x-1.5 cursor-pointer">
+                        <svg class="w-3.5 h-3.5 fill-current shrink-0" viewBox="0 0 24 24">
                             <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.668-.699c.969.54 1.772.784 2.792.784 3.183 0 5.77-2.587 5.77-5.768.001-3.181-2.587-5.768-5.77-5.768zm0 10.373c-.879 0-1.637-.257-2.316-.66l-.166-.099-1.722.451.46-1.678-.109-.174c-.456-.727-.698-1.503-.697-2.427.001-2.54 2.067-4.606 4.608-4.606 2.54 0 4.606 2.066 4.607 4.607-.001 2.541-2.067 4.607-4.607 4.607zm2.523-3.447c-.138-.069-.817-.404-.943-.45-.126-.046-.218-.069-.31.069-.092.138-.356.45-.436.542-.08.092-.161.103-.299.034-.138-.069-.583-.215-1.111-.685-.411-.366-.688-.818-.768-.956-.08-.138-.008-.213.061-.281.062-.062.138-.161.207-.241.069-.08.092-.138.138-.23.046-.092.023-.172-.011-.241-.035-.069-.31-.747-.425-1.023-.112-.269-.226-.233-.31-.237l-.265-.005c-.092 0-.241.034-.367.172-.126.138-.482.471-.482 1.149 0 .678.494 1.333.563 1.425.069.092.972 1.484 2.355 2.081.329.142.586.227.786.29.33.105.631.09.869.055.265-.04.817-.334.932-.656.115-.322.115-.598.08-.656-.034-.058-.126-.092-.264-.161z" />
                         </svg>
                         <span>Share on WhatsApp</span>
                     </button>
                     <a id="pdf-modal-download-btn" href="" download target="_blank" rel="noopener noreferrer"
-                        class="px-3 py-1.5 bg-gold hover:bg-gold-dark text-white rounded-xl text-xs font-semibold uppercase tracking-wider shadow-xs transition-all flex items-center space-x-1">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        class="px-2.5 sm:px-3 py-1.5 bg-gold hover:bg-gold-dark text-white rounded-xl text-xs font-semibold uppercase tracking-wider shadow-xs transition-all flex items-center space-x-1">
+                        <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                         </svg>
-                        <span>Download PDF</span>
+                        <span>Download Card</span>
                     </a>
                     <button onclick="closePdfModal()"
                         class="w-8 h-8 rounded-full bg-cream-200 hover:bg-cream-300 text-charcoal hover:text-gold flex items-center justify-center text-xl font-bold transition-all cursor-pointer">
@@ -1215,9 +1215,9 @@
                     </button>
                 </div>
             </div>
-            <!-- Embedded PDF Document Viewer -->
-            <div class="w-full flex-1 rounded-2xl overflow-hidden bg-white border border-cream-300 shadow-inner relative">
-                <iframe id="pdf-viewer-frame" class="w-full h-full border-0" src=""></iframe>
+            <!-- Invitation Card Viewer (Native Image Display) -->
+            <div class="w-full flex-1 min-h-0 flex items-center justify-center overflow-auto rounded-2xl bg-cream-100/50 p-1 sm:p-2 border border-cream-300 shadow-inner">
+                <img id="pdf-modal-img" src="" alt="Invitation Card" class="max-h-[75vh] w-auto rounded-xl shadow-lg object-contain transition-transform duration-200 hover:scale-[1.01]" />
             </div>
         </div>
     </div>
@@ -1600,27 +1600,28 @@
             document.getElementById('lightbox').classList.add('hidden');
         }
 
-        // --- 5. PDF INVITATION OVERLAY VIEWER & WHATSAPP SHARE ---
-        let currentPdfUrl = '';
-        let currentPdfType = 'wedding'; // 'wedding' or 'engagement'
+        // --- 5. INVITATION CARD VIEWER & WHATSAPP SHARE ---
+        let currentInvitationType = 'wedding'; // 'wedding' or 'engagement'
+        let currentInvitationImg = 'wedding_invitation.jpg';
 
-        function openPdfModal(pdfUrl, title, downloadFileName, type = 'wedding') {
+        function openInvitationModal(imgUrl, title, downloadFileName, type = 'wedding') {
             const modal = document.getElementById('pdf-viewer-modal');
-            const frame = document.getElementById('pdf-viewer-frame');
+            const imgEl = document.getElementById('pdf-modal-img');
             const titleEl = document.getElementById('pdf-modal-title');
             const downloadBtn = document.getElementById('pdf-modal-download-btn');
 
-            currentPdfUrl = pdfUrl;
-            currentPdfType = type;
+            currentInvitationType = type;
+            currentInvitationImg = imgUrl || (type === 'engagement' ? 'engagement_invitation.jpg' : 'wedding_invitation.jpg');
 
-            // Embed PDF document via Google Docs viewer iframe
-            const viewerUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(pdfUrl)}&embedded=true`;
-
-            if (frame) frame.src = viewerUrl;
-            if (titleEl) titleEl.innerText = title;
+            if (imgEl) {
+                imgEl.src = currentInvitationImg;
+            }
+            if (titleEl) {
+                titleEl.innerText = title;
+            }
             if (downloadBtn) {
-                downloadBtn.href = pdfUrl;
-                downloadBtn.download = downloadFileName || 'Invitation.pdf';
+                downloadBtn.href = currentInvitationImg;
+                downloadBtn.download = downloadFileName || (type === 'engagement' ? 'Engagement_Invitation.jpg' : 'Wedding_Invitation.jpg');
             }
 
             if (modal) {
@@ -1631,8 +1632,8 @@
 
         function closePdfModal() {
             const modal = document.getElementById('pdf-viewer-modal');
-            const frame = document.getElementById('pdf-viewer-frame');
-            if (frame) frame.src = '';
+            const imgEl = document.getElementById('pdf-modal-img');
+            if (imgEl) imgEl.src = '';
             if (modal) {
                 modal.classList.add('hidden');
                 document.body.style.overflow = '';
@@ -1641,10 +1642,12 @@
 
         function sharePdfOnWhatsApp() {
             let message = '';
-            if (currentPdfType === 'engagement') {
-                message = `Hey! ❤️\n\nI’m so excited to share this with you! 🥹💍 My brother Romin is getting engaged to Alina, and I would absolutely love for you to be there and celebrate this special day with us! ❤️\n\n💍 *Engagement Day*\n📅 Saturday, 17th October 2026\n⛪ St. Sebastian's Church, Kuzhivayal, Muttil South, Wayanad\n⏰ 11:00 AM\n🍽️ Grand Lunch Reception at MR Auditorium, Muttil, Wayanad\n\nIt would mean so much to me and my family to have you there with us. ❤️ Come celebrate, eat, and make some beautiful memories with us! 🥰\n\n📄 *Download / View Invitation PDF:*\n${currentPdfUrl || window.location.href}`;
+            const siteUrl = 'https://romin-alina.web.app';
+            
+            if (currentInvitationType === 'engagement') {
+                message = `Hey! ❤️\n\nI’m so excited to share this with you! 🥹💍 My brother Romin is getting engaged to Alina, and I would absolutely love for you to be there and celebrate this special day with us! ❤️\n\n💍 *Engagement Day*\n📅 Saturday, 17th October 2026\n⛪ St. Sebastian's Church, Kuzhivayal, Muttil South, Wayanad\n⏰ 11:00 AM\n🍽️ Grand Lunch Reception at MR Auditorium, Muttil, Wayanad\n\nIt would mean so much to me and my family to have you there with us. ❤️ Come celebrate, eat, and make some beautiful memories with us! 🥰\n\n✨ *Wedding Website & RSVP:*\n${siteUrl}\n\n💌 *View Invitation Card:*\n${siteUrl}/engagement_invitation.jpg`;
             } else {
-                message = `Hey! ❤️\n\nI’m so excited to finally share this with you! 🥹💍 My brother Romin is getting married to Alina, and I would absolutely love for you to be there and celebrate these special days with us! ❤️\n\n💍 *Wedding Day*\n📅 Sunday, 25th October 2026\n⛪ St. Joseph Church, Veroor, Changanassery\n⏰ 2:30 PM\n🥂 Reception at Contour Backwaters Resort, Changanassery at 6:30 PM\n\nIt would mean so much to me and my family to have you there with us. ❤️ Come celebrate, eat, dance and make some beautiful memories with us! 🥰\n\n📄 *Download / View Invitation PDF:*\n${currentPdfUrl || window.location.href}`;
+                message = `Hey! ❤️\n\nI’m so excited to finally share this with you! 🥹💍 My brother Romin is getting married to Alina, and I would absolutely love for you to be there and celebrate these special days with us! ❤️\n\n💍 *Wedding Day*\n📅 Sunday, 25th October 2026\n⛪ St. Joseph Church, Veroor, Changanassery\n⏰ 2:30 PM\n🥂 Reception at Contour Backwaters Resort, Changanassery at 6:30 PM\n\nIt would mean so much to me and my family to have you there with us. ❤️ Come celebrate, eat, dance and make some beautiful memories with us! 🥰\n\n✨ *Wedding Website & RSVP:*\n${siteUrl}\n\n💌 *View Invitation Card:*\n${siteUrl}/wedding_invitation.jpg`;
             }
 
             const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
