@@ -562,7 +562,7 @@
             <div class="flex flex-wrap justify-center gap-4">
                 <a href="#programs"
                     class="inline-flex items-center space-x-2 bg-dustyblue-700 hover:bg-dustyblue-800 text-white px-7 py-3 rounded-full font-medium text-sm transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
-                    <span>Explore 2 Programs</span>
+                    <span>Explore Programs</span>
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
@@ -643,7 +643,7 @@
             <div class="mt-12 text-center">
                 <div class="inline-block bg-dustyblue-50 border border-dustyblue-100 rounded-2xl px-8 py-3.5">
                     <p class="text-sm font-serif text-dustyblue-800">With Best Wishes from <span
-                            class="font-bold text-gold-dark">Nisha, Roshan & Felix</span></p>
+                            class="font-bold text-gold-dark">Nisha & Roshan</span></p>
                 </div>
             </div>
         </div>
@@ -679,7 +679,7 @@
                         </div>
 
                         <h3 class="font-serif text-2xl font-bold text-dustyblue-800 mb-0.5">The Engagement</h3>
-                        <p class="font-cursive text-xl text-gold mb-4">Ring Exchange & Blessing</p>
+                        <p class="font-cursive text-xl text-gold mb-4">Exchange the Rings & Blessing</p>
 
                         <!-- Date & Time -->
                         <div class="space-y-2 text-sm text-gray-700 border-t border-cream-100 pt-4 mb-5">
@@ -760,8 +760,7 @@
 
                         <div class="bg-dustyblue-50/50 p-3.5 rounded-2xl border border-dustyblue-100/70">
                             <p class="text-xs text-gray-600 leading-relaxed">
-                                Solemn exchange of rings between Romin & Alina at St. Sebastian's Church Kuzhivayal,
-                                followed by lunch reception & feast at MR Auditorium.
+                                The solemn blessing and celebration of the engagement of Romin & Alina at St. Sebastian's Church, Kuzhivayal, followed by a lunch reception & celebration at MR Auditorium.
                             </p>
                         </div>
 
@@ -815,7 +814,7 @@
                         </div>
 
                         <h3 class="font-serif text-2xl font-bold text-dustyblue-800 mb-0.5">The Wedding</h3>
-                        <p class="font-cursive text-xl text-gold mb-4">Holy Matrimony & Feast</p>
+                        <p class="font-cursive text-xl text-gold mb-4">Holy Matrimony & Celebration</p>
 
                         <!-- Date & Time -->
                         <div class="space-y-2 text-sm text-gray-700 border-t border-cream-100 pt-4 mb-5">
@@ -896,9 +895,7 @@
 
                         <div class="bg-dustyblue-50/50 p-3.5 rounded-2xl border border-dustyblue-100/70">
                             <p class="text-xs text-gray-600 leading-relaxed">
-                                Wedding service at St. Joseph Church Veroor, binding of Minnu (Thali), Manthrakodi
-                                blessing, followed by Grand Reception & Feast at Contour Backwaters Resort,
-                                Changanassery.
+                                The Holy Wedding Service at St. Joseph’s Church, Veroor, with the sacred tying of the Minnu (Thali) and blessing of the Manthrakodi, followed by a Grand Wedding Reception & Celebration at Contour Backwaters Resort, Changanassery.
                             </p>
                         </div>
 
@@ -979,8 +976,7 @@
                     </div>
                     <h4 class="font-serif text-xl font-bold text-dustyblue-800 mb-2">Solemn Vows & Rings</h4>
                     <p class="text-xs text-gray-600 leading-relaxed">
-                        The exchanging of holy wedding vows and rings before God, family, and loved ones during the
-                        church mass.
+                        The exchange of solemn wedding vows and rings before God, surrounded by family and friends, during the Holy Mass.
                     </p>
                 </div>
 
@@ -1867,26 +1863,17 @@
             }
         }
 
-        // --- 9. RANDOM NEXT TRACK CONTROLLER ---
-        function getRandomNextTrackIndex(excludeIndex) {
-            if (PLAYLIST.length <= 1) return 0;
-            let nextIndex;
-            do {
-                nextIndex = Math.floor(Math.random() * PLAYLIST.length);
-            } while (nextIndex === excludeIndex);
-            return nextIndex;
-        }
-
+        // --- 9. MANUAL NEXT TRACK CONTROLLER ---
         function playNextTrack(event) {
             if (event) {
                 event.stopPropagation();
             }
             hasUserManuallyPaused = false;
-            let nextIndex = getRandomNextTrackIndex(currentTrackIndex);
+            let nextIndex = (currentTrackIndex + 1) % PLAYLIST.length;
             loadTrack(nextIndex, true);
         }
 
-        // When current track finishes, automatically pick another random track
+        // When current track finishes, automatically shuffle to the next track
         if (bgAudio) {
             bgAudio.addEventListener('ended', () => {
                 playNextTrack();
