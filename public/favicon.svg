@@ -1,22 +1,101 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="100%" height="100%">
-  <!-- Crisp Rounded White Background with subtle gold border for perfect contrast in both dark and light browser tabs -->
-  <rect width="128" height="128" rx="28" fill="#FFFFFF"/>
-  <rect x="2" y="2" width="124" height="124" rx="26" fill="none" stroke="#C59B27" stroke-width="3" stroke-opacity="0.6"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Crisp White Silk Background -->
+    <radialGradient id="cardBg" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="75%" stop-color="#FCFAF7"/>
+      <stop offset="100%" stop-color="#F4ECE1"/>
+    </radialGradient>
 
-  <style>
-    .serif-text {
-      font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
-      font-weight: 700;
-      fill: #2A3F5B;
-    }
-    .cursive-amp {
-      font-family: 'Alex Brush', 'Great Vibes', 'Brush Script MT', cursive;
-      font-weight: 400;
-      fill: #C59B27;
-    }
-  </style>
+    <!-- Liquid Gold Gradient -->
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F7E6B8"/>
+      <stop offset="30%" stop-color="#E2BE57"/>
+      <stop offset="65%" stop-color="#C59B27"/>
+      <stop offset="100%" stop-color="#8F6E15"/>
+    </linearGradient>
+
+    <!-- Sparkling Diamond Facet Gradient -->
+    <linearGradient id="diamondFace1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#D7E8F7"/>
+    </linearGradient>
+    <linearGradient id="diamondFace2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#8DB3DA"/>
+      <stop offset="100%" stop-color="#4B709B"/>
+    </linearGradient>
+
+    <!-- Deep Royal Dusty Blue Gradient -->
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#385274"/>
+      <stop offset="100%" stop-color="#1B2B3E"/>
+    </linearGradient>
+
+    <!-- Elevation Depth Shadow -->
+    <filter id="softShadow" x="-15%" y="-15%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#2A3F5B" flood-opacity="0.14"/>
+    </filter>
+
+    <filter id="glow" x="-15%" y="-15%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000000" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+
+  <!-- Clean Rounded Square Base -->
+  <rect x="16" y="16" width="480" height="480" rx="120" fill="url(#cardBg)" filter="url(#softShadow)"/>
   
-  <text x="32" y="82" class="serif-text" font-size="62" text-anchor="middle">R</text>
-  <text x="64" y="74" class="cursive-amp" font-size="52" text-anchor="middle">&amp;</text>
-  <text x="96" y="82" class="serif-text" font-size="62" text-anchor="middle">A</text>
+  <!-- Subtle Gold Frame -->
+  <rect x="26" y="26" width="460" height="460" rx="110" fill="none" stroke="url(#goldGrad)" stroke-width="4.5" stroke-opacity="0.9"/>
+  <rect x="38" y="38" width="436" height="436" rx="98" fill="none" stroke="#C59B27" stroke-width="1.2" stroke-opacity="0.35" stroke-dasharray="8 6"/>
+
+  <!-- TIGHT & BOLD LUXURY MONOGRAM (R 💍 A) -->
+  <!-- Letter 'R' (Larger, tighter, bolder) -->
+  <g filter="url(#glow)">
+    <path d="M110 135 C150 126, 198 122, 230 142 C262 160, 270 195, 256 228 C242 256, 212 270, 185 277 C220 302, 252 342, 276 390 L256 400 C232 398, 210 376, 190 338 C166 298, 142 272, 120 270 L120 375 C120 388, 126 393, 142 395 L142 403 L65 403 L65 395 C82 393, 88 388, 88 375 L88 162 C88 148, 82 143, 65 141 L65 135 Z M120 152 L120 255 C144 256, 172 250, 188 230 C204 210, 202 172, 184 158 C168 148, 144 152, 120 152 Z" fill="url(#blueGrad)"/>
+  </g>
+
+  <!-- Centered Brilliant Cut Diamond Ring (Interlocking tightly between R and A) -->
+  <g transform="translate(256, 260)" filter="url(#glow)">
+    <!-- Gold Ring Band Loop -->
+    <ellipse cx="0" cy="32" rx="36" ry="15" fill="none" stroke="url(#goldGrad)" stroke-width="5"/>
+    <ellipse cx="0" cy="32" rx="36" ry="15" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-opacity="0.9"/>
+
+    <!-- Diamond Crown Mounting Prongs -->
+    <path d="M-24 4 L-30 -12 L-22 -10 Z" fill="url(#goldGrad)"/>
+    <path d="M24 4 L30 -12 L22 -10 Z" fill="url(#goldGrad)"/>
+
+    <!-- Brilliant Cut Solitaire Diamond -->
+    <!-- Top Crown -->
+    <polygon points="-18,-48 18,-48 34,-26 0,-26" fill="url(#diamondFace1)"/>
+    <polygon points="-18,-48 0,-26 -34,-26" fill="#FFFFFF"/>
+    <polygon points="-34,-26 -18,-48 -28,-26" fill="#D2E5F7"/>
+    <polygon points="18,-48 34,-26 28,-26" fill="#9EC3E8"/>
+
+    <!-- Bottom Pavilion Point -->
+    <polygon points="-34,-26 0,-26 0,12" fill="#7FA9D4"/>
+    <polygon points="0,-26 34,-26 0,12" fill="url(#diamondFace2)"/>
+    <polygon points="-34,-26 0,12 -22,-10" fill="#B2D4F5"/>
+    <polygon points="34,-26 0,12 22,-10" fill="#3D6490"/>
+
+    <!-- Gold Diamond Silhouette Border -->
+    <polygon points="-18,-48 18,-48 34,-26 0,12 -34,-26" fill="none" stroke="url(#goldGrad)" stroke-width="2.5"/>
+
+    <!-- Diamond Light Reflection Sparkle -->
+    <path d="M0 -62 Q 0 -48 14 -48 Q 0 -48 0 -34 Q 0 -48 -14 -48 Q 0 -48 0 -62 Z" fill="url(#goldGrad)"/>
+    <circle cx="0" cy="-48" r="3" fill="#FFFFFF"/>
+  </g>
+
+  <!-- Letter 'A' (Tighter, bolder, aligned seamlessly) -->
+  <g filter="url(#glow)">
+    <path d="M335 135 L358 135 L438 375 C446 388, 455 393, 470 395 L470 403 L398 403 L398 395 C415 393, 418 388, 410 372 L392 324 L312 324 L296 364 C290 382, 295 388, 310 392 L310 403 L238 403 L238 395 C254 393, 262 386, 270 368 Z M320 306 L384 306 L352 210 Z" fill="url(#blueGrad)"/>
+  </g>
+
+  <!-- Bottom Elegant Gold Dots Accent -->
+  <g transform="translate(256, 442)" fill="url(#goldGrad)">
+    <circle cx="0" cy="0" r="4.5"/>
+    <circle cx="-16" cy="0" r="3" opacity="0.8"/>
+    <circle cx="16" cy="0" r="3" opacity="0.8"/>
+    <circle cx="-32" cy="0" r="1.8" opacity="0.45"/>
+    <circle cx="32" cy="0" r="1.8" opacity="0.45"/>
+  </g>
 </svg>
