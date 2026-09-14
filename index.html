@@ -766,7 +766,7 @@
 
                         <!-- PDF Invitation Action Buttons -->
                         <div class="mt-4 pt-3 border-t border-cream-200/80 flex gap-2">
-                            <button onclick="openPdfModal('https://raw.githubusercontent.com/pappykunj/romin-alina-wedding/main/engagement_Invitation._.pdf', 'Engagement Invitation', 'Engagement_Invitation_Romin_Alina.pdf')"
+                            <button onclick="openPdfModal('https://raw.githubusercontent.com/pappykunj/romin-alina-wedding/main/engagement_Invitation._.pdf', 'Engagement Invitation', 'Engagement_Invitation_Romin_Alina.pdf', 'engagement')"
                                 class="flex-1 py-2.5 px-3 rounded-xl bg-dustyblue-700 hover:bg-dustyblue-800 text-white font-semibold text-xs tracking-wider uppercase flex items-center justify-center space-x-1.5 transition-all shadow-xs group cursor-pointer">
                                 <svg class="w-4 h-4 text-gold-light shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -903,7 +903,7 @@
 
                         <!-- PDF Invitation Action Buttons -->
                         <div class="mt-4 pt-3 border-t border-cream-200/80 flex gap-2">
-                            <button onclick="openPdfModal('https://raw.githubusercontent.com/pappykunj/romin-alina-wedding/main/wedding_Invitation._.pdf', 'Wedding Invitation', 'Wedding_Invitation_Romin_Alina.pdf')"
+                            <button onclick="openPdfModal('https://raw.githubusercontent.com/pappykunj/romin-alina-wedding/main/wedding_Invitation._.pdf', 'Wedding Invitation', 'Wedding_Invitation_Romin_Alina.pdf', 'wedding')"
                                 class="flex-1 py-2.5 px-3 rounded-xl bg-dustyblue-700 hover:bg-dustyblue-800 text-white font-semibold text-xs tracking-wider uppercase flex items-center justify-center space-x-1.5 transition-all shadow-xs group cursor-pointer">
                                 <svg class="w-4 h-4 text-gold-light shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -1195,6 +1195,13 @@
                     <p class="text-[11px] text-gold-dark font-medium">Romin & Alina Wedding Celebrations</p>
                 </div>
                 <div class="flex items-center space-x-2">
+                    <button id="pdf-modal-share-btn" onclick="sharePdfOnWhatsApp()"
+                        class="px-3 py-1.5 bg-[#25D366] hover:bg-[#1EBE5D] text-white rounded-xl text-xs font-semibold uppercase tracking-wider shadow-xs transition-all flex items-center space-x-1.5 cursor-pointer">
+                        <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.668-.699c.969.54 1.772.784 2.792.784 3.183 0 5.77-2.587 5.77-5.768.001-3.181-2.587-5.768-5.77-5.768zm0 10.373c-.879 0-1.637-.257-2.316-.66l-.166-.099-1.722.451.46-1.678-.109-.174c-.456-.727-.698-1.503-.697-2.427.001-2.54 2.067-4.606 4.608-4.606 2.54 0 4.606 2.066 4.607 4.607-.001 2.541-2.067 4.607-4.607 4.607zm2.523-3.447c-.138-.069-.817-.404-.943-.45-.126-.046-.218-.069-.31.069-.092.138-.356.45-.436.542-.08.092-.161.103-.299.034-.138-.069-.583-.215-1.111-.685-.411-.366-.688-.818-.768-.956-.08-.138-.008-.213.061-.281.062-.062.138-.161.207-.241.069-.08.092-.138.138-.23.046-.092.023-.172-.011-.241-.035-.069-.31-.747-.425-1.023-.112-.269-.226-.233-.31-.237l-.265-.005c-.092 0-.241.034-.367.172-.126.138-.482.471-.482 1.149 0 .678.494 1.333.563 1.425.069.092.972 1.484 2.355 2.081.329.142.586.227.786.29.33.105.631.09.869.055.265-.04.817-.334.932-.656.115-.322.115-.598.08-.656-.034-.058-.126-.092-.264-.161z" />
+                        </svg>
+                        <span>Share on WhatsApp</span>
+                    </button>
                     <a id="pdf-modal-download-btn" href="" download target="_blank" rel="noopener noreferrer"
                         class="px-3 py-1.5 bg-gold hover:bg-gold-dark text-white rounded-xl text-xs font-semibold uppercase tracking-wider shadow-xs transition-all flex items-center space-x-1">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1593,12 +1600,18 @@
             document.getElementById('lightbox').classList.add('hidden');
         }
 
-        // --- 5. PDF INVITATION OVERLAY VIEWER ---
-        function openPdfModal(pdfUrl, title, downloadFileName) {
+        // --- 5. PDF INVITATION OVERLAY VIEWER & WHATSAPP SHARE ---
+        let currentPdfUrl = '';
+        let currentPdfType = 'wedding'; // 'wedding' or 'engagement'
+
+        function openPdfModal(pdfUrl, title, downloadFileName, type = 'wedding') {
             const modal = document.getElementById('pdf-viewer-modal');
             const frame = document.getElementById('pdf-viewer-frame');
             const titleEl = document.getElementById('pdf-modal-title');
             const downloadBtn = document.getElementById('pdf-modal-download-btn');
+
+            currentPdfUrl = pdfUrl;
+            currentPdfType = type;
 
             // Embed PDF document via Google Docs viewer iframe
             const viewerUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(pdfUrl)}&embedded=true`;
@@ -1624,6 +1637,18 @@
                 modal.classList.add('hidden');
                 document.body.style.overflow = '';
             }
+        }
+
+        function sharePdfOnWhatsApp() {
+            let message = '';
+            if (currentPdfType === 'engagement') {
+                message = `Hey! ❤️\n\nI’m so excited to share this with you! 🥹💍 My brother Romin is getting engaged to Alina, and I would absolutely love for you to be there and celebrate this special day with us! ❤️\n\n💍 *Engagement Day*\n📅 Saturday, 17th October 2026\n⛪ St. Sebastian's Church, Kuzhivayal, Muttil South, Wayanad\n⏰ 11:00 AM\n🍽️ Grand Lunch Reception at MR Auditorium, Muttil, Wayanad\n\nIt would mean so much to me and my family to have you there with us. ❤️ Come celebrate, eat, and make some beautiful memories with us! 🥰\n\n📄 *Download / View Invitation PDF:*\n${currentPdfUrl || window.location.href}`;
+            } else {
+                message = `Hey! ❤️\n\nI’m so excited to finally share this with you! 🥹💍 My brother Romin is getting married to Alina, and I would absolutely love for you to be there and celebrate these special days with us! ❤️\n\n💍 *Wedding Day*\n📅 Sunday, 25th October 2026\n⛪ St. Joseph Church, Veroor, Changanassery\n⏰ 2:30 PM\n🥂 Reception at Contour Backwaters Resort, Changanassery at 6:30 PM\n\nIt would mean so much to me and my family to have you there with us. ❤️ Come celebrate, eat, dance and make some beautiful memories with us! 🥰\n\n📄 *Download / View Invitation PDF:*\n${currentPdfUrl || window.location.href}`;
+            }
+
+            const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
         }
 
         // Marquee speed nudge for arrow buttons
