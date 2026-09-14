@@ -1615,21 +1615,40 @@
         const galleryTrack = document.getElementById('gallery-track');
 
         let galleryRafId = null;
-        const galleryScrollSpeed = 0.75; // Pixels per frame (~45px per sec for gentle, elegant gliding)
+        let lastFrameTime = null;
+        let virtualScroll = 0;
+        // Calm, luxurious speed: ~24 pixels per second across all refresh rates (60Hz / 120Hz)
+        const GALLERY_SPEED_PPS = 24; 
 
         function startGalleryAutoplay() {
             if (!galleryContainer || !galleryTrack) return;
+            virtualScroll = galleryContainer.scrollLeft;
 
-            function step() {
+            function step(currentTime) {
+                if (!lastFrameTime) lastFrameTime = currentTime;
+                const deltaTime = Math.min((currentTime - lastFrameTime) / 1000, 0.1); // in seconds, capped at 100ms
+                lastFrameTime = currentTime;
+
+                const halfWidth = galleryTrack.scrollWidth / 2;
+
                 if (!isGalleryHovered && !isGalleryDragging && !isUserInteractingWithGallery) {
-                    const halfWidth = galleryTrack.scrollWidth / 2;
-                    galleryContainer.scrollLeft += galleryScrollSpeed;
-                    if (galleryContainer.scrollLeft >= halfWidth) {
-                        galleryContainer.scrollLeft -= halfWidth;
+                    if (halfWidth > 0) {
+                        virtualScroll += GALLERY_SPEED_PPS * deltaTime;
+                        if (virtualScroll >= halfWidth) {
+                            virtualScroll -= halfWidth;
+                        } else if (virtualScroll < 0) {
+                            virtualScroll += halfWidth;
+                        }
+                        galleryContainer.scrollLeft = virtualScroll;
                     }
+                } else {
+                    // While user is manually interacting/scrolling, keep virtualScroll in exact sync
+                    virtualScroll = galleryContainer.scrollLeft;
                 }
+
                 galleryRafId = requestAnimationFrame(step);
             }
+
             if (galleryRafId) cancelAnimationFrame(galleryRafId);
             galleryRafId = requestAnimationFrame(step);
         }
@@ -1639,6 +1658,9 @@
             if (galleryUserInteractingTimeout) clearTimeout(galleryUserInteractingTimeout);
             galleryUserInteractingTimeout = setTimeout(() => {
                 isUserInteractingWithGallery = false;
+                if (galleryContainer) {
+                    virtualScroll = galleryContainer.scrollLeft;
+                }
             }, resumeAfterMs);
         }
 
@@ -1648,7 +1670,6 @@
             const scrollDistance = (galleryContainer.clientWidth > 640 ? 360 : 280) * direction;
             galleryContainer.scrollBy({ left: scrollDistance, behavior: 'smooth' });
 
-            // Check wraparound after smooth scroll animation completes
             setTimeout(() => {
                 const halfWidth = galleryTrack.scrollWidth / 2;
                 if (galleryContainer.scrollLeft >= halfWidth) {
@@ -1656,11 +1677,29 @@
                 } else if (galleryContainer.scrollLeft <= 0) {
                     galleryContainer.scrollLeft += halfWidth;
                 }
+                virtualScroll = galleryContainer.scrollLeft;
             }, 600);
         }
 
         if (galleryContainer && galleryTrack) {
-            // Mouse Drag interaction
+            // Track manual native scrolling (touch swipe on mobile, trackpad swipe)
+            galleryContainer.addEventListener('scroll', () => {
+                if (isGalleryDragging || isUserInteractingWithGallery) {
+                    virtualScroll = galleryContainer.scrollLeft;
+                    const halfWidth = galleryTrack.scrollWidth / 2;
+                    if (halfWidth > 0) {
+                        if (galleryContainer.scrollLeft >= halfWidth * 1.8) {
+                            galleryContainer.scrollLeft -= halfWidth;
+                            virtualScroll = galleryContainer.scrollLeft;
+                        } else if (galleryContainer.scrollLeft <= 0) {
+                            galleryContainer.scrollLeft += halfWidth;
+                            virtualScroll = galleryContainer.scrollLeft;
+                        }
+                    }
+                }
+            }, { passive: true });
+
+            // Mouse Drag interaction for desktop
             galleryContainer.addEventListener('mousedown', (e) => {
                 isGalleryDragging = true;
                 galleryMovedDistance = 0;
@@ -1677,14 +1716,17 @@
                 const walk = (x - galleryStartX) * 1.25;
                 galleryMovedDistance += Math.abs(x - galleryStartX);
                 galleryContainer.scrollLeft = galleryScrollStart - walk;
+                virtualScroll = galleryContainer.scrollLeft;
 
                 const halfWidth = galleryTrack.scrollWidth / 2;
                 if (galleryContainer.scrollLeft >= halfWidth) {
                     galleryContainer.scrollLeft -= halfWidth;
                     galleryScrollStart -= halfWidth;
+                    virtualScroll = galleryContainer.scrollLeft;
                 } else if (galleryContainer.scrollLeft <= 0) {
                     galleryContainer.scrollLeft += halfWidth;
                     galleryScrollStart += halfWidth;
+                    virtualScroll = galleryContainer.scrollLeft;
                 }
             });
 
@@ -1719,9 +1761,10 @@
             });
             galleryContainer.addEventListener('mouseleave', () => {
                 isGalleryHovered = false;
+                lastFrameTime = null; // reset timestamp so no speed jump occurs
             });
 
-            // Start continuous autoplay loop
+            // Start smooth delta-time autoplay loop
             startGalleryAutoplay();
         }
 
