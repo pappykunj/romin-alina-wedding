@@ -721,11 +721,25 @@
                                         </svg>
                                         Copy
                                     </button>
+                                    <button type="button" onclick="toggleMapPreview('map-engagement-church', this)"
+                                        class="inline-flex items-center text-[11px] font-semibold text-dustyblue-700 hover:text-gold bg-white px-2.5 py-1 rounded-lg border border-cream-300 shadow-xs">
+                                        <svg class="w-3 h-3 mr-1 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                                        </svg>
+                                        Preview Map
+                                    </button>
                                     <a href="https://maps.app.goo.gl/XtRnPBq8eMfuHiE46" target="_blank"
                                         rel="noopener noreferrer"
                                         class="inline-flex items-center text-[11px] font-semibold text-white bg-gold hover:bg-gold-dark px-3 py-1 rounded-lg shadow-xs">
                                         Open Church Map
                                     </a>
+                                </div>
+                                <!-- Embedded Map Window -->
+                                <div id="map-engagement-church" class="hidden mt-3 pt-2 border-t border-cream-200/80">
+                                    <iframe class="w-full h-44 rounded-xl border border-cream-300 shadow-inner"
+                                        data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3907.5!2d76.1!3d11.65!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba60c3daa1fbdaf%3A0xbe566fc679baf7ca!2sSt%20Sebastian's%20Church!5e0!3m2!1sen!2sin!4v1"
+                                        loading="lazy" allowfullscreen title="St. Sebastian's Church Map Preview"></iframe>
                                 </div>
                             </div>
 
@@ -747,11 +761,25 @@
                                         </svg>
                                         Copy
                                     </button>
+                                    <button type="button" onclick="toggleMapPreview('map-engagement-reception', this)"
+                                        class="inline-flex items-center text-[11px] font-semibold text-dustyblue-700 hover:text-gold bg-white px-2.5 py-1 rounded-lg border border-cream-300 shadow-xs">
+                                        <svg class="w-3 h-3 mr-1 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                                        </svg>
+                                        Preview Map
+                                    </button>
                                     <a href="https://maps.app.goo.gl/JkYkx4H2mUMGSc2Z6" target="_blank"
                                         rel="noopener noreferrer"
                                         class="inline-flex items-center text-[11px] font-semibold text-white bg-dustyblue-700 hover:bg-dustyblue-800 px-3 py-1 rounded-lg shadow-xs">
                                         Open Auditorium Map
                                     </a>
+                                </div>
+                                <!-- Embedded Map Window -->
+                                <div id="map-engagement-reception" class="hidden mt-3 pt-2 border-t border-dustyblue-200/80">
+                                    <iframe class="w-full h-44 rounded-xl border border-dustyblue-200 shadow-inner"
+                                        data-src="https://maps.google.com/maps?q=MR+Auditorium+WMO+Rd+Muttil+Wayanad&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                                        loading="lazy" allowfullscreen title="MR Auditorium Map Preview"></iframe>
                                 </div>
                             </div>
                         </div>
@@ -855,11 +883,25 @@
                                         </svg>
                                         Copy
                                     </button>
+                                    <button type="button" onclick="toggleMapPreview('map-wedding-church', this)"
+                                        class="inline-flex items-center text-[11px] font-semibold text-dustyblue-700 hover:text-gold bg-white px-2.5 py-1 rounded-lg border border-cream-300 shadow-xs">
+                                        <svg class="w-3 h-3 mr-1 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                                        </svg>
+                                        Preview Map
+                                    </button>
                                     <a href="https://maps.google.com/?q=St.+Joseph+Church+Veroor" target="_blank"
                                         rel="noopener noreferrer"
                                         class="inline-flex items-center text-[11px] font-semibold text-white bg-gold hover:bg-gold-dark px-3 py-1 rounded-lg shadow-xs">
                                         Open Church Map
                                     </a>
+                                </div>
+                                <!-- Embedded Map Window -->
+                                <div id="map-wedding-church" class="hidden mt-3 pt-2 border-t border-cream-200/80">
+                                    <iframe class="w-full h-44 rounded-xl border border-cream-300 shadow-inner"
+                                        data-src="https://maps.google.com/maps?q=St.+Joseph+Church+Veroor+Changanassery&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                                        loading="lazy" allowfullscreen title="St. Joseph Church Map Preview"></iframe>
                                 </div>
                             </div>
 
@@ -882,11 +924,25 @@
                                         </svg>
                                         Copy
                                     </button>
+                                    <button type="button" onclick="toggleMapPreview('map-wedding-reception', this)"
+                                        class="inline-flex items-center text-[11px] font-semibold text-dustyblue-700 hover:text-gold bg-white px-2.5 py-1 rounded-lg border border-cream-300 shadow-xs">
+                                        <svg class="w-3 h-3 mr-1 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                                        </svg>
+                                        Preview Map
+                                    </button>
                                     <a href="https://maps.app.goo.gl/KjZngmpvrn8eS37d8" target="_blank"
                                         rel="noopener noreferrer"
                                         class="inline-flex items-center text-[11px] font-semibold text-white bg-dustyblue-700 hover:bg-dustyblue-800 px-3 py-1 rounded-lg shadow-xs">
                                         Open Reception Map
                                     </a>
+                                </div>
+                                <!-- Embedded Map Window -->
+                                <div id="map-wedding-reception" class="hidden mt-3 pt-2 border-t border-dustyblue-200/80">
+                                    <iframe class="w-full h-44 rounded-xl border border-dustyblue-200 shadow-inner"
+                                        data-src="https://maps.google.com/maps?q=Contour+Backwaters+Resort+Changanassery&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                                        loading="lazy" allowfullscreen title="Contour Backwaters Resort Map Preview"></iframe>
                                 </div>
                             </div>
                         </div>
@@ -1780,6 +1836,28 @@
 
         function closeLightbox() {
             document.getElementById('lightbox').classList.add('hidden');
+        }
+
+        // --- 4.1 GOOGLE MAP PREVIEW TOGGLER ---
+        function toggleMapPreview(mapId, btn) {
+            const mapContainer = document.getElementById(mapId);
+            if (!mapContainer) return;
+            const isHidden = mapContainer.classList.contains('hidden');
+            if (isHidden) {
+                mapContainer.classList.remove('hidden');
+                const iframe = mapContainer.querySelector('iframe');
+                if (iframe && iframe.dataset.src && !iframe.src) {
+                    iframe.src = iframe.dataset.src;
+                }
+                if (btn) {
+                    btn.innerHTML = `<svg class="w-3 h-3 mr-1 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg> Hide Map`;
+                }
+            } else {
+                mapContainer.classList.add('hidden');
+                if (btn) {
+                    btn.innerHTML = `<svg class="w-3 h-3 mr-1 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path></svg> Preview Map`;
+                }
+            }
         }
 
         // --- 5. INVITATION CARD VIEWER & WHATSAPP SHARE ---
