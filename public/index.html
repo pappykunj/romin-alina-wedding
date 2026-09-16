@@ -1556,11 +1556,11 @@
             if (isEngagementCelebration) {
                 // 1. Entrance screen customization
                 if (entranceSub) {
-                    entranceSub.innerHTML = "✨ Today is The Blessed Engagement Day! 💍";
-                    entranceSub.classList.add('text-gold', 'font-bold', 'animate-pulse');
+                    entranceSub.innerHTML = "Today is Our Blessed Engagement Day";
+                    entranceSub.className = "font-serif text-xs sm:text-sm md:text-base uppercase tracking-[0.35em] text-gold-dark font-semibold mb-3 sm:mb-4";
                 }
                 if (entranceDate) {
-                    entranceDate.innerHTML = "💍 Celebrating Romin & Alina • Wayanad, Kerala";
+                    entranceDate.innerHTML = "October 17, 2026 • Wayanad, Kerala";
                 }
 
                 // 2. Highlight Engagement Card in Programs section
@@ -1576,51 +1576,44 @@
                     }
                 }
 
-                // 3. Hero Countdown Capsule replacement with direct Google Maps navigation buttons
+                // 3. Ultra-Classy Hero Capsule matching the exact aesthetic
                 if (countdownHeading) {
-                    countdownHeading.innerText = "✨ Today is Our Engagement Day! ✨";
+                    countdownHeading.className = "font-cursive text-xl sm:text-2xl text-gold";
+                    countdownHeading.innerText = "Celebrating our engagement today";
                 }
                 if (countdownCapsule) {
-                    countdownCapsule.className = "bg-white/95 backdrop-blur-md rounded-3xl py-5 px-4 sm:px-8 border-2 border-gold shadow-2xl ring-4 ring-gold/20";
+                    countdownCapsule.className = "bg-white/85 backdrop-blur-md rounded-2xl sm:rounded-full py-4 px-4 sm:px-8 border border-gold/40 shadow-xl ring-1 ring-gold/15 transition-all";
                     countdownCapsule.innerHTML = `
-                        <div class="text-center">
-                            <div class="inline-flex items-center space-x-2 bg-gold/15 text-gold-dark px-4 py-1 rounded-full text-xs sm:text-sm font-bold tracking-wider uppercase mb-2 border border-gold/40">
-                                <span>💍</span>
-                                <span>Solemn Ring Ceremony & Blessing Today</span>
-                                <span>💍</span>
+                        <div class="flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+                            <div class="sm:border-r sm:border-gold/25 sm:pr-5 sm:mr-1">
+                                <span class="block font-serif text-lg sm:text-xl font-normal text-dustyblue-800 tracking-tight">St. Sebastian's Church</span>
+                                <span class="block text-[10px] uppercase tracking-[0.22em] text-gold-dark font-bold mt-0.5">11:00 AM • Kuzhivayal, Wayanad</span>
                             </div>
-                            <h3 class="font-serif text-2xl sm:text-3xl font-bold text-dustyblue-900 mb-1">St. Sebastian's Church, Wayanad</h3>
-                            <p class="text-xs sm:text-sm text-dustyblue-800 font-medium mb-4">11:00 AM Ceremony &bull; Followed by Grand Lunch at MR Auditorium</p>
-                            
-                            <!-- Direct Google Maps Navigation Buttons -->
-                            <div class="flex flex-wrap items-center justify-center gap-3">
+                            <div class="flex items-center gap-2">
                                 <a href="https://maps.app.goo.gl/XtRnPBq8eMfuHiE46" target="_blank" rel="noopener noreferrer"
-                                    class="inline-flex items-center space-x-2 bg-gradient-to-r from-gold to-gold-dark hover:from-gold-dark hover:to-gold text-white font-serif font-bold text-xs sm:text-sm px-6 py-2.5 rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all">
-                                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    class="inline-flex items-center space-x-1.5 bg-dustyblue-700 hover:bg-dustyblue-800 text-white text-xs font-serif font-medium px-4 py-2 rounded-full shadow-sm hover:shadow-md transition-all">
+                                    <svg class="w-3.5 h-3.5 text-gold-light" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                     </svg>
-                                    <span>Navigate to Church (11:00 AM)</span>
+                                    <span>Directions</span>
                                 </a>
                                 <a href="https://maps.app.goo.gl/JkYkx4H2mUMGSc2Z6" target="_blank" rel="noopener noreferrer"
-                                    class="inline-flex items-center space-x-2 bg-dustyblue-700 hover:bg-dustyblue-800 text-white font-serif font-semibold text-xs sm:text-sm px-5 py-2.5 rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all">
-                                    <svg class="w-4 h-4 text-gold-light" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-                                    </svg>
-                                    <span>Auditorium / Lunch</span>
+                                    class="inline-flex items-center space-x-1.5 bg-cream-100 hover:bg-gold/20 text-dustyblue-800 border border-gold/30 text-xs font-serif font-medium px-3.5 py-2 rounded-full transition-all">
+                                    <span>Reception</span>
                                 </a>
                             </div>
                         </div>
                     `;
                 }
             } else if (isWeddingCelebration) {
-                // Wedding Day Special Banner & Links
+                // Wedding Day Special Banner
                 if (entranceSub) {
-                    entranceSub.innerHTML = "✨ Today is The Holy Wedding Day! ⛪";
-                    entranceSub.classList.add('text-gold', 'font-bold', 'animate-pulse');
+                    entranceSub.innerHTML = "Today is Our Holy Wedding Day";
+                    entranceSub.className = "font-serif text-xs sm:text-sm md:text-base uppercase tracking-[0.35em] text-gold-dark font-semibold mb-3 sm:mb-4";
                 }
                 if (entranceDate) {
-                    entranceDate.innerHTML = "🕊️ Holy Matrimony • Romin & Alina • Changanassery, Kerala";
+                    entranceDate.innerHTML = "October 25, 2026 • Changanassery, Kerala";
                 }
 
                 const weddingCard = document.getElementById('program-wedding-card');
@@ -1636,36 +1629,29 @@
                 }
 
                 if (countdownHeading) {
-                    countdownHeading.innerText = "✨ Today is Our Sacred Wedding Day! ✨";
+                    countdownHeading.className = "font-cursive text-xl sm:text-2xl text-gold";
+                    countdownHeading.innerText = "Celebrating our holy matrimony today";
                 }
                 if (countdownCapsule) {
-                    countdownCapsule.className = "bg-white/95 backdrop-blur-md rounded-3xl py-5 px-4 sm:px-8 border-2 border-gold shadow-2xl ring-4 ring-gold/20";
+                    countdownCapsule.className = "bg-white/85 backdrop-blur-md rounded-2xl sm:rounded-full py-4 px-4 sm:px-8 border border-gold/40 shadow-xl ring-1 ring-gold/15 transition-all";
                     countdownCapsule.innerHTML = `
-                        <div class="text-center">
-                            <div class="inline-flex items-center space-x-2 bg-dustyblue-100 text-dustyblue-800 px-4 py-1 rounded-full text-xs sm:text-sm font-bold tracking-wider uppercase mb-2 border border-dustyblue-200">
-                                <span>⛪</span>
-                                <span>Holy Matrimony & Sacred Union Today</span>
-                                <span>⛪</span>
+                        <div class="flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+                            <div class="sm:border-r sm:border-gold/25 sm:pr-5 sm:mr-1">
+                                <span class="block font-serif text-lg sm:text-xl font-normal text-dustyblue-800 tracking-tight">St. Joseph Church</span>
+                                <span class="block text-[10px] uppercase tracking-[0.22em] text-gold-dark font-bold mt-0.5">2:30 PM • Veroor, Changanassery</span>
                             </div>
-                            <h3 class="font-serif text-2xl sm:text-3xl font-bold text-dustyblue-900 mb-1">St. Joseph Church, Veroor</h3>
-                            <p class="text-xs sm:text-sm text-dustyblue-800 font-medium mb-4">2:30 PM Mass &bull; Followed by Grand Reception at Contour Backwaters Resort (6:30 PM)</p>
-                            
-                            <!-- Direct Google Maps Navigation Buttons -->
-                            <div class="flex flex-wrap items-center justify-center gap-3">
+                            <div class="flex items-center gap-2">
                                 <a href="https://maps.google.com/?q=St.+Joseph+Church+Veroor" target="_blank" rel="noopener noreferrer"
-                                    class="inline-flex items-center space-x-2 bg-gradient-to-r from-gold to-gold-dark hover:from-gold-dark hover:to-gold text-white font-serif font-bold text-xs sm:text-sm px-6 py-2.5 rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all">
-                                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    class="inline-flex items-center space-x-1.5 bg-dustyblue-700 hover:bg-dustyblue-800 text-white text-xs font-serif font-medium px-4 py-2 rounded-full shadow-sm hover:shadow-md transition-all">
+                                    <svg class="w-3.5 h-3.5 text-gold-light" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                     </svg>
-                                    <span>Navigate to Church (2:30 PM)</span>
+                                    <span>Directions</span>
                                 </a>
                                 <a href="https://maps.app.goo.gl/KjZngmpvrn8eS37d8" target="_blank" rel="noopener noreferrer"
-                                    class="inline-flex items-center space-x-2 bg-dustyblue-700 hover:bg-dustyblue-800 text-white font-serif font-semibold text-xs sm:text-sm px-5 py-2.5 rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all">
-                                    <svg class="w-4 h-4 text-gold-light" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-                                    </svg>
-                                    <span>Resort Reception (6:30 PM)</span>
+                                    class="inline-flex items-center space-x-1.5 bg-cream-100 hover:bg-gold/20 text-dustyblue-800 border border-gold/30 text-xs font-serif font-medium px-3.5 py-2 rounded-full transition-all">
+                                    <span>Reception</span>
                                 </a>
                             </div>
                         </div>
