@@ -358,7 +358,7 @@
                     <span class="w-1 bg-gold rounded-full music-bar-4" style="height: 4px;"></span>
                 </div>
             </div>
-            <p id="music-track-title" class="text-[10px] text-gray-500 truncate max-w-[120px] sm:max-w-[150px]">All of Me • Violin & Guitar</p>
+            <p id="music-track-title" class="text-[10px] text-gray-500 truncate max-w-[120px] sm:max-w-[150px]">Can't Help Falling In Love • André Rieu</p>
         </div>
 
         <!-- Next Track Button -->
@@ -1993,8 +1993,14 @@
             });
         });
 
-        // --- 8. BACKGROUND MUSIC CONTROLLER (RANDOM PLAYLIST) ---
+        // --- 8. BACKGROUND MUSIC CONTROLLER (PLAYLIST) ---
         const PLAYLIST = [
+            {
+                title: "Can't Help Falling In Love • André Rieu",
+                toast: "Playing: Can't Help Falling In Love (André Rieu) 🎵",
+                src: "https://raw.githubusercontent.com/pappykunj/romin-alina-wedding/main/Andr%C3%A9%20Rieu%20-%20Can't%20Help%20Falling%20In%20Love.mp3",
+                startTime: 87 // 1 minute 27 seconds
+            },
             {
                 title: "All of Me • Violin & Guitar",
                 toast: "Playing: All of Me (Violin & Guitar Cover) 🎵",
@@ -2021,7 +2027,7 @@
             }
         ];
 
-        let currentTrackIndex = Math.floor(Math.random() * PLAYLIST.length);
+        let currentTrackIndex = 0; // Play André Rieu - Can't Help Falling In Love first
         const bgAudio = document.getElementById('bg-audio');
         const speakerUnmutedIcon = document.getElementById('speaker-unmuted-icon');
         const speakerMutedIcon = document.getElementById('speaker-muted-icon');
