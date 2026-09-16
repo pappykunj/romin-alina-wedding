@@ -1538,30 +1538,11 @@
         const weddingDate = new Date("October 25, 2026 14:30:00").getTime();
         const engagementDate = new Date("October 17, 2026 11:00:00").getTime();
 
-        // Testing & Live Modes:
-        // Default behavior right now: Shows Engagement Day Celebration for user testing & demonstration.
-        // URL query parameters for fine-grained testing:
-        // - `?test=engagement` or default: Show Engagement Celebration
-        // - `?test=wedding`: Show Wedding Celebration
-        // - `?mode=normal`: Show Standard countdown timer to wedding
-        const urlParams = new URLSearchParams(window.location.search);
-        const testParam = urlParams.get('test');
-        const modeParam = urlParams.get('mode');
+        const nowObj = new Date();
 
         // Real Calendar Day Checks (Engagement: Oct 17, 2026 | Wedding: Oct 25, 2026)
-        const isActualEngagementDay = (nowObj.getFullYear() === 2026 && nowObj.getMonth() === 9 && nowObj.getDate() === 17);
-        const isActualWeddingDay = (nowObj.getFullYear() === 2026 && nowObj.getMonth() === 9 && nowObj.getDate() === 25);
-
-        let isEngagementCelebration = false;
-        let isWeddingCelebration = false;
-
-        // Auto-activates on the exact scheduled date:
-        if (isActualEngagementDay || testParam === 'engagement') {
-            isEngagementCelebration = true;
-        } else if (isActualWeddingDay || testParam === 'wedding') {
-            isWeddingCelebration = true;
-        }
-
+        const isEngagementCelebration = (nowObj.getFullYear() === 2026 && nowObj.getMonth() === 9 && nowObj.getDate() === 17);
+        const isWeddingCelebration = (nowObj.getFullYear() === 2026 && nowObj.getMonth() === 9 && nowObj.getDate() === 25);
         const isSpecialDayCelebration = isEngagementCelebration || isWeddingCelebration;
 
         function triggerSpecialDayCelebration() {
