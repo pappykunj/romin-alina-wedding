@@ -1999,7 +1999,7 @@
                 title: "Can't Help Falling In Love • André Rieu",
                 toast: "Playing: Can't Help Falling In Love (André Rieu) 🎵",
                 src: "https://raw.githubusercontent.com/pappykunj/romin-alina-wedding/main/Andr%C3%A9%20Rieu%20-%20Can't%20Help%20Falling%20In%20Love.mp3",
-                startTime: 87 // 1 minute 27 seconds
+                startTime: 88 // 1 minute 28 seconds
             },
             {
                 title: "All of Me • Violin & Guitar",
@@ -2027,7 +2027,7 @@
             }
         ];
 
-        let currentTrackIndex = 0; // Play André Rieu - Can't Help Falling In Love first
+        let currentTrackIndex = Math.floor(Math.random() * PLAYLIST.length);
         const bgAudio = document.getElementById('bg-audio');
         const speakerUnmutedIcon = document.getElementById('speaker-unmuted-icon');
         const speakerMutedIcon = document.getElementById('speaker-muted-icon');
