@@ -1999,7 +1999,8 @@
                 title: "Can't Help Falling In Love • André Rieu",
                 toast: "Playing: Can't Help Falling In Love (André Rieu) 🎵",
                 src: "https://raw.githubusercontent.com/pappykunj/romin-alina-wedding/main/Andr%C3%A9%20Rieu%20-%20Can't%20Help%20Falling%20In%20Love.mp3",
-                startTime: 88 // 1 minute 28 seconds
+                startTime: 88, // 1 minute 28 seconds
+                endTime: 167.5 // Ends 10 seconds before total length (177.8s)
             },
             {
                 title: "All of Me • Violin & Guitar",
@@ -2141,10 +2142,17 @@
             loadTrack(nextIndex, true);
         }
 
-        // When current track finishes, automatically pick another random track
+        // When current track finishes or reaches its specified endTime, automatically pick another random track
         if (bgAudio) {
             bgAudio.addEventListener('ended', () => {
                 playNextTrack();
+            });
+
+            bgAudio.addEventListener('timeupdate', () => {
+                const track = PLAYLIST[currentTrackIndex];
+                if (track && track.endTime && bgAudio.currentTime >= track.endTime) {
+                    playNextTrack();
+                }
             });
         }
 
