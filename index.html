@@ -214,6 +214,39 @@
             animation-play-state: paused;
             height: 4px !important;
         }
+
+        /* ✨ Magical Engagement Day Celebration Effects */
+        @keyframes engagementGlowPulse {
+            0%, 100% {
+                box-shadow: 0 0 25px rgba(197, 155, 39, 0.4), 0 0 0 2px rgba(197, 155, 39, 0.7);
+            }
+            50% {
+                box-shadow: 0 0 45px rgba(197, 155, 39, 0.7), 0 0 0 4px rgba(226, 189, 86, 0.95);
+            }
+        }
+
+        .engagement-live-card {
+            animation: engagementGlowPulse 2.5s ease-in-out infinite !important;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(-20px) rotate(0deg) scale(0.8);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(105vh) rotate(720deg) scale(1.1);
+                opacity: 0;
+            }
+        }
+
+        .confetti-particle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 999;
+            will-change: transform, opacity;
+            animation: confettiFall linear forwards;
+        }
     </style>
 </head>
 
@@ -260,7 +293,7 @@
                 </svg>
             </div>
 
-            <p
+            <p id="entrance-subheading"
                 class="font-serif text-xs sm:text-sm md:text-base uppercase tracking-[0.35em] text-gold-dark font-semibold mb-3 sm:mb-4">
                 The Wedding Celebration Of
             </p>
@@ -274,7 +307,7 @@
 
             <div class="w-24 h-0.5 bg-gold/60 my-5 sm:my-6 mx-auto"></div>
 
-            <p class="text-xs sm:text-sm uppercase tracking-widest text-charcoal font-medium mb-10 sm:mb-12">
+            <p id="entrance-dateline" class="text-xs sm:text-sm uppercase tracking-widest text-charcoal font-medium mb-10 sm:mb-12">
                 October 2026 &bull; Kottayam & Wayanad, Kerala
             </p>
 
@@ -521,12 +554,12 @@
             <div class="w-full max-w-lg mt-5 mb-8">
                 <div class="flex items-center justify-center space-x-3 mb-3.5">
                     <span class="h-px w-6 sm:w-10 bg-gold/40"></span>
-                    <span class="font-cursive text-xl sm:text-2xl text-gold">Counting down to our sacred union</span>
+                    <span id="countdown-heading" class="font-cursive text-xl sm:text-2xl text-gold">Counting down to our sacred union</span>
                     <span class="h-px w-6 sm:w-10 bg-gold/40"></span>
                 </div>
 
                 <!-- Minimalist Luxury Glass Capsule -->
-                <div
+                <div id="countdown-capsule"
                     class="bg-white/85 backdrop-blur-md rounded-2xl sm:rounded-full py-3.5 px-3 sm:px-6 border border-gold/40 shadow-xl ring-1 ring-gold/15">
                     <div id="countdown" class="grid grid-cols-4 divide-x divide-gold/25 text-center items-center">
                         <div class="px-1.5 sm:px-3">
@@ -659,8 +692,8 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-4xl mx-auto">
 
                 <!-- PROGRAM 1: The Engagement -->
-                <div
-                    class="bg-white p-7 sm:p-8 rounded-3xl border border-cream-200 shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between">
+                <div id="program-engagement-card"
+                    class="bg-white p-7 sm:p-8 rounded-3xl border border-cream-200 shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between relative overflow-hidden">
                     <div>
                         <div class="mb-5">
                             <div
@@ -821,8 +854,8 @@
                 </div>
 
                 <!-- PROGRAM 2: The Wedding -->
-                <div
-                    class="bg-white p-7 sm:p-8 rounded-3xl border border-cream-200 shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between">
+                <div id="program-wedding-card"
+                    class="bg-white p-7 sm:p-8 rounded-3xl border border-cream-200 shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between relative overflow-hidden">
                     <div>
                         <div class="mb-5">
                             <div
@@ -1501,10 +1534,193 @@
     </footer>
 
     <script>
-        // --- 1. COUNTDOWN TIMER (Oct 25, 2026 2:30 PM) ---
+        // --- 1. COUNTDOWN & CELEBRATION DAY LOGIC (ENGAGEMENT & WEDDING) ---
         const weddingDate = new Date("October 25, 2026 14:30:00").getTime();
+        const engagementDate = new Date("October 17, 2026 11:00:00").getTime();
+
+        // Testing & Live Modes:
+        // Default behavior right now: Shows Engagement Day Celebration for user testing & demonstration.
+        // URL query parameters for fine-grained testing:
+        // - `?test=engagement` or default: Show Engagement Celebration
+        // - `?test=wedding`: Show Wedding Celebration
+        // - `?mode=normal`: Show Standard countdown timer to wedding
+        const urlParams = new URLSearchParams(window.location.search);
+        const testParam = urlParams.get('test');
+        const modeParam = urlParams.get('mode');
+
+        // Real Calendar Day Checks (Engagement: Oct 17, 2026 | Wedding: Oct 25, 2026)
+        const isActualEngagementDay = (nowObj.getFullYear() === 2026 && nowObj.getMonth() === 9 && nowObj.getDate() === 17);
+        const isActualWeddingDay = (nowObj.getFullYear() === 2026 && nowObj.getMonth() === 9 && nowObj.getDate() === 25);
+
+        let isEngagementCelebration = false;
+        let isWeddingCelebration = false;
+
+        // Auto-activates on the exact scheduled date:
+        if (isActualEngagementDay || testParam === 'engagement') {
+            isEngagementCelebration = true;
+        } else if (isActualWeddingDay || testParam === 'wedding') {
+            isWeddingCelebration = true;
+        }
+
+        const isSpecialDayCelebration = isEngagementCelebration || isWeddingCelebration;
+
+        function triggerSpecialDayCelebration() {
+            if (!isSpecialDayCelebration) return;
+
+            const entranceSub = document.getElementById('entrance-subheading');
+            const entranceDate = document.getElementById('entrance-dateline');
+            const countdownCapsule = document.getElementById('countdown-capsule');
+            const countdownHeading = document.getElementById('countdown-heading');
+
+            if (isEngagementCelebration) {
+                // 1. Entrance screen customization
+                if (entranceSub) {
+                    entranceSub.innerHTML = "✨ Today is The Blessed Engagement Day! 💍";
+                    entranceSub.classList.add('text-gold', 'font-bold', 'animate-pulse');
+                }
+                if (entranceDate) {
+                    entranceDate.innerHTML = "💍 Celebrating Romin & Alina • Wayanad, Kerala";
+                }
+
+                // 2. Highlight Engagement Card in Programs section
+                const engagementCard = document.getElementById('program-engagement-card');
+                if (engagementCard) {
+                    engagementCard.classList.add('engagement-live-card', 'border-gold', 'ring-2', 'ring-gold/60');
+                    if (!document.getElementById('engagement-live-badge')) {
+                        const badge = document.createElement('div');
+                        badge.id = 'engagement-live-badge';
+                        badge.className = 'absolute top-4 right-4 bg-gradient-to-r from-gold to-gold-dark text-white px-3.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider shadow-md flex items-center space-x-1.5 animate-bounce z-10';
+                        badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-white animate-ping"></span><span>Happening Today 💍</span>`;
+                        engagementCard.appendChild(badge);
+                    }
+                }
+
+                // 3. Hero Countdown Capsule replacement with direct Google Maps navigation buttons
+                if (countdownHeading) {
+                    countdownHeading.innerText = "✨ Today is Our Engagement Day! ✨";
+                }
+                if (countdownCapsule) {
+                    countdownCapsule.className = "bg-white/95 backdrop-blur-md rounded-3xl py-5 px-4 sm:px-8 border-2 border-gold shadow-2xl ring-4 ring-gold/20";
+                    countdownCapsule.innerHTML = `
+                        <div class="text-center">
+                            <div class="inline-flex items-center space-x-2 bg-gold/15 text-gold-dark px-4 py-1 rounded-full text-xs sm:text-sm font-bold tracking-wider uppercase mb-2 border border-gold/40">
+                                <span>💍</span>
+                                <span>Solemn Ring Ceremony & Blessing Today</span>
+                                <span>💍</span>
+                            </div>
+                            <h3 class="font-serif text-2xl sm:text-3xl font-bold text-dustyblue-900 mb-1">St. Sebastian's Church, Wayanad</h3>
+                            <p class="text-xs sm:text-sm text-dustyblue-800 font-medium mb-4">11:00 AM Ceremony &bull; Followed by Grand Lunch at MR Auditorium</p>
+                            
+                            <!-- Direct Google Maps Navigation Buttons -->
+                            <div class="flex flex-wrap items-center justify-center gap-3">
+                                <a href="https://maps.app.goo.gl/XtRnPBq8eMfuHiE46" target="_blank" rel="noopener noreferrer"
+                                    class="inline-flex items-center space-x-2 bg-gradient-to-r from-gold to-gold-dark hover:from-gold-dark hover:to-gold text-white font-serif font-bold text-xs sm:text-sm px-6 py-2.5 rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all">
+                                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    </svg>
+                                    <span>Navigate to Church (11:00 AM)</span>
+                                </a>
+                                <a href="https://maps.app.goo.gl/JkYkx4H2mUMGSc2Z6" target="_blank" rel="noopener noreferrer"
+                                    class="inline-flex items-center space-x-2 bg-dustyblue-700 hover:bg-dustyblue-800 text-white font-serif font-semibold text-xs sm:text-sm px-5 py-2.5 rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all">
+                                    <svg class="w-4 h-4 text-gold-light" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                                    </svg>
+                                    <span>Auditorium / Lunch</span>
+                                </a>
+                            </div>
+                        </div>
+                    `;
+                }
+            } else if (isWeddingCelebration) {
+                // Wedding Day Special Banner & Links
+                if (entranceSub) {
+                    entranceSub.innerHTML = "✨ Today is The Holy Wedding Day! ⛪";
+                    entranceSub.classList.add('text-gold', 'font-bold', 'animate-pulse');
+                }
+                if (entranceDate) {
+                    entranceDate.innerHTML = "🕊️ Holy Matrimony • Romin & Alina • Changanassery, Kerala";
+                }
+
+                const weddingCard = document.getElementById('program-wedding-card');
+                if (weddingCard) {
+                    weddingCard.classList.add('engagement-live-card', 'border-gold', 'ring-2', 'ring-gold/60');
+                    if (!document.getElementById('wedding-live-badge')) {
+                        const badge = document.createElement('div');
+                        badge.id = 'wedding-live-badge';
+                        badge.className = 'absolute top-4 right-4 bg-gradient-to-r from-gold to-gold-dark text-white px-3.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider shadow-md flex items-center space-x-1.5 animate-bounce z-10';
+                        badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-white animate-ping"></span><span>Happening Today ⛪</span>`;
+                        weddingCard.appendChild(badge);
+                    }
+                }
+
+                if (countdownHeading) {
+                    countdownHeading.innerText = "✨ Today is Our Sacred Wedding Day! ✨";
+                }
+                if (countdownCapsule) {
+                    countdownCapsule.className = "bg-white/95 backdrop-blur-md rounded-3xl py-5 px-4 sm:px-8 border-2 border-gold shadow-2xl ring-4 ring-gold/20";
+                    countdownCapsule.innerHTML = `
+                        <div class="text-center">
+                            <div class="inline-flex items-center space-x-2 bg-dustyblue-100 text-dustyblue-800 px-4 py-1 rounded-full text-xs sm:text-sm font-bold tracking-wider uppercase mb-2 border border-dustyblue-200">
+                                <span>⛪</span>
+                                <span>Holy Matrimony & Sacred Union Today</span>
+                                <span>⛪</span>
+                            </div>
+                            <h3 class="font-serif text-2xl sm:text-3xl font-bold text-dustyblue-900 mb-1">St. Joseph Church, Veroor</h3>
+                            <p class="text-xs sm:text-sm text-dustyblue-800 font-medium mb-4">2:30 PM Mass &bull; Followed by Grand Reception at Contour Backwaters Resort (6:30 PM)</p>
+                            
+                            <!-- Direct Google Maps Navigation Buttons -->
+                            <div class="flex flex-wrap items-center justify-center gap-3">
+                                <a href="https://maps.google.com/?q=St.+Joseph+Church+Veroor" target="_blank" rel="noopener noreferrer"
+                                    class="inline-flex items-center space-x-2 bg-gradient-to-r from-gold to-gold-dark hover:from-gold-dark hover:to-gold text-white font-serif font-bold text-xs sm:text-sm px-6 py-2.5 rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all">
+                                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    </svg>
+                                    <span>Navigate to Church (2:30 PM)</span>
+                                </a>
+                                <a href="https://maps.app.goo.gl/KjZngmpvrn8eS37d8" target="_blank" rel="noopener noreferrer"
+                                    class="inline-flex items-center space-x-2 bg-dustyblue-700 hover:bg-dustyblue-800 text-white font-serif font-semibold text-xs sm:text-sm px-5 py-2.5 rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all">
+                                    <svg class="w-4 h-4 text-gold-light" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                                    </svg>
+                                    <span>Resort Reception (6:30 PM)</span>
+                                </a>
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+
+            // 4. Launch magical golden confetti burst!
+            launchConfetti();
+        }
+
+        function launchConfetti() {
+            const colors = ['#C59B27', '#E2BD56', '#FAF8F5', '#385274', '#9A7718', '#FFFFFF'];
+            for (let i = 0; i < 45; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti-particle';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.top = '-20px';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                const size = Math.random() * 8 + 6;
+                confetti.style.width = size + 'px';
+                confetti.style.height = (size * (Math.random() > 0.5 ? 1.5 : 1)) + 'px';
+                confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+                confetti.style.animationDuration = (Math.random() * 3 + 2.5) + 's';
+                confetti.style.animationDelay = (Math.random() * 4) + 's';
+                confetti.style.opacity = (Math.random() * 0.7 + 0.3).toString();
+
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 7000);
+            }
+        }
 
         function updateCountdown() {
+            if (isSpecialDayCelebration) return; // Special celebration view active
+
             const now = new Date().getTime();
             const difference = weddingDate - now;
 
@@ -1514,16 +1730,27 @@
                 const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
-                document.getElementById("days").innerText = days < 10 ? "0" + days : days;
-                document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
-                document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
-                document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+                const daysEl = document.getElementById("days");
+                const hoursEl = document.getElementById("hours");
+                const minsEl = document.getElementById("minutes");
+                const secsEl = document.getElementById("seconds");
+
+                if (daysEl) daysEl.innerText = days < 10 ? "0" + days : days;
+                if (hoursEl) hoursEl.innerText = hours < 10 ? "0" + hours : hours;
+                if (minsEl) minsEl.innerText = minutes < 10 ? "0" + minutes : minutes;
+                if (secsEl) secsEl.innerText = seconds < 10 ? "0" + seconds : seconds;
             } else {
-                document.getElementById("countdown").innerHTML = "<div class='text-2xl font-serif text-dustyblue-800 col-span-4'>The Wedding Day Has Arrived!</div>";
+                const cdEl = document.getElementById("countdown");
+                if (cdEl) cdEl.innerHTML = "<div class='text-2xl font-serif text-dustyblue-800 col-span-4'>The Wedding Day Has Arrived!</div>";
             }
         }
-        setInterval(updateCountdown, 1000);
-        updateCountdown();
+
+        // Initialize celebration & countdown
+        triggerSpecialDayCelebration();
+        if (!isSpecialDayCelebration) {
+            setInterval(updateCountdown, 1000);
+            updateCountdown();
+        }
 
         // --- 2. MOBILE MENU TOGGLE ---
         const menuBtn = document.getElementById('mobile-menu-button');
@@ -2115,6 +2342,9 @@
                     bgAudio.muted = false;
                     bgAudio.volume = 0.25;
                     playMusic(true);
+                }
+                if (isSpecialDayCelebration && typeof launchConfetti === 'function') {
+                    launchConfetti();
                 }
                 entrance.classList.add('opacity-0', 'scale-105', 'pointer-events-none');
                 setTimeout(() => {
